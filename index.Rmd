@@ -1,6 +1,6 @@
 ---
 site: bookdown::bookdown_site
-title: 'Comparison of Multivariate Prediction Methods'
+title: 'Comparison of Multivariate Estimation Methods'
 date: "`r Sys.Date()`"
 author:
   - name: Raju Rimal
@@ -30,9 +30,9 @@ bibliography: ref-db.bib
 biblio-title: References
 biblio-style: elsarticle-harv
 link-citations: true
-github-repo: therimalaya/multivariate-comparison
+github-repo: therimalaya/04-estimation-comparison
 always_allow_html: true
-url: 'http\://therimalaya.github.io/multivariate-comparison'
+url: 'http\://therimalaya.github.io/04-estimation-comparison'
 knit: 'bookdown::render_book'
 review: yes
 keywords: ['model-comparison ', 'multi-response ', 'simrel ']
