@@ -1,0 +1,34 @@
+version: '3.7'
+services:
+  paper4:
+    build:
+      context: '.'
+      dockerfile: 'Dockerfile'
+    image: therimalaya/rocker
+    container_name: estimation-paper
+    user: 'root'
+    restart: always
+    environment:
+      - DISPLAY=$DISPLAY
+    env_file: 
+      - '.env'
+    ports:
+      - "5000:8787"
+      - "5001:5555"
+      - "5002:4321"
+    volumes:
+      - '.:/home/therimalaya/estimation-paper'
+      - '/tmp/.X11-unix:/tmp/.X11-unix:ro'
+    privileged: true
+    working_dir: '/home/therimalaya/estimation-paper/'
+  server:
+    image: nginx:stable-alpine
+    container_name: estimation-server
+    restart: always
+    volumes:
+      - './docs:/usr/share/nginx/html:ro'
+    ports: 
+      - '5003:80'
+    depends_on:
+      - 'paper4'
+
