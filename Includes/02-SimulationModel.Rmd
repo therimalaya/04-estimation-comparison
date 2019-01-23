@@ -37,6 +37,7 @@ In a model like \@ref(eq:reg-model-1), we assume that the variation in response 
 plot_relspace()
 ```
 
+
 With an orthogonal transformation of $\mathbf{y}$ and $\mathbf{x}$ to latent variables $\mathbf{w}$ and $\mathbf{z}$, respectively, by $\mathbf{w=Qy}$ and $\mathbf{z = Rx}$, where $\mathbf{Q}$ and $\mathbf{R}$ are orthogonal rotation matrices, an equivalent model to \@ref(eq:reg-model-1) in terms of the latent variables can be written as,
 
 \begin{equation}
