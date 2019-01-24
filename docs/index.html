@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-01-23">
+<meta name="date" content="2019-01-24">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -109,24 +109,19 @@ KBM<br><a class="author_email" href="mailto:#"><a href="mailto:trygve.almoy@nmbu
 <address class="author_afil">
 NMBU<br><a class="author_email" href="mailto:#"><a href="mailto:solve.sabo@nmbu.no">solve.sabo@nmbu.no</a></a>
 </address>
-<p class="date"><em>2019-01-23</em></p>
+<p class="date"><em>2019-01-24</em></p>
 <div class="abstract">
 <p class="abstract">Abstract</p>
-<p>Prediction performance often does not reflect the estimation behaviour of a method. High error in estimation not necessarily results in high prediction error but can leads to an unreliable prediction when test data are in a different direction than the training data. In addition, the effect of a variable becomes unstable and can not be interpreted in such situations. &gt;&gt; Fix from here &lt;&lt; Here we have extend the previous study on prediction comparison to compare the estimation of the methods used in the study.</p>
-<p>While Data science is battling to extract information from the enormous explosion of data, many estimators and algorithms are being developed for better prediction. Researchers and data scientists often introduce new methods and evaluate them based on various aspects of data. However, studies on the impact of/on model with multiple response model is limited. This study compares some newly-developed (envelope) and well-established (PLS, PCR) prediction methods based on simulated data specifically designed by varying properties such as multicollinearity, correlation between multiple responses and amount of information content in predictor variables. This study aims to give some insight on these methods and help researcher to understand and use them for further study.</p>
+<p>Prediction performance often does not reflect the estimation behaviour of a method. High error in estimation not necessarily results in high prediction error but can leads to an unreliable prediction when test data are in a different direction than the training data. In addition, the effect of a variable becomes unstable and can not be interpreted in such situations. Many research fields are more interested in these estimates than performing prediction. This study compares some newly-developed (envelope) and well-established (PLS, PCR) prediction methods using simulated data with specifically designed properties such as multicollinearity, correlation between multiple responses and position of principal components of predictor that are relevant for the response. This study aims to give some insight on these methods and help researcher to understand and use them for further study. <em>Write some specifics from the results to show what we have found.</em></p>
 </div>
 </div>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>Estimation of parameters in a regression model is an integral part in many research study. Research fields such as social science, econometric, psychology and medical study are more interested in measuring the impact of certain indicator or variable rather than performing prediction. Such studies has large influence in people’s perception and also help in policy making and decisions.</p>
-<p>This study extends the [Refer to my current paper] and compares some well established estimators such as Principal Components Analysis (PCA), Partial Least Squares (PLS) together with two new methods based on envelope estimation: Envelope estimation in predictor space (Xenv) and simultaneous estimation of envelope (Senv). The comparison tests the estimation performance of these methods using simulated data with controlled properties. The properties includes the number of predictors, level of multicollinearity, correlation between different response variables and the position of relevant predictor components.</p>
-<p>Prediction has been an essential components of modern data science, weather it is statistical analysis or machine learning. Modern technology has facilitated a massive explosion of data, however, such data often contain irrelevant information consequently making prediction difficult. Researchers are devising new methods and algorithms in order to extract information to create robust predictive models. Mostly such models contain predictor variables that are directly or indirectly correlated with other predictor variables. In addition studies often constitute of many response variables correlated with each other. These interlinked relationships influence any study, whether it is predictive modeling or inference.</p>
-<p>Modern inter-disciplinary research fields such as chemometrics, econometrics and bioinformatics are handling multi-response models extensively. This paper attempts to compare some multivariate prediction methods based on their prediction performance on linear model data with specific properties. The properties includes correlation between response variables, correlation between predictor variables, number of predictor variables and the position of relevant predictor components. These properties are discussed more in the [Experimental Design] section. <span class="citation">Sæbø, Almøy, and Helland (<a href="#ref-saebo2015simrel">2015</a>)</span> and <span class="citation">Almøy (<a href="#ref-Alm_y_1996">1996</a>)</span> have made a similar comparison in the single response setting. In addition, <span class="citation">Rimal, Almøy, and Sæbø (<a href="#ref-Rimal2018">2018</a>)</span> has also made a basic comparison on some prediction methods and their interaction with the data properties of a multi-response model. The main aim of this paper is to present a comprehensive comparison of contemporary prediction methods such as simultaneous envelope estimation (Senv) <span class="citation">(R. Dennis Cook and Zhang <a href="#ref-cook2015simultaneous">2015</a>)</span> and envelope estimation in predictor space (Xenv) <span class="citation">(R Dennis Cook, Li, and Chiaromonte <a href="#ref-cook2010envelope">2010</a>)</span> with customary prediction methods such as Principal Component Regression (PCR), Partial Least Squares Regression (PLS) using simulated dataset with controlled properties. An experimental design and the methods under comparison are discussed further, followed by a brief discussion of the strategy behind the data simulation.</p>
+<p>Technology has facilitated researcher to collected large amount of data however often times, such data either contains irrelevant information or are highly collinear. Researchers are devising new estimators to extract information and identify their inter-relationship. Some estimators are robust towards fixing multicollinearity problem while some are targeted to model only the relevant information content in response variable.</p>
+<p>This study extends the <span class="citation">(Rimal, Almøy, and Sæbø, n.d.)</span> and compares some well established estimators such as Principal Components Analysis (PCA), Partial Least Squares (PLS) together with two new methods based on envelope estimation: Envelope estimation in predictor space (Xenv) <span class="citation">(R Dennis Cook, Li, and Chiaromonte <a href="#ref-cook2010envelope">2010</a>)</span> and simultaneous estimation of envelope (Senv) <span class="citation">(R. Dennis Cook and Zhang <a href="#ref-cook2015simultaneous">2015</a>)</span>. The estimation process of these methods are discussed in [Methods] section. The comparison tests the estimation performance of these methods using multi-response simulated data from linear model with controlled properties. The properties includes the number of predictors, level of multicollinearity, correlation between different response variables and the position of relevant predictor components. These properties are explained in [Experimental Design] section together with the strategy behind the simulation and data model.</p>
 
 <div id="refs" class="references">
-<div>
-<p>Almøy, Trygve. 1996. “A simulation study on comparison of prediction methods when only a few components are relevant.” <em>Computational Statistics &amp; Data Analysis</em> 21 (1). Elsevier {BV}: 87–107. doi:<a href="https://doi.org/10.1016/0167-9473(95)00006-2">10.1016/0167-9473(95)00006-2</a>.</p>
-</div>
 <div>
 <p>Cook, R Dennis, Bing Li, and Francesca Chiaromonte. 2010. “Envelope Models for Parsimonious and Efficient Multivariate Linear Regression.” <em>Statistica Sinica</em> 20 (3). JSTOR: 927–1010.</p>
 </div>
@@ -134,29 +129,17 @@ NMBU<br><a class="author_email" href="mailto:#"><a href="mailto:solve.sabo@nmbu.
 <p>Cook, R. Dennis, and Xin Zhang. 2015. “Simultaneous envelopes for multivariate linear regression.” <em>Technometrics</em> 57 (1). Taylor &amp; Francis: 11–25. doi:<a href="https://doi.org/10.1080/00401706.2013.872700">10.1080/00401706.2013.872700</a>.</p>
 </div>
 <div>
-<p>Rimal, Raju, Trygve Almøy, and Solve Sæbø. 2018. “A tool for simulating multi-response linear model data.” <em>Chemometrics and Intelligent Laboratory Systems</em> 176 (May). Elsevier: 1–10. doi:<a href="https://doi.org/10.1016/j.chemolab.2018.02.009">10.1016/j.chemolab.2018.02.009</a>.</p>
-</div>
-<div>
-<p>Sæbø, Solve, Trygve Almøy, and Inge S. Helland. 2015. “Simrel - A versatile tool for linear model data simulation based on the concept of a relevant subspace and relevant predictors.” <em>Chemometrics and Intelligent Laboratory Systems</em> 146. Elsevier B.V.: 128–35. doi:<a href="https://doi.org/10.1016/j.chemolab.2015.05.012">10.1016/j.chemolab.2015.05.012</a>.</p>
+<p>Rimal, Raju, Trygve Almøy, and Sæbø. n.d. “Comparison of Multivariate Prediction Methods.”</p>
 </div>
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-saebo2015simrel">
-<p>Sæbø, Solve, Trygve Almøy, and Inge S. Helland. 2015. “Simrel - A versatile tool for linear model data simulation based on the concept of a relevant subspace and relevant predictors.” <em>Chemometrics and Intelligent Laboratory Systems</em> 146. Elsevier B.V.: 128–35. doi:<a href="https://doi.org/10.1016/j.chemolab.2015.05.012">10.1016/j.chemolab.2015.05.012</a>.</p>
-</div>
-<div id="ref-Alm_y_1996">
-<p>Almøy, Trygve. 1996. “A simulation study on comparison of prediction methods when only a few components are relevant.” <em>Computational Statistics &amp; Data Analysis</em> 21 (1). Elsevier {BV}: 87–107. doi:<a href="https://doi.org/10.1016/0167-9473(95)00006-2">10.1016/0167-9473(95)00006-2</a>.</p>
-</div>
-<div id="ref-Rimal2018">
-<p>Rimal, Raju, Trygve Almøy, and Solve Sæbø. 2018. “A tool for simulating multi-response linear model data.” <em>Chemometrics and Intelligent Laboratory Systems</em> 176 (May). Elsevier: 1–10. doi:<a href="https://doi.org/10.1016/j.chemolab.2018.02.009">10.1016/j.chemolab.2018.02.009</a>.</p>
+<div id="ref-cook2010envelope">
+<p>Cook, R Dennis, Bing Li, and Francesca Chiaromonte. 2010. “Envelope Models for Parsimonious and Efficient Multivariate Linear Regression.” <em>Statistica Sinica</em> 20 (3). JSTOR: 927–1010.</p>
 </div>
 <div id="ref-cook2015simultaneous">
 <p>Cook, R. Dennis, and Xin Zhang. 2015. “Simultaneous envelopes for multivariate linear regression.” <em>Technometrics</em> 57 (1). Taylor &amp; Francis: 11–25. doi:<a href="https://doi.org/10.1080/00401706.2013.872700">10.1080/00401706.2013.872700</a>.</p>
-</div>
-<div id="ref-cook2010envelope">
-<p>Cook, R Dennis, Bing Li, and Francesca Chiaromonte. 2010. “Envelope Models for Parsimonious and Efficient Multivariate Linear Regression.” <em>Statistica Sinica</em> 20 (3). JSTOR: 927–1010.</p>
 </div>
 </div>
             </section>
