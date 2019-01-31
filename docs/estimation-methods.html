@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Estimation Methods | Comparison of Multivariate Estimation Methods</title>
+  <meta name="description" content="Estimation Methods | Comparison of Multivariate Estimation Methods">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Estimation Methods | Comparison of Multivariate Estimation Methods" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://therimalaya.github.io/04-estimation-comparison" />
+  
+  
+  <meta name="github-repo" content="therimalaya/04-estimation-comparison" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Estimation Methods | Comparison of Multivariate Estimation Methods" />
+  
+  
+  
+
+
+
+<meta name="date" content="2019-01-31">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="simulation-model.html">
+<link rel="next" href="experimental-design.html">
+<style type="text/css">
+p.abstract{
+  text-align: center;
+  font-weight: bold;
+}
+div.abstract{
+  margin: auto;
+  width: 90%;
+}
+</style>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./index.html"><strong>Multivariate Comparison</strong></a></li>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="simulation-model.html"><a href="simulation-model.html"><i class="fa fa-check"></i>Simulation Model</a></li>
+<li class="chapter" data-level="" data-path="estimation-methods.html"><a href="estimation-methods.html"><i class="fa fa-check"></i>Estimation Methods</a><ul>
+<li class="chapter" data-level="" data-path="estimation-methods.html"><a href="estimation-methods.html#principal-components-regression"><i class="fa fa-check"></i>Principal Components Regression</a></li>
+<li class="chapter" data-level="" data-path="estimation-methods.html"><a href="estimation-methods.html#partial-least-squares-regression"><i class="fa fa-check"></i>Partial Least Squares Regression</a></li>
+<li class="chapter" data-level="" data-path="estimation-methods.html"><a href="estimation-methods.html#envelope-estimations"><i class="fa fa-check"></i>Envelope Estimations</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="experimental-design.html"><a href="experimental-design.html"><i class="fa fa-check"></i>Experimental Design</a><ul>
+<li class="chapter" data-level="" data-path="experimental-design.html"><a href="experimental-design.html#basis-of-comparison"><i class="fa fa-check"></i>Basis of Comparison</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html"><i class="fa fa-check"></i>Exploration</a><ul>
+<li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html#dataset-for-analysis"><i class="fa fa-check"></i>Dataset for Analysis</a></li>
+<li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html#regression-coefficients"><i class="fa fa-check"></i>Regression Coefficients</a></li>
+<li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html#prediction-and-estimation-error"><i class="fa fa-check"></i>Prediction and Estimation Error</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i>Analysis</a><ul>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#error-analysis"><i class="fa fa-check"></i>Error Analysis</a></li>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#component-analysis"><i class="fa fa-check"></i>Component Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="discussion-and-conclusion.html"><a href="discussion-and-conclusion.html"><i class="fa fa-check"></i>Discussion and Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li class="toc-footer"><a href="https://bookdown.org" target="blank">Published with <em>BookDown</em></a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Comparison of Multivariate Estimation Methods</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="estimation-methods" class="section level1">
+<h1>Estimation Methods</h1>
+<p>A regression model is written as,</p>
+<span class="math display" id="eq:reg-model">\[\begin{equation}
+\underset{(1\times m)}{\mathbf{y}} =
+  \underset{(1\times p)(p\times m)}
+    {\mathbf{x}\boldsymbol{\beta}} +
+  \underset{(1 \times m)}{\boldsymbol{\varepsilon}}
+\tag{1}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\mathbf{y}\)</span> is a vector of <span class="math inline">\(m\)</span> responses measured about their means, <span class="math inline">\(\mathbf{x}\)</span> is a vector of <span class="math inline">\(p\)</span> predictors measured about their means, <span class="math inline">\(\boldsymbol{\beta}\)</span> is a matrix of regression coefficients and <span class="math inline">\(\boldsymbol{\varepsilon}\)</span> is a vector of independent error terms with constant variance <span class="math inline">\(\boldsymbol{\Sigma}_{y|x}\)</span>. In ordinary least squares, coefficient <span class="math inline">\(\boldsymbol{\beta}\)</span> is estimated as,</p>
+<span class="math display" id="eq:reg-beta">\[\begin{equation}
+\underset{(p\times m)}{\boldsymbol{\hat{\beta}}} =
+  \left(\underset{(p\times n)}{\mathbf{x}^t}
+  \underset{(n\times p)}{\mathbf{x}}\right)^{-1}
+  \underset{(p \times n)(n \times m)}{\mathbf{x}^t\mathbf{y}}
+\tag{2}
+\end{equation}\]</span>
+<div id="principal-components-regression" class="section level2">
+<h2>Principal Components Regression</h2>
+Principal Components are defined as a transformation of the dataset into a new set of variables called principal components. These components are uncorrelated and the variation in the original data are ordered from first to last of these new variables. Let us define a transformation of <span class="math inline">\(\mathbf{x}\)</span> as,
+<span class="math display" id="eq:x2z">\[\begin{equation}
+\underset{(1\times p)}{\mathbf{x}} =
+  \underset{(1 \times k)}{\mathbf{z}}
+  \underset{(k \times p)}{\mathbf{R}^t}
+\tag{3}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\mathbf{R}\)</span> is the eigenvectors corresponding to the covariance of <span class="math inline">\(\mathbf{x}\)</span> and <span class="math inline">\(\mathbf{z}\)</span> are the principal components. A regression model can be defined in terms of <span class="math inline">\(\mathbf{z}\)</span> as,</p>
+<span class="math display" id="eq:latent-model">\[\begin{equation}
+\underset{(1 \times m)}{\mathbf{y}} =
+  \underset{(1 \times k)}{\mathbf{z}}
+    \underset{(k \times m)}{\boldsymbol{\alpha}} +
+  \underset{(1 \times m)}{\boldsymbol{\varepsilon}}
+\tag{4}
+\end{equation}\]</span>
+<p>Since the variation is ordered in <span class="math inline">\(z\)</span>, only <span class="math inline">\(k\le p\)</span> columns of <span class="math inline">\(z\)</span> are used so that <span class="math inline">\(p-k\)</span> uninformative components are not used for modeling. The regression coefficient of <a href="estimation-methods.html#eq:latent-model">(4)</a> can be estimated as,</p>
+<span class="math display" id="eq:reg-alpha">\[\begin{equation}
+\underset{(k\times m)}{\boldsymbol{\hat{\alpha}}} =
+  \left(\underset{(k \times n)}{\mathbf{z}^t}
+    \underset{(n \times k)}{\mathbf{z}}\right)^{-1}
+  \underset{(k \times n)(n \times m)}{\mathbf{z}^t\mathbf{y}}
+\tag{5}
+\end{equation}\]</span>
+<p>Using <a href="estimation-methods.html#eq:x2z">(3)</a> in <a href="estimation-methods.html#eq:reg-beta">(2)</a>, we get,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\underset{(p\times m)}{\boldsymbol{\hat{\beta}}} =
+  \left[
+    \underset{(p\times k)(k \times n)}{\mathbf{R}\mathbf{z}^t}
+    \underset{(n\times k)(k \times p)}{\mathbf{z} \mathbf{R}^t}
+  \right]^{-1}
+  \underset{(p\times k)(k \times n)}{\mathbf{R}\mathbf{z}^t}
+  \underset{(n\times m)}{y}
+\end{aligned}
+\]</span></p>
+</div>
+<div id="partial-least-squares-regression" class="section level2">
+<h2>Partial Least Squares Regression</h2>
+<ul>
+<li>How beta coefficients are constructed</li>
+<li>How it is dependent on the variance-covariance matrices</li>
+<li>In what way PLS1 and PLS2 differ</li>
+</ul>
+</div>
+<div id="envelope-estimations" class="section level2">
+<h2>Envelope Estimations</h2>
+<ul>
+<li>How beta coefficients are constructed</li>
+<li>How it is dependent on the variance-covariance matrices</li>
+<li>In what way Xenv and Senv differ</li>
+</ul>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="simulation-model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="experimental-design.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"google": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/therimalaya/04-estimation-comparison/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["main.epub", "main.pdf"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

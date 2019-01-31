@@ -37,37 +37,143 @@ knit: 'bookdown::render_book'
 review: yes
 keywords: ['model-comparison ', 'multi-response ', 'simrel ', 'estimation ', 'estimation error ', 'meta modeling ']
 abstract: |
-  Prediction performance often does not reflect the estimation behaviour of a method. High error in estimation not necessarily results in high prediction error but can leads to an unreliable prediction when test data are in a different direction than the training data. In addition, the effect of a variable becomes unstable and can not be interpreted in such situations. Many research fields are more interested in these estimates than performing prediction. This study compares some newly-developed (envelope) and well-established (PLS, PCR) prediction methods using simulated data with specifically designed properties such as multicollinearity, correlation between multiple responses and position of principal components of predictor that are relevant for the response. This study aims to give some insight on these methods and help researcher to understand and use them for further study. _Write some specifics from the results to show what we have found._
+  Prediction performance often does not reflect the estimation behaviour of a method. High error in estimation not necessarily results in high prediction error but can lead to an unreliable prediction when test data are in a different direction than the training data. In addition, the effect of a variable becomes unstable and can not be interpreted in such situations. Many research fields are more interested in these estimates than performing prediction. This study compares some newly-developed (envelope) and well-established (PLS, PCR) prediction methods using simulated data with specifically designed properties such as multicollinearity, the correlation between multiple responses and position of principal components of predictor that are relevant for the response. This study aims to give some insight into these methods and help the researcher to understand and use them for further study. _Write some specifics from the results to show what we have found._
 ---
-
-```{r, echo = FALSE, warning=FALSE, message=FALSE, cache=FALSE}
-options(digits = 3, scipen = 999)
-source("scripts/00-function.r")
-source("scripts/01-setup.r")
-knitr::opts_chunk$set(comment = NULL, out.width = "100%", echo = FALSE)
-if (knitr::is_html_output()) {
-  knitr::opts_chunk$set(dev = 'svg', fig.retina = 2, dev.args = list(family="mono"))
-}
-```
-
-
-```{r, echo = FALSE, warning=FALSE, message=FALSE, cache=TRUE}
-source("scripts/03-collection.r")
-```
-
 
 # Introduction #
 
-Estimation of parameters in a regression model is an integral part in many research study. Research fields such as social science, econometric, psychology and medical study are more interested in measuring the impact of certain indicator or variable rather than performing prediction. Such studies has large influence in people's perception and also help in policy making and decisions.
+Estimation of parameters in a regression model is an integral part of many research study. Research fields such as social science, econometrics, psychology and medical study are more interested in measuring the impact of certain indicator or variable rather than performing prediction. Such studies have a large influence on people’s perception and also help in policy making and decisions.
 
-Technology has facilitated researcher to collected large amount of data however often times, such data either contains irrelevant information or are highly collinear. Researchers are devising new estimators to extract information and identify their inter-relationship. Some estimators are robust towards fixing multicollinearity problem while some are targeted to model only the relevant information content in response variable.
+Technology has facilitated researcher to collect a large amount of data however often times, such data either contains irrelevant information or are highly collinear. Researchers are devising new estimators to extract information and identify their inter-relationship. Some estimators are robust towards fixing the multicollinearity problem while some are targeted to model only the relevant information contained in the response variable.
 
-This study extends the [@rimal2019pred] and compares some well established estimators such as Principal Components Analysis (PCA), Partial Least Squares (PLS) together with two new methods based on envelope estimation: Envelope estimation in predictor space (Xenv) [@cook2010envelope] and simultaneous estimation of envelope (Senv) [@cook2015simultaneous]. The estimation process of these methods are discussed in [Methods] section. The comparison tests the estimation performance of these methods using multi-response simulated data from linear model with controlled properties. The properties includes the number of predictors, level of multicollinearity, correlation between different response variables and the position of relevant predictor components. These properties are explained in [Experimental Design] section together with the strategy behind the simulation and data model.
+This study extends the [@rimal2019pred] and compares some well-established estimators such as Principal Components Analysis (PCA), Partial Least Squares (PLS) together with two new methods based on envelope estimation: Envelope estimation in predictor space (Xenv) [@cook2010envelope] and simultaneous estimation of envelope (Senv) [@cook2015simultaneous]. The estimation process of these methods is discussed in [Methods] section. The comparison tests the estimation performance of these methods using multi-response simulated data from a linear model with controlled properties. The properties include the number of predictors, level of multicollinearity, the correlation between different response variables and the position of relevant predictor components. These properties are explained in [Experimental Design] section together with the strategy behind the simulation and data model.
 
+# Simulation Model #
 
-```{r scratch, echo = FALSE}
-num_vec <- c('one', 'two', 'three', 'four', 'five', 
-             'six', 'seven', 'eight', 'nine', 'ten')
-names(num_vec) <- 1:10
-```
+* Reduction of the regression model
+  + Include the figure from previous paper
+* How the covariance and coefficients are related
+* From the construction of the covariance matrix of latent variables to the simulated data
+* How and what simulation parameters are related to properties of data
 
+# Estimation Methods #
+
+A regression model is written as,
+
+\begin{equation}
+\underset{(1\times m)}{\mathbf{y}} =
+  \underset{(1\times p)(p\times m)}
+    {\mathbf{x}\boldsymbol{\beta}} +
+  \underset{(1 \times m)}{\boldsymbol{\varepsilon}}
+(\#eq:reg-model)
+\end{equation}
+where $\mathbf{y}$ is a vector of $m$ responses measured about their means, $\mathbf{x}$ is a vector of $p$ predictors measured about their means, $\boldsymbol{\beta}$ is a matrix of regression coefficients and $\boldsymbol{\varepsilon}$ is a vector of independent error terms with constant variance $\boldsymbol{\Sigma}_{y|x}$. In ordinary least squares, coefficient $\boldsymbol{\beta}$ is estimated as,
+
+\begin{equation}
+\underset{(p\times m)}{\boldsymbol{\hat{\beta}}} =
+  \left(\underset{(p\times n)}{\mathbf{x}^t}
+  \underset{(n\times p)}{\mathbf{x}}\right)^{-1}
+  \underset{(p \times n)(n \times m)}{\mathbf{x}^t\mathbf{y}}
+(\#eq:reg-beta)
+\end{equation}
+
+## Principal Components Regression ##
+
+Principal Components are defined as a transformation of the dataset into a new
+set of variables called principal components. These components are uncorrelated
+and the variation in the original data are ordered from first to last of these
+new variables. Let us define a transformation of $\mathbf{x}$ as,
+\begin{equation}
+\underset{(1\times p)}{\mathbf{x}} =
+  \underset{(1 \times k)}{\mathbf{z}}
+  \underset{(k \times p)}{\mathbf{R}^t}
+(\#eq:x2z)
+\end{equation}
+where $\mathbf{R}$ is the eigenvectors corresponding to the covariance of
+$\mathbf{x}$ and $\mathbf{z}$ are the principal components. A regression model  can be defined in terms of $\mathbf{z}$ as,
+
+\begin{equation}
+\underset{(1 \times m)}{\mathbf{y}} =
+  \underset{(1 \times k)}{\mathbf{z}}
+    \underset{(k \times m)}{\boldsymbol{\alpha}} +
+  \underset{(1 \times m)}{\boldsymbol{\varepsilon}}
+(\#eq:latent-model)
+\end{equation}
+
+Since the variation is ordered in $z$, only $k\le p$ columns of $z$ are used so that $p-k$ uninformative components are not used for modeling. The regression coefficient of \@ref(eq:latent-model) can be estimated as,
+
+\begin{equation}
+\underset{(k\times m)}{\boldsymbol{\hat{\alpha}}} =
+  \left(\underset{(k \times n)}{\mathbf{z}^t}
+    \underset{(n \times k)}{\mathbf{z}}\right)^{-1}
+  \underset{(k \times n)(n \times m)}{\mathbf{z}^t\mathbf{y}}
+(\#eq:reg-alpha)
+\end{equation}
+
+Using \@ref(eq:x2z) in \@ref(eq:reg-beta), we get,
+
+$$
+\begin{aligned}
+\underset{(p\times m)}{\boldsymbol{\hat{\beta}}} =
+  \left[
+    \underset{(p\times k)(k \times n)}{\mathbf{R}\mathbf{z}^t}
+    \underset{(n\times k)(k \times p)}{\mathbf{z} \mathbf{R}^t}
+  \right]^{-1}
+  \underset{(p\times k)(k \times n)}{\mathbf{R}\mathbf{z}^t}
+  \underset{(n\times m)}{y}
+\end{aligned}
+$$
+
+## Partial Least Squares Regression ##
+- How beta coefficients are constructed
+- How it is dependent on the variance-covariance matrices
+- In what way PLS1 and PLS2 differ
+
+## Envelope Estimations ##
+- How beta coefficients are constructed
+- How it is dependent on the variance-covariance matrices
+- In what way Xenv and Senv differ
+
+# Experimental Design #
+- Discuss the design
+  + Include the design plot from previous paper
+- What nature of data properties is captured by the design and how diverse is it
+- What is the limitation
+  + Discuss about the single latent component of response space
+
+## Basis of Comparison
+- Similar to previous paper but for estimation error
+- Here we will also compare the estimated and true regression coefficient for each additional component
+  + We can do this through graph
+  + Is there some way we can do this through statistics
+
+# Exploration #
+- A similar exploration as previous paper but can be different in case of new idea
+
+## Dataset for Analysis ##
+- Preparation of dataset for MANOVA analysis (i.e. minimum estimation error using arbitrary number of components)
+- A component dataset is also created for testing the use of components by each of these methods
+
+## Regression Coefficients ##
+- In case of some idea on comparing regression coefficients through some statistical way, this can be included here
+- Otherwise can also be done just by using plots
+
+## Prediction and Estimation Error ##
+- Explore both estimation error and number of components and try to bind them with the prediction error for the similar case
+
+# Analysis #
+- A MANOVA model is fitted using the dataset prepared in previous section
+
+## Error Analysis ##
+- Effect analysis of estimation error model
+- Tie up these results with prediction error in previous paper
+
+## Component Analysis ##
+- Effect analysis of number of component model
+- Tie up these results in previous paper
+
+# Discussion and Conclusion #
+- A similar discussion but based more on why the methods worked in the way we have seen in the results in previous sections
+- Some concluding remarks and limitations (or a gate for further exploration)
+
+`r if (knitr:::is_html_output()) '# References {-}'`

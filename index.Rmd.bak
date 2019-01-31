@@ -1,0 +1,72 @@
+---
+site: bookdown::bookdown_site
+title: 'Comparison of Multivariate Estimation Methods'
+date: "`r Sys.Date()`"
+author:
+  - name: Raju Rimal
+    email: raju.rimal@nmbu.no
+    affiliation: KBM
+    footnote: Corresponding Author
+  - name: Trygve Almøy
+    email: trygve.almoy@nmbu.no
+    affiliation: KBM
+  - name: Solve Sæbø
+    email: solve.sabo@nmbu.no
+    affiliation: NMBU
+address:
+  - code: KBM
+    address: Faculty of Chemistry and Bioinformatics, Norwegian University of Life Sciences, Ås, Norway
+  - code: NMBU
+    address: Prorector, Norwegian University of Life Sciences, Ås, Norway
+classoption: ["12pt", "3p", "authoryear"]
+monofont: 'sourcecodepro'
+monofontoptions: "Scale=0.7"
+colorlinks: true
+linespacing: 1.5
+fontfamily: mathpazo
+use-landscape-page: yes
+tables: yes
+bibliography: ref-db.bib
+biblio-title: References
+biblio-style: elsarticle-harv
+link-citations: true
+github-repo: therimalaya/04-estimation-comparison
+always_allow_html: true
+url: 'http\://therimalaya.github.io/04-estimation-comparison'
+knit: 'bookdown::render_book'
+review: yes
+keywords: ['model-comparison ', 'multi-response ', 'simrel ', 'estimation ', 'estimation error ', 'meta modeling ']
+abstract: |
+  Prediction performance often does not reflect the estimation behaviour of a method. High error in estimation not necessarily results in high prediction error but can lead to an unreliable prediction when test data are in a different direction than the training data. In addition, the effect of a variable becomes unstable and can not be interpreted in such situations. Many research fields are more interested in these estimates than performing prediction. This study compares some newly-developed (envelope) and well-established (PLS, PCR) prediction methods using simulated data with specifically designed properties such as multicollinearity, the correlation between multiple responses and position of principal components of predictor that are relevant for the response. This study aims to give some insight into these methods and help the researcher to understand and use them for further study. _Write some specifics from the results to show what we have found._
+---
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE, cache=FALSE}
+options(digits = 3, scipen = 999)
+source("scripts/00-function.r")
+source("scripts/01-setup.r")
+knitr::opts_chunk$set(comment = NULL, out.width = "100%", echo = FALSE)
+if (knitr::is_html_output()) {
+  knitr::opts_chunk$set(dev = 'svg', fig.retina = 2, dev.args = list(family="mono"))
+}
+```
+
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE, cache=TRUE}
+source("scripts/03-collection.r")
+```
+
+
+# Introduction #
+
+Estimation of parameters in a regression model is an integral part of many research study. Research fields such as social science, econometrics, psychology and medical study are more interested in measuring the impact of certain indicator or variable rather than performing prediction. Such studies have a large influence on people’s perception and also help in policy making and decisions.
+
+Technology has facilitated researcher to collect a large amount of data however often times, such data either contains irrelevant information or are highly collinear. Researchers are devising new estimators to extract information and identify their inter-relationship. Some estimators are robust towards fixing the multicollinearity problem while some are targeted to model only the relevant information contained in the response variable.
+
+This study extends the [@rimal2019pred] and compares some well-established estimators such as Principal Components Analysis (PCA), Partial Least Squares (PLS) together with two new methods based on envelope estimation: Envelope estimation in predictor space (Xenv) [@cook2010envelope] and simultaneous estimation of envelope (Senv) [@cook2015simultaneous]. The estimation process of these methods is discussed in [Methods] section. The comparison tests the estimation performance of these methods using multi-response simulated data from a linear model with controlled properties. The properties include the number of predictors, level of multicollinearity, the correlation between different response variables and the position of relevant predictor components. These properties are explained in [Experimental Design] section together with the strategy behind the simulation and data model.
+
+```{r scratch, echo = FALSE}
+num_vec <- c('one', 'two', 'three', 'four', 'five', 
+             'six', 'seven', 'eight', 'nine', 'ten')
+names(num_vec) <- 1:10
+```
+
