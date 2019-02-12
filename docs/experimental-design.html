@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-01-31">
+<meta name="date" content="2019-02-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -117,6 +117,30 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="experimental-design" class="section level1">
 <h1>Experimental Design</h1>
+<p>An R <span class="citation">(R Core Team <a href="#ref-coreR2018">2018</a>)</span> package <code>simrel</code> <span class="citation">(Rimal, Almøy, and Sæbø <a href="#ref-Rimal2018">2018</a>; Sæbø, Almøy, and Helland <a href="#ref-saebo2015simrel">2015</a>)</span> is used to simulate data. For the simulation the number of observation is kept fixed at <span class="math inline">\(n = 100\)</span> and following four simulation parameters are used to obtain the data with wide range of properties.</p>
+<dl>
+<dt><strong>Number of predictors:</strong></dt>
+<dd>In order to cover both tall <span class="math inline">\((n&gt;p)\)</span> and wide <span class="math inline">\((p&gt;n)\)</span> cases, <span class="math inline">\(p=20\)</span> and <span class="math inline">\(p=250\)</span> number of predictors are simulated.
+</dd>
+<dt><strong>Multicollinearity in predictor variables:</strong></dt>
+<dd>A parameter <code>gamma</code> <span class="math inline">\((\gamma)\)</span> in simulation controls the exponential decline of eigenvalues <span class="math inline">\((\lambda_i, i = 1, \ldots p)\)</span> corresponding to predictor variables as,
+<span class="math display" id="eq:gamma">\[\begin{equation}
+  \lambda_i = e^{-\gamma(i-1)}, \gamma &gt; 0 \text{ and } i = 1, 2, \ldots p
+  \tag{6}
+  \end{equation}\]</span>
+</dd>
+<dd>Two levels 0.2 and 0.8 of <code>gamma</code> are used for simulation so that level 0.2 simulates the data with low multicollinearity and 0.8 simulates the data with high multicollinearity.
+</dd>
+<dt><strong>Position of relevant components:</strong></dt>
+<dd>Initial principal components of a non-singular covariance matrix are larger than the later one. If the principal components corresponding to predictors with larger variation is not relevant for a response, this will just increase noise in the model. Here we will use two different levels of position index of predictor components: a) 1, 2, 3, 4 and b) 5, 6, 7, 8. Predictor components irrelevant for a response makes prediction difficult <span class="citation">(Helland and Almøy <a href="#ref-Helland1994b">1994</a>)</span>. When combined with multicollinearity, this factor can create both easy and difficult model for both estimation and prediction.
+</dd>
+</dl>
+<div class="figure"><span id="fig:design-plot"></span>
+<img src="main_files/figure-html/design-plot-1.svg" alt="Experimental Design of simulation parameters. Each point represents an unique data property." width="100%" />
+<p class="caption">
+Figure 1: Experimental Design of simulation parameters. Each point represents an unique data property.
+</p>
+</div>
 <ul>
 <li>Discuss the design</li>
 <li>Include the design plot from previous paper</li>
@@ -132,6 +156,21 @@ div.abstract{
 <li>We can do this through graph</li>
 <li>Is there some way we can do this through statistics</li>
 </ul>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-coreR2018">
+<p>R Core Team. 2018. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
+</div>
+<div id="ref-Rimal2018">
+<p>Rimal, Raju, Trygve Almøy, and Solve Sæbø. 2018. “A tool for simulating multi-response linear model data.” <em>Chemometrics and Intelligent Laboratory Systems</em> 176 (May). Elsevier: 1–10. doi:<a href="https://doi.org/10.1016/j.chemolab.2018.02.009">10.1016/j.chemolab.2018.02.009</a>.</p>
+</div>
+<div id="ref-saebo2015simrel">
+<p>Sæbø, Solve, Trygve Almøy, and Inge S. Helland. 2015. “Simrel - A versatile tool for linear model data simulation based on the concept of a relevant subspace and relevant predictors.” <em>Chemometrics and Intelligent Laboratory Systems</em> 146. Elsevier B.V.: 128–35. doi:<a href="https://doi.org/10.1016/j.chemolab.2015.05.012">10.1016/j.chemolab.2015.05.012</a>.</p>
+</div>
+<div id="ref-Helland1994b">
+<p>Helland, Inge S., and Trygve Almøy. 1994. “Comparison of prediction methods when only a few components are relevant.” <em>Journal of the American Statistical Association</em> 89 (426): 583–91. doi:<a href="https://doi.org/10.1080/01621459.1994.10476783">10.1080/01621459.1994.10476783</a>.</p>
 </div>
 </div>
             </section>

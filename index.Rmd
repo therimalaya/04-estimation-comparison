@@ -26,7 +26,7 @@ linespacing: 1.5
 fontfamily: mathpazo
 use-landscape-page: yes
 tables: yes
-bibliography: ref-db.bib
+bibliography: 'ref-db.bib'
 biblio-title: References
 biblio-style: elsarticle-harv
 link-citations: true
@@ -38,7 +38,20 @@ review: yes
 keywords: ['model-comparison ', 'multi-response ', 'simrel ', 'estimation ', 'estimation error ', 'meta modeling ']
 abstract: |
   Prediction performance often does not reflect the estimation behaviour of a method. High error in estimation not necessarily results in high prediction error but can lead to an unreliable prediction when test data are in a different direction than the training data. In addition, the effect of a variable becomes unstable and can not be interpreted in such situations. Many research fields are more interested in these estimates than performing prediction. This study compares some newly-developed (envelope) and well-established (PLS, PCR) prediction methods using simulated data with specifically designed properties such as multicollinearity, the correlation between multiple responses and position of principal components of predictor that are relevant for the response. This study aims to give some insight into these methods and help the researcher to understand and use them for further study. _Write some specifics from the results to show what we have found._
+editor_options: 
+  chunk_output_type: console
 ---
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE, cache=FALSE}
+options(digits = 3, scipen = 999)
+source("scripts/00-function.r")
+source("scripts/01-setup.r")
+knitr::opts_chunk$set(comment = NULL, out.width = "100%", echo = FALSE)
+if (knitr::is_html_output()) {
+  knitr::opts_chunk$set(dev = 'svg', fig.retina = 2)
+}
+extrafont::loadfonts()
+```
 
 # Introduction #
 
@@ -79,10 +92,8 @@ where $\mathbf{y}$ is a vector of $m$ responses measured about their means, $\ma
 
 ## Principal Components Regression ##
 
-Principal Components are defined as a transformation of the dataset into a new
-set of variables called principal components. These components are uncorrelated
-and the variation in the original data are ordered from first to last of these
-new variables. Let us define a transformation of $\mathbf{x}$ as,
+Principal Components are new set of variables from the transformation of original dataset such that they are uncorrelated with each other and the variation in the original data are ordered from first to last of these new variables. Let us define a transformation of $\mathbf{x}$ as,
+
 \begin{equation}
 \underset{(1\times p)}{\mathbf{x}} =
   \underset{(1 \times k)}{\mathbf{z}}
@@ -135,6 +146,38 @@ $$
 - In what way Xenv and Senv differ
 
 # Experimental Design #
+An R [@coreR2018] package `simrel` [@Rimal2018; @saebo2015simrel] is used to simulate data. For the simulation the number of observation is kept fixed at $n = 100$ and following four simulation parameters are used to obtain the data with wide range of properties.
+
+**Number of predictors:**
+: In order to cover both tall $(n>p)$ and wide $(p>n)$ cases, $p=20$ and $p=250$ number of predictors are simulated.
+
+**Multicollinearity in predictor variables:**
+: A parameter `gamma` $(\gamma)$ in simulation controls the exponential decline of eigenvalues $(\lambda_i, i = 1, \ldots p)$ corresponding to predictor variables as,
+  \begin{equation}
+  \lambda_i = e^{-\gamma(i-1)}, \gamma > 0 \text{ and } i = 1, 2, \ldots p
+  (\#eq:gamma)
+  \end{equation}
+: Two levels 0.2 and 0.8 of `gamma` are used for simulation so that level 0.2 simulates the data with low multicollinearity and 0.8 simulates the data with high multicollinearity.
+  
+**Position of relevant components:**
+: Initial principal components of a non-singular covariance matrix are larger than the later one. If the principal components corresponding to predictors with larger variation is not relevant for a response, this will just increase noise in the model. Here we will use two different levels of position index of predictor components: a) 1, 2, 3, 4 and b) 5, 6, 7, 8. Predictor components irrelevant for a response makes prediction difficult [@Helland1994b]. When combined with multicollinearity, this factor can create both easy and difficult model for both estimation and prediction.
+
+```{r design-plot, fig.cap="Experimental Design of simulation parameters. Each point represents an unique data property.", echo = FALSE, fig.asp=0.4, fig.width=8}
+design_chr %>%
+    mutate(Design = row_number()) %>%
+    ggplot(aes(eta, gamma)) +
+    geom_point(shape=4) +
+    ggrepel::geom_text_repel(
+      aes(label = Design), 
+      nudge_x = 0.03, family = 'mono', fontface = "bold") +
+    facet_grid(p ~ relpos, labeller=label_both) +
+    scale_y_reverse(breaks = opts$gamma) +
+    scale_x_continuous(breaks = opts$eta) +
+    theme_minimal(base_size = 16, base_family = "mono") +
+    theme(panel.grid.minor = element_blank(), text = element_text(face = "bold")) +
+    coord_fixed(ratio=0.5)
+```
+
 - Discuss the design
   + Include the design plot from previous paper
 - What nature of data properties is captured by the design and how diverse is it
@@ -177,3 +220,93 @@ $$
 - Some concluding remarks and limitations (or a gate for further exploration)
 
 `r if (knitr:::is_html_output()) '# References {-}'`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

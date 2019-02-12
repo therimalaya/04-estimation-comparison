@@ -273,11 +273,10 @@ as,
 \subsection{Principal Components
 Regression}\label{principal-components-regression}
 
-Principal Components are defined as a transformation of the dataset into
-a new set of variables called principal components. These components are
-uncorrelated and the variation in the original data are ordered from
-first to last of these new variables. Let us define a transformation of
-\(\mathbf{x}\) as,
+Principal Components are new set of variables from the transformation of
+original dataset such that they are uncorrelated with each other and the
+variation in the original data are ordered from first to last of these
+new variables. Let us define a transformation of \(\mathbf{x}\) as,
 
 \begin{equation}
 \underset{(1\times p)}{\mathbf{x}} =
@@ -352,6 +351,46 @@ Regression}\label{partial-least-squares-regression}
 
 \hypertarget{experimental-design}{\section{Experimental
 Design}\label{experimental-design}}
+
+An R \citep{coreR2018} package \texttt{simrel}
+\citep{Rimal2018, saebo2015simrel} is used to simulate data. For the
+simulation the number of observation is kept fixed at \(n = 100\) and
+following four simulation parameters are used to obtain the data with
+wide range of properties.
+
+\begin{description}
+\tightlist
+\item[\textbf{Number of predictors:}]
+In order to cover both tall \((n>p)\) and wide \((p>n)\) cases, \(p=20\)
+and \(p=250\) number of predictors are simulated.
+\item[\textbf{Multicollinearity in predictor variables:}]
+A parameter \texttt{gamma} \((\gamma)\) in simulation controls the
+exponential decline of eigenvalues \((\lambda_i, i = 1, \ldots p)\)
+corresponding to predictor variables as,
+
+\begin{equation}
+  \lambda_i = e^{-\gamma(i-1)}, \gamma > 0 \text{ and } i = 1, 2, \ldots p
+  \label{eq:gamma}
+  \end{equation}
+
+Two levels 0.2 and 0.8 of \texttt{gamma} are used for simulation so that
+level 0.2 simulates the data with low multicollinearity and 0.8
+simulates the data with high multicollinearity.
+\item[\textbf{Position of relevant components:}]
+Initial principal components of a non-singular covariance matrix are
+larger than the later one. If the principal components corresponding to
+predictors with larger variation is not relevant for a response, this
+will just increase noise in the model. Here we will use two different
+levels of position index of predictor components: a) 1, 2, 3, 4 and b)
+5, 6, 7, 8. Predictor components irrelevant for a response makes
+prediction difficult \citep{Helland1994b}. When combined with
+multicollinearity, this factor can create both easy and difficult model
+for both estimation and prediction.
+\end{description}
+
+\begin{figure}
+\includegraphics[width=1\linewidth]{main_files/figure-latex/design-plot-1} \caption{Experimental Design of simulation parameters. Each point represents an unique data property.}\label{fig:design-plot}
+\end{figure}
 
 \begin{itemize}
 \tightlist
