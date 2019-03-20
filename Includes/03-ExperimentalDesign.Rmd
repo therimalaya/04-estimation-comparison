@@ -35,18 +35,22 @@ __Position of predictor components relevant to the response:__
 
 Further, a complete factorial design from the levels of the above given parameters gave us `r nrow(design)` designs. Each design is associated with a dataset having unique properties. Figure~\@ref(fig:design-plot), shows all the designs. For each design and prediction method, 50 datasets were simulated for replication. In total, there were $`r length(mthds)` \times `r nrow(design)` \times 50$, i.e. `r length(mthds) * nrow(design) * 50` dataset simulated.
 
-```{r design-plot, fig.cap="Experimental Design of simulation parameters. Each point represents an unique data property.", echo = FALSE, fig.asp=0.5, fig.width=8}
+```{r design-plot, fig.cap="Experimental Design of simulation parameters. Each point represents an unique data property.", echo = FALSE, fig.asp=0.4, fig.width=8}
 design_chr %>%
     mutate(Design = row_number()) %>%
     # arrange(relpos, eta, p, gamma) %>%
     ggplot(aes(eta, gamma)) +
     geom_point(shape=4) +
-    ggrepel::geom_text_repel(aes(label = Design), nudge_x = 0.03) +
+    ggrepel::geom_text_repel(
+      aes(label = Design), 
+      nudge_x = 0.03,
+      family = "mono",
+      fontface = "bold") +
     facet_grid(p ~ relpos, labeller=label_both) +
     scale_y_reverse(breaks = opts$gamma) +
     scale_x_continuous(breaks = opts$eta) +
-    theme_minimal(base_size=16) +
-    theme(text=element_text(family="mono")) +
+    theme_minimal(base_size=16, base_family = 'mono') +
+    theme(text=element_text(face = 'bold')) +
     coord_fixed(ratio=0.5)
 ```
 

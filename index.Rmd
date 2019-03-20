@@ -37,8 +37,8 @@ knit: 'bookdown::render_book'
 review: yes
 keywords: ['model-comparison ', 'multi-response ', 'simrel ', 'estimation ', 'estimation error ', 'meta modeling ']
 abstract: |
-  Prediction performance often does not reflect the estimation behaviour of a method. High error in estimation not necessarily results in high prediction error but can lead to an unreliable prediction when test data are in a different direction than the training data. In addition, the effect of a variable becomes unstable and can not be interpreted in such situations. Many research fields are more interested in these estimates than performing prediction. This study compares some newly-developed (envelope) and well-established (PLS, PCR) prediction methods using simulated data with specifically designed properties such as multicollinearity, the correlation between multiple responses and position of principal components of predictor that are relevant for the response. This study aims to give some insight into these methods and help the researcher to understand and use them for further study. _Write some specifics from the results to show what we have found._
-editor_options: 
+  Prediction performance often does not reflect the estimation behaviour of a method. High error in estimation not necessarily results in high prediction error but can lead to an unreliable prediction when test data are in a different direction than the training data. In addition, the effect of a variable becomes unstable and can not be interpreted in such situations. Many research fields are more interested in these estimates than performing prediction. This study compares some newly-developed (envelope) and well-established (PCR, PLS) estimation methods using simulated data with specifically designed properties such as multicollinearity, the correlation between multiple responses and position of principal components of predictors that are relevant for the response. This study aims to give some insights into these methods and help the researchers to understand and use them for further study. _Write some specifics from the results to show what we have found._
+editor_options:
   chunk_output_type: console
 ---
 
@@ -46,11 +46,15 @@ editor_options:
 options(digits = 3, scipen = 999)
 source("scripts/00-function.r")
 source("scripts/01-setup.r")
+source("scripts/03-collection.r")
 knitr::opts_chunk$set(comment = NULL, out.width = "100%", echo = FALSE)
 if (knitr::is_html_output()) {
-  knitr::opts_chunk$set(dev = 'svg', fig.retina = 2)
+  knitr::opts_chunk$set(
+    dev = c('svg', 'pdf'),
+    fig.retina = 2,
+    fig.pos='!htb'
+    )
 }
-extrafont::loadfonts()
 ```
 
 # Introduction #
@@ -146,7 +150,7 @@ $$
 - In what way Xenv and Senv differ
 
 # Experimental Design #
-An R [@coreR2018] package `simrel` [@Rimal2018; @saebo2015simrel] is used to simulate data. For the simulation the number of observation is kept fixed at $n = 100$ and following four simulation parameters are used to obtain the data with wide range of properties.
+An R [@coreR2018] package `simrel` [@Rimal2018; @saebo2015simrel] is used to simulate the data for comparison. In the simulation the number of observation is fixed at $n = 100$ and following four simulation parameters are used to obtain the data with wide range of properties.
 
 **Number of predictors:**
 : In order to cover both tall $(n>p)$ and wide $(p>n)$ cases, $p=20$ and $p=250$ number of predictors are simulated.
@@ -158,9 +162,17 @@ An R [@coreR2018] package `simrel` [@Rimal2018; @saebo2015simrel] is used to sim
   (\#eq:gamma)
   \end{equation}
 : Two levels 0.2 and 0.8 of `gamma` are used for simulation so that level 0.2 simulates the data with low multicollinearity and 0.8 simulates the data with high multicollinearity.
-  
+
 **Position of relevant components:**
 : Initial principal components of a non-singular covariance matrix are larger than the later one. If the principal components corresponding to predictors with larger variation is not relevant for a response, this will just increase noise in the model. Here we will use two different levels of position index of predictor components: a) 1, 2, 3, 4 and b) 5, 6, 7, 8. Predictor components irrelevant for a response makes prediction difficult [@Helland1994b]. When combined with multicollinearity, this factor can create both easy and difficult model for both estimation and prediction.
+
+**Correlation in response variables:**
+: Many estimators also uses the structure of response for their estimation. Here the correlation between the responses are varied through a simulation parameter `eta` $(\eta)$. The parameter controls the exponential decline of eigenvalues $\kappa_j, j = 1, \ldots m (\text{ number of responses})$ corresponding to response variables as,
+\begin{equation}
+\eta_i = e^{-\kappa(j-1)}, \kappa > 0 \text{ and } j = 1, 2, \ldots m
+(\#eq:eta)
+\end{equation}
+: Four levels 0, 0.4, 0.8 and 1.2 of `eta` are used in the so that level 0 simulates the data with uncorrelated response variables while 1.2 simulates the highly correlated response variables.
 
 ```{r design-plot, fig.cap="Experimental Design of simulation parameters. Each point represents an unique data property.", echo = FALSE, fig.asp=0.4, fig.width=8}
 design_chr %>%
@@ -168,7 +180,7 @@ design_chr %>%
     ggplot(aes(eta, gamma)) +
     geom_point(shape=4) +
     ggrepel::geom_text_repel(
-      aes(label = Design), 
+      aes(label = Design),
       nudge_x = 0.03, family = 'mono', fontface = "bold") +
     facet_grid(p ~ relpos, labeller=label_both) +
     scale_y_reverse(breaks = opts$gamma) +
@@ -178,135 +190,377 @@ design_chr %>%
     coord_fixed(ratio=0.5)
 ```
 
-- Discuss the design
-  + Include the design plot from previous paper
-- What nature of data properties is captured by the design and how diverse is it
-- What is the limitation
-  + Discuss about the single latent component of response space
+Here we have assumed that there is only one informative response component. In the final dataset, all predictors together span the same space as the relevant predictor components and all response together span the same space as the one informative response component. In addition, coefficient of determination is fixed at 0.8 for all dataset.
 
-## Basis of Comparison
-- Similar to previous paper but for estimation error
-- Here we will also compare the estimated and true regression coefficient for each additional component
-  + We can do this through graph
-  + Is there some way we can do this through statistics
+A complete factorial design is adopted using different levels of factors discussed above to create 32 design (Figure \@ref(fig:design-plot)) each of which gives dataset with unique properties. From each  of these design and each estimation method, 50 different datasets are simulated so that each of them have same true population structure. In total, $`r length(mthds)` \times `r nrow(design)` \times 50$ i.e., `r length(mthds) * nrow(design) * 50` datasets are simulated.
 
-# Exploration #
+(ref:cov-plot) Covariance between predictor components and response variables in population (top) and in the simulated data (bottom) for four different designs. The Bar in the background represents the variance of corresponding components.
+
+```{r cov-plot, fig.asp=0.6, fig.cap="(ref:cov-plot)", fig.width=8}
+selected_designs <- design %>%
+  mutate(Design = row_number()) %>%
+  filter(p == 20, eta == 0)
+sobj_list <- lapply(1:nrow(selected_designs), function(i){
+  set.seed(2019)
+  selected_designs %>% select(-Design) %>% get_design(i) %>% simulate()
+})
+names(sobj_list) <- paste0("Design", selected_designs$Design)
+sigma_zy_pop <- map_df(sobj_list, function(obj){
+  obj %>%
+    cov_mat(which = "zy", use_population = TRUE) %>%
+    tidy_sigma() %>%
+    abs_sigma()
+}, .id = "Design")
+sigma_zy_samp <- map_df(sobj_list, function(obj){
+  obj %>%
+    cov_mat(which = "zy", use_population = FALSE) %>%
+    tidy_sigma() %>%
+    abs_sigma()
+}, .id = "Design")
+sigma_zy <- bind_rows(
+  Population = sigma_zy_pop,
+  Sample = sigma_zy_samp,
+  .id = "Type"
+)
+lambda_df <- bind_rows(
+  Population = map_df(sobj_list, tidy_lambda, use_population = TRUE, .id = "Design"),
+  Sample = map_df(sobj_list, tidy_lambda, use_population = FALSE, .id = "Design"),
+  .id = "Type"
+)
+design_chr_selected <- selected_designs %>%
+    select(relpos, gamma, Design) %>%
+    modify_at("relpos", paste0) %>%
+    mutate_at("relpos", ~gsub("list\\(c\\((.+)\\))", "\\1", ..1))
+design_name <- paste0("Design", selected_designs$Design)
+design_lbl <- with(design_chr_selected, {
+  paste(design_name, map2_chr(relpos, gamma, paste, sep = " | "), sep = "\n")
+})
+names(design_lbl) <- design_name
+ggplot(sigma_zy, aes(Predictor, Covariance, color = factor(Response))) +
+  geom_bar(data = lambda_df, aes(x = Predictor, y = lambda),
+           fill = "lightgrey",
+           stat = "identity", inherit.aes = FALSE) +
+  geom_point(size = rel(0.8)) +
+  geom_line(size = rel(0.5)) +
+  facet_grid(cols = vars(Design), rows = vars(Type),
+             labeller = labeller(Design = design_lbl )) +
+  theme(legend.position = "bottom") +
+  labs(x = "Components",
+       y = "Absolute Covariances",
+       color = "Response Variable",
+       title = "Covariance between Predictor Components and Responses",
+       subtitle = "High/Low Multicollinearity with near/far relevant predictors") +
+  scale_color_brewer(palette = "Set1")
+```
+
+The simulation properties are directly reflected in the simulated data. For example, in Figure \@ref(fig:cov-plot), design pairs 1 and 4 as well as 6 and 9 differs their properties only in terms of relevant predictor components while the design pairs 1 and 6 as well as 14 and 9 differs only in-terms of level of multicollinearity. The properties in population are also reflected in the simulated samples.
+
+_\alert{May be we need to write few thing on how easy or difficult data are simulated with the interaction of these properties}_
+
+```{r data-prep}
+est_dta <- design_chr %>%
+  select_if(function(x) n_distinct(x) > 1) %>%
+  mutate(Design = as.character(1:n())) %>%
+  mutate_at(vars(p, gamma, relpos, eta), as.factor) %>%
+  right_join(est_error, by = "Design") %>%
+  mutate_if(is.character, as.factor) %>%
+  mutate_at("p", as.factor) %>%
+  mutate(Response = paste0("Y", Response))
+est_spread_df <- est_dta %>%
+  as.data.frame() %>%
+  select(-Design, -q) %>%
+  spread(Response, Est_Error)
+min_comp_stk <- est_dta %>%
+  group_by(p, relpos, eta, gamma, Method, Tuning_Param, Response) %>%
+  summarize(Est_Error = mean(Est_Error)) %>%
+  group_by(p, relpos, eta, gamma, Method, Response) %>%
+  summarize(Tuning_Param = Tuning_Param[which.min(Est_Error)])
+est_min <- est_dta %>%
+  select(-Design, -q) %>%
+  semi_join(min_comp_stk, by = c(
+    "p", "relpos", "eta", "gamma", "Method",
+    "Tuning_Param", "Response"
+  )) %>% select(-Tuning_Param) %>%
+  spread(Response, Est_Error)
+comp_min <- est_dta %>%
+  group_by(p, relpos, eta, gamma, Method, Replication, Response) %>%
+  summarize(Tuning_Param = Tuning_Param[which.min(Est_Error)]) %>%
+  spread(Response, Tuning_Param)
+```
+
+# Basis of Comparison
+
+The focus of this study is to extend the exploration of @rimal2019pred to compare the estimative performance of PCR, PLS1, PLS2, Xenv and Senv methods. The performance is measured on the basis of,
+
+a) average estimation error of the method using arbitrary number of components
+b) average number of components used by the methods to give minimum estimation error
+
+Let us define the expected estimation error as,
+
+\begin{equation}
+\mathcal{EE}_{ijkl} =
+  \mathsf{E}{\left[\left(\boldsymbol{\beta}_{ij} -
+  \boldsymbol{\hat{\beta}_{ijkl}}\right)^t
+  \left(\boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijkl}}\right)\right]}
+(\#eq:est-error)
+\end{equation}
+for response $j = 1, \ldots 4$ in a given design $i=1, 2, \ldots 32$ and method $k=1(PCR), \ldots 5(Senv)$ using $l=0, \ldots 10$ number of components. Since both the expectation and the variance of $\hat{\boldsymbol{\beta}}$ are unknown, the prediction error are estimated using data from 50 replications as follows,
+
+\begin{equation}
+\widehat{\mathcal{EE}_{ijkl}} =
+  \frac{1}{50}\sum_{r=0}^{50}{\left[\left(\boldsymbol{\beta}_{ij} -
+  \boldsymbol{\hat{\beta}_{ijklr}}\right)^t
+  \left(\boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijklr}}\right)\right]}
+(\#eq:estimated-est-error)
+\end{equation}
+where, $\widehat{\mathcal{EE}_{ijkl}}$ is the estimated prediction error averaged over $r=50$ replicates.
+
+## Data Preparation
+A simulation strategy as in @rimal2019pred is adopted for preparation of data where the estimation error $(\beta_j - \hat{\beta}_j)^t(\beta_j - \hat{\beta}_j))$ is measured for each method, design and replication using number of components ranging from 0 to 10.
+
+# Exploration
+
+```{r pca}
+est_pca <- with(est_min, prcomp(cbind(Y1, Y2, Y3, Y4)))
+expl_var <- explvar(est_pca) %>% round(2)
+est_dta_with_pc <- bind_cols(est_min, as.data.frame(scores(est_pca)[]))
+comp_pca <- with(comp_min, prcomp(cbind(Y1, Y2, Y3, Y4)))
+comp_expl_var <- explvar(comp_pca) %>% round(2)
+comp_dta_with_pc <- bind_cols(comp_min, as.data.frame(scores(comp_pca)[]))
+```
+
+```{r pc-hist-plot-function}
+pc_density_plot <- function(dta, expl_var, title) {
+    dta %>%
+        ggplot(aes(PC1, eta, fill = relpos)) +
+        geom_density_ridges(
+            scale = 1,
+            alpha = 0.4, size = 0.25) +
+        geom_density_ridges(
+            scale = 0.95,
+            alpha = 0.2, size = 0.25,
+            stat = "binline", bins = 30) +
+        facet_wrap(
+            . ~ interaction(Method, paste0("gamma:", gamma), sep = "|"),
+            scales = 'free_x', ncol = 5,
+            labeller = labeller(gamma = label_both, p = label_both)) +
+        theme_grey(base_family = 'mono') +
+        theme(
+            legend.position = "bottom",
+            strip.text = element_text(family = "mono")) +
+        labs(x = paste0("PC1(", expl_var[1], "%)")) +
+        ggtitle(title) +
+        scale_x_continuous(breaks = scales::pretty_breaks(3)) +
+        scale_color_brewer(palette = "Set1") +
+        scale_fill_brewer(palette = "Set1")
+}
+```
+
+(ref:est-hist) Scores density corresponding to first principal component of _error dataset_ ($\mathbf{u}$) subdivided by `methods`, `gamma` and `eta` and grouped by `relpos`.
+
+```{r est-pca-hist-mthd-gamma-relpos, message=FALSE, warning=FALSE, fig.cap="(ref:est-hist)", fig.pos="!htb"}
+pc_density_plot(est_dta_with_pc, expl_var,
+                title = "Density of PCA scores for error model")
+```
+
+## Low Multicollinearity
+- Low variation in the estimation error
+- smaller error compared to high multicollinearity cases.
+- Clear difference between the cases when relevant components are at 1:4 than 5:8. When relevant predictors are at 1:4, the estimation error are noticeably smaller than in the case when relevant predictors are at 5:8.
+- The effect of two levels of relevant predictors are more similar in the case of envelope methods than the rest.
+
+## High Multicollinearity
+- Very large variation in the estimation error
+- High multicollinearity has high influence on all the methods, more specifically on envelope
+- The estimation errors are smaller when relevant components are at 1:4 than the design where the relevant components are at 5:8
+- In high multicollinearity and the relevant components at 5:8 made the predictor components at 1:4 with high variation irrelevant. Consequently making the estimation unstable and prone to large error.
+- The effect of similar design on the prediction was less influential (see section..., @rimal2019pred)
+
+
+
+(ref:comp-hist) Score density corresponding to first principal component of _component dataset_ ($\mathbf{v}$) subdivided by `methods`, `gamma` and `eta` and grouped by `relpos`.
+
+```{r comp-pca-hist-mthd-gamma-relpos, message=FALSE, warning=FALSE, fig.cap="(ref:comp-hist)", fig.pos="!htb"}
+pc_density_plot(comp_dta_with_pc, comp_expl_var,
+                title = "Density of PCA scores for component model")
+```
+
+- When the relevant components are at position 5:8, PCR, PLS1 and PLS2 have used larger number of components than in the case of relevant components at position 1:4.
+- Surprisingly, envelope methods (Xenv and Senv) has used very few number of components in overall and the effect is similar in both level of relevant components. PLS1 also has used very number of components when the level of multicollinearity is low. Although, the difference in the number of components by it in two levels of relevant prediction is visible.
+- In the 
+
 - A similar exploration as previous paper but can be different in case of new idea
 
-## Dataset for Analysis ##
+## Dataset for Analysis
 - Preparation of dataset for MANOVA analysis (i.e. minimum estimation error using arbitrary number of components)
 - A component dataset is also created for testing the use of components by each of these methods
 
-## Regression Coefficients ##
+## Regression Coefficients
 - In case of some idea on comparing regression coefficients through some statistical way, this can be included here
 - Otherwise can also be done just by using plots
 
-## Prediction and Estimation Error ##
+```{r reg-coef-plot}
+load_local <- function(design, method) {
+  fpath <- "scripts/robj/coef-error/"
+  fname <- paste0("dgn-", design, "-", tolower(method))
+  obj_name <- gsub("-", "_", gsub("dgn-", "dgn", fname))
+  full_path <- paste0(fpath, fname, ".RData")
+  local({
+    load(full_path)
+    assign(obj_name, out, envir = parent.env(environment()))
+  })
+  return(get(obj_name))
+}
+```
+
+```{r}
+plot_coef <- function(designs, methods) {
+  out <- crossing(designs, methods) %>%
+    mutate(out = map2(designs, methods, load_local)) %>%
+    mutate(coef = map(out, map_df, "coefficients", .id = "Replication")) %>%
+    unnest(coef) %>%
+    mutate_at(vars(Comp1:Comp10), ~map2_dbl(.x, True, `-`)) %>%
+    select(-True) %>%
+    gather(Components, Coef, Comp1:Comp10) %>%
+    mutate_at("Predictor", get_integer) %>%
+    mutate_at("Predictor", replace_na, 0)
+  out %>%
+    group_by(Design = designs,
+             Method = methods,
+             Predictor, Response, Components) %>%
+    summarise_at("Coef", mean) %>%
+    mutate_at("Components", ~as.integer(str_remove(.x, "Comp"))) %>%
+    # mutate(Components = factor(Components, levels = paste0("Comp", 1:10))) %>%
+    ggplot(aes(Predictor, Components, fill = abs(Coef))) +
+    geom_tile() +
+    scale_y_continuous(expand = c(0, 0)) +
+    scale_x_continuous(expand = c(0, 0)) +
+    facet_grid(Response ~ Method) +
+    scale_fill_gradient(low = "whitesmoke", high = "steelblue") +
+    theme_minimal() +
+    theme(panel.spacing = unit(0.5, "mm"))
+    # scale_fill_viridis_c(option = "A", direction = -1)
+}
+plot_coef(5, mthds)
+```
+
+
+## Prediction and Estimation Error
 - Explore both estimation error and number of components and try to bind them with the prediction error for the similar case
 
-# Analysis #
+# Analysis
+
+```{r manova-model}
+est_mdl <- lm(
+  formula = cbind(Y1, Y2, Y3, Y4) ~ (p + gamma + eta + relpos + Method) ^ 3,
+  data = est_min)
+comp_mdl <- lm(
+  formula = cbind(Y1, Y2, Y3, Y4) ~ (p + gamma + eta + relpos + Method) ^ 3,
+  data = comp_min)
+```
+
+```{r manova-summary}
+est_aov <- anova(est_mdl) %>%
+  as_tibble(rownames = "Factors")
+comp_aov <- anova(comp_mdl) %>%
+  as_tibble(rownames = "Factors")
+aov_df <- bind_rows(list(Est = est_aov, Comp = comp_aov), .id = "Type")
+```
+
+(ref:manova-plot) Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for corresponding factor.
+
+```{r manova-plot, fig.width=8, out.width='100%', fig.asp=0.8, fig.cap="(ref:manova-plot)"}
+model_labels <- c(
+  Comp = "Model: Number of Components",
+  Est = "Model: Estimation Error"
+)
+aov_df %>%
+    filter(!(Factors %in% c('Residuals', '(Intercept)'))) %>%
+    select(Model = Type, Factors, Pillai,
+           Fvalue = `approx F`, Pvalue = `Pr(>F)`) %>%
+    mutate(Model = factor(Model, levels = c("Est", "Comp"))) %>%
+    mutate(Pvalue = ifelse(Pvalue < 0.05, "<0.05", ">=0.05")) %>%
+    ggplot(aes(reorder(Factors, Pillai), Pillai, fill = Pvalue)) +
+    geom_bar(stat = "identity") +
+    geom_text(aes(label = round(Fvalue, 2)), family = 'mono',
+              angle = 0, hjust = "inward", size = 3) +
+    facet_grid(cols = vars(Model), scales = 'free_y',
+               labeller = labeller(Model = model_labels)) +
+    theme_grey(base_family = "mono") +
+    theme(legend.position = c(0.85, 0.1),
+          legend.direction = 'horizontal',
+          axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    guides(fill = guide_legend(title.position = "top",
+                               title.hjust = 0.5)) +
+    labs(x = NULL, y = "Pillai Statistic") +
+    coord_flip()
+```
+
+
 - A MANOVA model is fitted using the dataset prepared in previous section
 
-## Error Analysis ##
+## Error Analysis
+
+
+(ref:est-eff-plot) Effect plot of some interactions of the multivariate linear model of estimation error
+
+```{r est-eff-plots, fig.width=7, out.width='100%', fig.cap='(ref:est-eff-plot)', fig.asp = 0.6}
+thm <- theme(plot.title = element_blank(),
+             plot.subtitle = element_blank(),
+             legend.position = "top",
+             axis.title = element_blank())
+plt1 <- eff_df("eta:relpos:Method", est_mdl) %>%
+  eff_plot3(reorder = FALSE, labeller = label_both,
+            scales = "free_y") +
+  theme_grey(base_family = "mono") +
+  thm
+plt2 <- eff_df("relpos:gamma:Method", est_mdl) %>%
+  eff_plot3(reorder = FALSE, labeller = label_both,
+            scales = "free_y") +
+  theme_grey(base_family = "mono") +
+  thm
+plt <- gridExtra::arrangeGrob(plt1, plt2, ncol = 2,
+                       bottom="Methods", padding = unit(0.04, 'npc'),
+                       left = "Fitted Estimation Error")
+grid::grid.newpage()
+grid::grid.draw(plt)
+```
+
+
 - Effect analysis of estimation error model
 - Tie up these results with prediction error in previous paper
 
-## Component Analysis ##
+## Component Analysis
+
+(ref:comp-eff-plot) Effect plot of some interactions of the multivariate linear model of number of components to get minimum prediction error
+
+```{r comp-eff-plots, fig.width=7, out.width='100%', fig.cap='(ref:comp-eff-plot)', fig.asp = 0.6, fig.pos="!htb"}
+thm <- theme(plot.title = element_blank(),
+             plot.subtitle = element_blank(),
+             legend.position = "top",
+             axis.title = element_blank())
+plt1 <- eff_df("eta:relpos:Method", comp_mdl) %>%
+  eff_plot3(reorder = FALSE, labeller = label_both) +
+  theme_grey(base_family = "mono") +
+  thm
+plt2 <- eff_df("relpos:gamma:Method", comp_mdl) %>%
+  eff_plot3(reorder = FALSE, labeller = label_both) +
+  theme_grey(base_family = "mono") +
+  thm
+plt <- gridExtra::arrangeGrob(plt1, plt2, ncol = 2,
+                       bottom="Methods", padding = unit(0.04, 'npc'),
+                       left = "Fitted Number of Components")
+grid::grid.newpage()
+grid::grid.draw(plt)
+```
+
+
 - Effect analysis of number of component model
 - Tie up these results in previous paper
 
-# Discussion and Conclusion #
+# Discussion and Conclusion
 - A similar discussion but based more on why the methods worked in the way we have seen in the results in previous sections
 - Some concluding remarks and limitations (or a gate for further exploration)
 
 `r if (knitr:::is_html_output()) '# References {-}'`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- # References -->

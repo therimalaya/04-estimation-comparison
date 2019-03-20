@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-02-12">
+<meta name="date" content="2019-03-18">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -82,9 +82,8 @@ div.abstract{
 <li class="chapter" data-level="" data-path="estimation-methods.html"><a href="estimation-methods.html#partial-least-squares-regression"><i class="fa fa-check"></i>Partial Least Squares Regression</a></li>
 <li class="chapter" data-level="" data-path="estimation-methods.html"><a href="estimation-methods.html#envelope-estimations"><i class="fa fa-check"></i>Envelope Estimations</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="experimental-design.html"><a href="experimental-design.html"><i class="fa fa-check"></i>Experimental Design</a><ul>
-<li class="chapter" data-level="" data-path="experimental-design.html"><a href="experimental-design.html#basis-of-comparison"><i class="fa fa-check"></i>Basis of Comparison</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="experimental-design.html"><a href="experimental-design.html"><i class="fa fa-check"></i>Experimental Design</a></li>
+<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html"><i class="fa fa-check"></i>Basis of Comparison</a></li>
 <li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html"><i class="fa fa-check"></i>Exploration</a><ul>
 <li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html#dataset-for-analysis"><i class="fa fa-check"></i>Dataset for Analysis</a></li>
 <li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html#regression-coefficients"><i class="fa fa-check"></i>Regression Coefficients</a></li>
@@ -117,11 +116,25 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="analysis" class="section level1">
 <h1>Analysis</h1>
+
+<div class="figure"><span id="fig:manova-plot"></span>
+<img src="main_files/figure-html/manova-plot-1.svg" alt="Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for corresponding factor." width="100%" />
+<p class="caption">
+Figure 5: Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for corresponding factor.
+</p>
+</div>
 <ul>
 <li>A MANOVA model is fitted using the dataset prepared in previous section</li>
 </ul>
 <div id="error-analysis" class="section level2">
 <h2>Error Analysis</h2>
+
+<div class="figure"><span id="fig:est-eff-plots"></span>
+<img src="main_files/figure-html/est-eff-plots-1.svg" alt="Effect plot of some interactions of the multivariate linear model of estimation error" width="100%" />
+<p class="caption">
+Figure 6: Effect plot of some interactions of the multivariate linear model of estimation error
+</p>
+</div>
 <ul>
 <li>Effect analysis of estimation error model</li>
 <li>Tie up these results with prediction error in previous paper</li>
@@ -129,6 +142,13 @@ div.abstract{
 </div>
 <div id="component-analysis" class="section level2">
 <h2>Component Analysis</h2>
+
+<div class="figure"><span id="fig:comp-eff-plots"></span>
+<img src="main_files/figure-html/comp-eff-plots-1.svg" alt="Effect plot of some interactions of the multivariate linear model of number of components to get minimum prediction error" width="100%" />
+<p class="caption">
+Figure 7: Effect plot of some interactions of the multivariate linear model of number of components to get minimum prediction error
+</p>
+</div>
 <ul>
 <li>Effect analysis of number of component model</li>
 <li>Tie up these results in previous paper</li>
