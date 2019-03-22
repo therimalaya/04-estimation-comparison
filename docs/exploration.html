@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-03-18">
+<meta name="date" content="2019-03-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -57,6 +57,7 @@ div.abstract{
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 
@@ -83,18 +84,22 @@ div.abstract{
 <li class="chapter" data-level="" data-path="estimation-methods.html"><a href="estimation-methods.html#envelope-estimations"><i class="fa fa-check"></i>Envelope Estimations</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="experimental-design.html"><a href="experimental-design.html"><i class="fa fa-check"></i>Experimental Design</a></li>
-<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html"><i class="fa fa-check"></i>Basis of Comparison</a></li>
-<li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html"><i class="fa fa-check"></i>Exploration</a><ul>
-<li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html#dataset-for-analysis"><i class="fa fa-check"></i>Dataset for Analysis</a></li>
-<li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html#regression-coefficients"><i class="fa fa-check"></i>Regression Coefficients</a></li>
-<li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html#prediction-and-estimation-error"><i class="fa fa-check"></i>Prediction and Estimation Error</a></li>
+<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html"><i class="fa fa-check"></i>Basis of Comparison</a><ul>
+<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html#data-preparation"><i class="fa fa-check"></i>Data Preparation</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html"><i class="fa fa-check"></i>Exploration</a></li>
 <li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i>Analysis</a><ul>
-<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#error-analysis"><i class="fa fa-check"></i>Error Analysis</a></li>
-<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#component-analysis"><i class="fa fa-check"></i>Component Analysis</a></li>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#dataset-for-analysis"><i class="fa fa-check"></i>Dataset for Analysis</a></li>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#discuss-model"><i class="fa fa-check"></i>Discuss Model</a></li>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#interpretation-of-the-fitted-manova-model"><i class="fa fa-check"></i>Interpretation of the fitted MANOVA Model</a></li>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#effect-of-manova"><i class="fa fa-check"></i>Effect of MANOVA</a><ul>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#error-model"><i class="fa fa-check"></i>Error Model</a></li>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#component-model"><i class="fa fa-check"></i>Component Model</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="discussion-and-conclusion.html"><a href="discussion-and-conclusion.html"><i class="fa fa-check"></i>Discussion and Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li class="toc-footer"><a href="https://bookdown.org" target="blank">Published with <em>BookDown</em></a></li>
 </ul>
@@ -116,44 +121,241 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="exploration" class="section level1">
 <h1>Exploration</h1>
+<p>This section explores the variation in the <em>error dataset</em> and the <em>component dataset</em> for which we have used Principal Component Analysis (PCA). Let <span class="math inline">\(t_u\)</span> and <span class="math inline">\(t_v\)</span> be the principal component score sets corresponding to PCA run on the <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> matrices respectively. The scores density in Figure <a href="exploration.html#fig:est-pca-hist-mthd-gamma-relpos">3</a> and Figure <a href="exploration.html#fig:comp-pca-hist-mthd-gamma-relpos">4</a> correspond to the first principal component of <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span>, i.e. the first column of <span class="math inline">\(t_u\)</span> and <span class="math inline">\(t_v\)</span> respectively.</p>
 
 <div class="figure"><span id="fig:est-pca-hist-mthd-gamma-relpos"></span>
-<img src="main_files/figure-html/est-pca-hist-mthd-gamma-relpos-1.svg" alt="Scores density corresponding to first principal component of error dataset (\(\mathbf{u}\)) subdivided by methods, gamma and eta and grouped by relpos." width="100%" />
+<img src="Estimation-Paper_files/figure-html/est-pca-hist-mthd-gamma-relpos-1.svg" alt="Scores density corresponding to first principal component of error dataset (\(\mathbf{u}\)) subdivided by methods, gamma and eta and grouped by relpos." width="100%" />
 <p class="caption">
 Figure 3: Scores density corresponding to first principal component of <em>error dataset</em> (<span class="math inline">\(\mathbf{u}\)</span>) subdivided by <code>methods</code>, <code>gamma</code> and <code>eta</code> and grouped by <code>relpos</code>.
 </p>
 </div>
+<p>The plot shows a clear difference between the effect of low and high multicollinearity in estimation error. In the case of low multicollinearity (<code>gamma: 0.2</code>), the estimation errors are smaller and have lesser variation compared to high multicollinearity (<code>gamma: 0.9</code>). High multicollinearity has a larger influence on all but noticeably in the methods based on envelopes. Some large estimation error in the envelope is more than 100 which in the case of other methods is less than 60.</p>
+<p>Furthermore, the relevant predictor components, in general, has a noticeable effect on estimation error. When relevant predictors are at position 5, 6, 7, 8, the predictor components at 1, 2, 3, 4, which carry most of the variation, becomes irrelevant. These irrelevant components with large variation add noise to the model and consequently increases the estimation error. The effect intensifies on highly collinear predictors. Designs with high multicollinearity and relevant predictors at position 5, 6, 7, 8 are relatively difficult to model for all the methods. Although these difficult designs have a large effect on estimation error, their effect on prediction error is less influential <span class="citation">(Rimal, Almøy, and Sæbø <a href="references-1.html#ref-rimal2019pred">2019</a>)</span>.</p>
 
+<p>In the case of the <em>component dataset</em> (Figure Above), PCR, PLS1 and PLS2 methods have used more components in the case of high multicollinearity compared to low. Surprisingly, the envelope methods (Senv and Xenv) mostly have used a distinctly lesser number of components in both the cases of multicollinearity compared to other methods.</p>
+<p>The plot also shows that there is no clear effect due to the correlation of response variable on the number of components used to obtain minimum estimation error.</p>
 <div class="figure"><span id="fig:comp-pca-hist-mthd-gamma-relpos"></span>
-<img src="main_files/figure-html/comp-pca-hist-mthd-gamma-relpos-1.svg" alt="Score density corresponding to first principal component of component dataset (\(\mathbf{v}\)) subdivided by methods, gamma and eta and grouped by relpos." width="100%" />
+<img src="Estimation-Paper_files/figure-html/comp-pca-hist-mthd-gamma-relpos-1.svg" alt="Score density corresponding to first principal component of component dataset (\(\mathbf{v}\)) subdivided by methods, gamma and eta and grouped by relpos." width="100%" />
 <p class="caption">
 Figure 4: Score density corresponding to first principal component of <em>component dataset</em> (<span class="math inline">\(\mathbf{v}\)</span>) subdivided by <code>methods</code>, <code>gamma</code> and <code>eta</code> and grouped by <code>relpos</code>.
 </p>
 </div>
-<ul>
-<li>A similar exploration as previous paper but can be different in case of new idea</li>
-</ul>
-<div id="dataset-for-analysis" class="section level2">
-<h2>Dataset for Analysis</h2>
-<ul>
-<li>Preparation of dataset for MANOVA analysis (i.e. minimum estimation error using arbitrary number of components)</li>
-<li>A component dataset is also created for testing the use of components by each of these methods</li>
-</ul>
+<p>A clear interaction between the position of relevant predictors and the multicollinearity visible in the plot suggest that the methods use a larger number of components when the relevant components are at position 5, 6, 7, 8. Additionally, the use of components escalate and the difference between the two levels of <code>relpos</code> becomes wider in the case of high multicollinearity in the model. Such performance is also seen the the case of prediction error (See <span class="citation">Rimal, Almøy, and Sæbø (<a href="references-1.html#ref-rimal2019pred">2019</a>)</span>) however the number of components used in that case is lesser than in this case. Envelope methods, however, have shown a distinct result in contrast to the other methods. Even when the relevant predictors are at position 5, 6, 7, 8, the envelope methods, in contrast to other methods, have used an almost similar number of components as in the case of relevant predictor at position 1, 2, 3, 4. This shows that the envelope methods identify the predictor space relevant to the response differently and with few numbers of latent components.</p>
+<p>Following section explore the prediction and estimation error together with the regression coefficient of Simultaneous Envelope and Partial Least Squares for a design having high multicollinearity with predictor components at position 5, 6, 7, 8. Here we will use design with <span class="math inline">\(n&gt;p\)</span> and no correlation between the response which corresponds to Design-9.</p>
+<div class="figure"><span id="fig:coef-plot"></span>
+<img src="Estimation-Paper_files/figure-html/coef-plot-1.svg" alt="Regression Coefficients estimated by PLS2 and Simultaneous methods on the data based on Design 9." width="100%" />
+<p class="caption">
+Figure 5: Regression Coefficients estimated by PLS2 and Simultaneous methods on the data based on Design 9.
+</p>
 </div>
-<div id="regression-coefficients" class="section level2">
-<h2>Regression Coefficients</h2>
-<ul>
-<li>In case of some idea on comparing regression coefficients through some statistical way, this can be included here</li>
-<li>Otherwise can also be done just by using plots</li>
-</ul>
-<p><img src="main_files/figure-html/unnamed-chunk-2-1.svg" width="100%" /></p>
+<p>Figure <a href="exploration.html#fig:err-plot">6</a> shows a clear distinction between the modelling approach of PLS2 and Senv methods for the same model based on Design 9. In the case of PLS2, both minimum prediction error and minimum estimation error are obtained using seven to eight components and the estimated regression coefficients approximate the true coefficients. In contrast, the Senv method has approached the minimum prediction and minimum estimation error using one to two components and the corresponding estimated regression coefficients approximate the true coefficients (Figure <a href="exploration.html#fig:coef-plot">5</a>). Despite having contrast modelling result for a dataset with similar properties, the minimum errors produced by them are comparable (See Table <a href="exploration.html#tab:min-err-dgn9">1</a>).</p>
+<div class="figure"><span id="fig:err-plot"></span>
+<img src="Estimation-Paper_files/figure-html/err-plot-1.svg" alt="Minimum prediction and estimation error for PLS2 and Simultaneous methods. The point and lines are averaged over 50 replications." width="100%" />
+<p class="caption">
+Figure 6: Minimum prediction and estimation error for PLS2 and Simultaneous methods. The point and lines are averaged over 50 replications.
+</p>
 </div>
-<div id="prediction-and-estimation-error" class="section level2">
-<h2>Prediction and Estimation Error</h2>
-<ul>
-<li>Explore both estimation error and number of components and try to bind them with the prediction error for the similar case</li>
-</ul>
-</div>
+<p>The Figure <a href="exploration.html#fig:err-plot">6</a> also shows that Senv has resulted in huge estimation error when the number of components is not optimal. This is also true for the PLS2 model however the extent of this variation is noticeably large in the Senv method. A similar observation as Senv is also found in Xenv method while PCR and PLS1 are closer to the PLS2 in terms of their use of components in order to produce the minimum error (See Table <a href="exploration.html#tab:min-err-dgn9">1</a>).</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:min-err-dgn9">Table 1: </span>Minimum Prediction and Estimation Error for Design 9
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Response
+</th>
+<th style="text-align:right;">
+PCR
+</th>
+<th style="text-align:right;">
+PLS1
+</th>
+<th style="text-align:right;">
+PLS2
+</th>
+<th style="text-align:right;">
+Senv
+</th>
+<th style="text-align:right;">
+Xenv
+</th>
+</tr>
+</thead>
+<tbody>
+<tr grouplength="4">
+<td colspan="6" style="border-bottom: 1px solid;">
+<strong>Estimation Error</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+1
+</td>
+<td style="text-align:right;">
+8.56 (8)
+</td>
+<td style="text-align:right;">
+13.23 (6)
+</td>
+<td style="text-align:right;font-style: italic;">
+8.17 (8)
+</td>
+<td style="text-align:right;font-style: italic;">
+6.65 (1)
+</td>
+<td style="text-align:right;">
+5.73 (1)
+</td>
+</tr>
+<tr>
+<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+2
+</td>
+<td style="text-align:right;">
+7.94 (8)
+</td>
+<td style="text-align:right;">
+14.42 (6)
+</td>
+<td style="text-align:right;font-style: italic;">
+10.65 (8)
+</td>
+<td style="text-align:right;font-style: italic;">
+5.06 (1)
+</td>
+<td style="text-align:right;">
+5.35 (1)
+</td>
+</tr>
+<tr>
+<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+3
+</td>
+<td style="text-align:right;">
+7.02 (8)
+</td>
+<td style="text-align:right;">
+15.9 (6)
+</td>
+<td style="text-align:right;font-style: italic;">
+8.22 (7)
+</td>
+<td style="text-align:right;font-style: italic;">
+8.55 (1)
+</td>
+<td style="text-align:right;">
+5 (1)
+</td>
+</tr>
+<tr>
+<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+4
+</td>
+<td style="text-align:right;">
+9.26 (8)
+</td>
+<td style="text-align:right;">
+13.14 (7)
+</td>
+<td style="text-align:right;font-style: italic;">
+8.29 (7)
+</td>
+<td style="text-align:right;font-style: italic;">
+8.19 (1)
+</td>
+<td style="text-align:right;">
+4.78 (1)
+</td>
+</tr>
+<tr grouplength="4">
+<td colspan="6" style="border-bottom: 1px solid;">
+<strong>Prediction Error</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+1
+</td>
+<td style="text-align:right;">
+1.08 (8)
+</td>
+<td style="text-align:right;">
+1.1 (7)
+</td>
+<td style="text-align:right;font-style: italic;">
+1.09 (8)
+</td>
+<td style="text-align:right;font-style: italic;">
+1.03 (1)
+</td>
+<td style="text-align:right;">
+1.03 (1)
+</td>
+</tr>
+<tr>
+<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+2
+</td>
+<td style="text-align:right;">
+1.09 (8)
+</td>
+<td style="text-align:right;">
+1.11 (7)
+</td>
+<td style="text-align:right;font-style: italic;">
+1.1 (8)
+</td>
+<td style="text-align:right;font-style: italic;">
+1.03 (1)
+</td>
+<td style="text-align:right;">
+1.03 (1)
+</td>
+</tr>
+<tr>
+<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+3
+</td>
+<td style="text-align:right;">
+1.08 (8)
+</td>
+<td style="text-align:right;">
+1.1 (7)
+</td>
+<td style="text-align:right;font-style: italic;">
+1.1 (7)
+</td>
+<td style="text-align:right;font-style: italic;">
+1.04 (1)
+</td>
+<td style="text-align:right;">
+1.03 (1)
+</td>
+</tr>
+<tr>
+<td style="text-align:right; padding-left: 2em;" indentlevel="1">
+4
+</td>
+<td style="text-align:right;">
+1.09 (8)
+</td>
+<td style="text-align:right;">
+1.1 (7)
+</td>
+<td style="text-align:right;font-style: italic;">
+1.09 (7)
+</td>
+<td style="text-align:right;font-style: italic;">
+1.04 (1)
+</td>
+<td style="text-align:right;">
+1.03 (1)
+</td>
+</tr>
+</tbody>
+</table>
+<p>Despite having a large variation in prediction and estimation error, the envelope based methods have produced a better result even in the difficult model as obtained from Design 9.</p>
 </div>
             </section>
 
@@ -198,7 +400,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["main.epub", "main.pdf"],
+"download": ["Estimation-Paper.epub", "Estimation-Paper.pdf"],
 "toc": {
 "collapse": "section"
 }

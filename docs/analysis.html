@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-03-18">
+<meta name="date" content="2019-03-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -57,6 +57,7 @@ div.abstract{
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 
@@ -83,18 +84,22 @@ div.abstract{
 <li class="chapter" data-level="" data-path="estimation-methods.html"><a href="estimation-methods.html#envelope-estimations"><i class="fa fa-check"></i>Envelope Estimations</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="experimental-design.html"><a href="experimental-design.html"><i class="fa fa-check"></i>Experimental Design</a></li>
-<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html"><i class="fa fa-check"></i>Basis of Comparison</a></li>
-<li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html"><i class="fa fa-check"></i>Exploration</a><ul>
-<li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html#dataset-for-analysis"><i class="fa fa-check"></i>Dataset for Analysis</a></li>
-<li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html#regression-coefficients"><i class="fa fa-check"></i>Regression Coefficients</a></li>
-<li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html#prediction-and-estimation-error"><i class="fa fa-check"></i>Prediction and Estimation Error</a></li>
+<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html"><i class="fa fa-check"></i>Basis of Comparison</a><ul>
+<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html#data-preparation"><i class="fa fa-check"></i>Data Preparation</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html"><i class="fa fa-check"></i>Exploration</a></li>
 <li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i>Analysis</a><ul>
-<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#error-analysis"><i class="fa fa-check"></i>Error Analysis</a></li>
-<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#component-analysis"><i class="fa fa-check"></i>Component Analysis</a></li>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#dataset-for-analysis"><i class="fa fa-check"></i>Dataset for Analysis</a></li>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#discuss-model"><i class="fa fa-check"></i>Discuss Model</a></li>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#interpretation-of-the-fitted-manova-model"><i class="fa fa-check"></i>Interpretation of the fitted MANOVA Model</a></li>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#effect-of-manova"><i class="fa fa-check"></i>Effect of MANOVA</a><ul>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#error-model"><i class="fa fa-check"></i>Error Model</a></li>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#component-model"><i class="fa fa-check"></i>Component Model</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="discussion-and-conclusion.html"><a href="discussion-and-conclusion.html"><i class="fa fa-check"></i>Discussion and Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li class="toc-footer"><a href="https://bookdown.org" target="blank">Published with <em>BookDown</em></a></li>
 </ul>
@@ -116,23 +121,31 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="analysis" class="section level1">
 <h1>Analysis</h1>
+<div id="dataset-for-analysis" class="section level2">
+<h2>Dataset for Analysis</h2>
+</div>
+<div id="discuss-model" class="section level2">
+<h2>Discuss Model</h2>
 
 <div class="figure"><span id="fig:manova-plot"></span>
-<img src="main_files/figure-html/manova-plot-1.svg" alt="Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for corresponding factor." width="100%" />
+<img src="Estimation-Paper_files/figure-html/manova-plot-1.svg" alt="Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for corresponding factor." width="100%" />
 <p class="caption">
-Figure 5: Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for corresponding factor.
+Figure 7: Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for corresponding factor.
 </p>
 </div>
-<ul>
-<li>A MANOVA model is fitted using the dataset prepared in previous section</li>
-</ul>
-<div id="error-analysis" class="section level2">
-<h2>Error Analysis</h2>
+</div>
+<div id="interpretation-of-the-fitted-manova-model" class="section level2">
+<h2>Interpretation of the fitted MANOVA Model</h2>
+</div>
+<div id="effect-of-manova" class="section level2">
+<h2>Effect of MANOVA</h2>
+<div id="error-model" class="section level3">
+<h3>Error Model</h3>
 
 <div class="figure"><span id="fig:est-eff-plots"></span>
-<img src="main_files/figure-html/est-eff-plots-1.svg" alt="Effect plot of some interactions of the multivariate linear model of estimation error" width="100%" />
+<img src="Estimation-Paper_files/figure-html/est-eff-plots-1.svg" alt="Effect plot of some interactions of the multivariate linear model of estimation error" width="100%" />
 <p class="caption">
-Figure 6: Effect plot of some interactions of the multivariate linear model of estimation error
+Figure 8: Effect plot of some interactions of the multivariate linear model of estimation error
 </p>
 </div>
 <ul>
@@ -140,19 +153,20 @@ Figure 6: Effect plot of some interactions of the multivariate linear model of e
 <li>Tie up these results with prediction error in previous paper</li>
 </ul>
 </div>
-<div id="component-analysis" class="section level2">
-<h2>Component Analysis</h2>
+<div id="component-model" class="section level3">
+<h3>Component Model</h3>
 
 <div class="figure"><span id="fig:comp-eff-plots"></span>
-<img src="main_files/figure-html/comp-eff-plots-1.svg" alt="Effect plot of some interactions of the multivariate linear model of number of components to get minimum prediction error" width="100%" />
+<img src="Estimation-Paper_files/figure-html/comp-eff-plots-1.svg" alt="Effect plot of some interactions of the multivariate linear model of number of components to get minimum prediction error" width="100%" />
 <p class="caption">
-Figure 7: Effect plot of some interactions of the multivariate linear model of number of components to get minimum prediction error
+Figure 9: Effect plot of some interactions of the multivariate linear model of number of components to get minimum prediction error
 </p>
 </div>
 <ul>
 <li>Effect analysis of number of component model</li>
 <li>Tie up these results in previous paper</li>
 </ul>
+</div>
 </div>
 </div>
             </section>
@@ -198,7 +212,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["main.epub", "main.pdf"],
+"download": ["Estimation-Paper.epub", "Estimation-Paper.pdf"],
 "toc": {
 "collapse": "section"
 }

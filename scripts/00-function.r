@@ -385,7 +385,7 @@ coef_errors <- function(sim_obj, est_method, scale = FALSE, ...) {
 
 ## Complete the following function making it pure but compatible with impure functions -----------
 ## Coefficient Plot ----
-coef_plot <- function(coef_error, ncomp = NULL, err_type = "prediction") {
+coef_plot <- function(coef_error, ncomp = NULL, err_type = "prediction", labeller = label_both) {
     ## Check if it is nested ----
     not_nested <- "coefficient_error" %in% class(coef_error)
     if (not_nested) coef_error <- list(coef_error)
@@ -455,7 +455,7 @@ coef_plot <- function(coef_error, ncomp = NULL, err_type = "prediction") {
         theme(legend.position = "bottom",
               plot.subtitle = element_text(family = "mono")) +
         labs(y = "Coefficient", color = NULL, linetype = NULL) +
-        facet_grid(facet_form, labeller = label_both) +
+        facet_grid(facet_form, labeller = labeller) +
         ggtitle(title, subtitle = sub_title) +
         scale_color_brewer(palette = "Set1")
     return(plt)
