@@ -227,20 +227,38 @@ together with the strategy behind the simulation and data model.
 
 \section{Simulation Model}\label{simulation-model}
 
-\begin{itemize}
-\tightlist
-\item
-  Reduction of the regression model
-\item
-  Include the figure from previous paper
-\item
-  How the covariance and coefficients are related
-\item
-  From the construction of the covariance matrix of latent variables to
-  the simulated data
-\item
-  How and what simulation parameters are related to properties of data
-\end{itemize}
+As a follow-up, this study will continue using the same simulation model
+used by \citet{rimal2019pred}. The data is simulated from a multivariate
+normal distribution where we assume that the variation in response
+variable y is partly explained by the predictor variable \(x\). However,
+in many situations, only a subspace of the predictor space is relevant
+for the variation in the response \(y\). This space can be referred to
+as the relevant space of \(x\) and the rest as irrelevant space. In a
+similar way, for a certain model, we can assume that a subspace in the
+response space exists and contains the information that the relevant
+space in predictor can explain (Figure \ref{fig:relevant-space}).
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{Estimation-Paper_files/figure-latex/relevant-space-1} 
+
+}
+
+\caption{Relevant space in a regression model}\label{fig:relevant-space}
+\end{figure}
+
+Following the concept of relevant space, a subset of predictor
+components can be imagined to span the predictor space. These components
+can be regarded as relevant predictor components. \citet{Naes1985}
+introduced the concept of relevant components which was explored further
+by \citet{helland1990partial}, \citet{naes1993relevant},
+\citet{Helland1994b} and \citet{Helland2000}. The corresponding
+eigenvectors were referred to as relevant eigenvectors. A similar logic
+is introduced by \citet{cook2010envelope} and later by
+\citet{cook2013envelopes} as an envelope which is the space spanned by
+the relevant eigenvectors \citep[, p.101]{cook2018envelope}. See
+\citet{Rimal2018}, \citet{saebo2015simrel} and \citet{rimal2019pred} for
+in-depth background on the model.
 
 \section{Estimation Methods}\label{estimation-methods}
 
@@ -489,23 +507,53 @@ error averaged over \(r=50\) replicates.
 
 \subsection{Data Preparation}\label{data-preparation}
 
-A simulation strategy as in \citet{rimal2019pred} is adopted for
-preparation of data where the estimation error
-\((\beta_j - \hat{\beta}_j)^t(\beta_j - \hat{\beta}_j))\) is measured
-for each method, design and replication using number of components
-ranging from 0 to 10.
+The dataset for further analysis consists of a) 32 designs created by
+the factors related to simulation parameters, b) 5 estimation methods,
+c) 11 (0-10) number of components, d) 50 replicates and e) 4 estimation
+error corresponding to each response computed as,
+\[\left(\widehat{\mathcal{EE}_\circ}\right) = \left(\beta - \hat{\beta}\right)^t\left(\beta - \hat{\beta}\right)\]
+In addition, we will also refer to the results of prediction error in
+\citet{rimal2019pred}.
 
-\section{Exploration}\label{exploration}
+Our discussion revolves around, a) minimum estimation error corresponds
+to \emph{Error Dataset} and b) number of average components used by them
+to obtain the minimum estimation error \emph{Component Dataset} for
+every estimation methods.
+
+\subsubsection{Error Dataset:}\label{error-dataset}
+
+For a given estimation method, design, and response, the component that
+gives the minimum of estimation error averaged over all replicates is
+selected as,
+
+\begin{equation}
+  l_\circ = \operatorname*{argmin}_{l}\left[\frac{1}{50}\sum_{i=1}^{50}{\left(\widehat{\mathcal{EE}}_\circ\right)_{i}}\right]
+\end{equation}
+
+The estimation error \(\widehat{\mathcal{EE}}_\circ\) for every methods,
+design and response corresponding to \(l_\circ\) component is then
+regarded as \emph{error dataset} in the subsequent analysis. Let
+\(\mathbf{u}_{8000\times4}=(u_j)\) for \(j = 1, \ldots 4\) be the
+outcome variables measuring the estimation error corresponding to the
+response \(j\) in the context of this dataset.
+
+\subsubsection{Component Dataset:}\label{component-dataset}
+
+\begin{equation}
+  l_{\circ} = \operatorname*{argmin}_{l}\left[\widehat{\mathcal{EE}}_{\circ}\right]
+\end{equation}
+
+\hypertarget{exploration}{\section{Exploration}\label{exploration}}
 
 This section explores the variation in the \emph{error dataset} and the
 \emph{component dataset} for which we have used Principal Component
 Analysis (PCA). Let \(t_u\) and \(t_v\) be the principal component score
-sets corresponding to PCA run on the \(u\) and \(v\) matrices
-respectively. The scores density in Figure
+sets corresponding to PCA run on the \(\mathbf{u}\) and \(\mathbf{v}\)
+matrices respectively. The scores density in Figure
 \ref{fig:est-pca-hist-mthd-gamma-relpos} and Figure
 \ref{fig:comp-pca-hist-mthd-gamma-relpos} correspond to the first
-principal component of \(u\) and \(v\), i.e.~the first column of \(t_u\)
-and \(t_v\) respectively.
+principal component of \(\mathbf{u}\) and \(\mathbf{v}\), i.e.~the first
+column of \(t_u\) and \(t_v\) respectively.
 
 
 
@@ -642,9 +690,47 @@ difficult model as obtained from Design 9.
 
 \section{Analysis}\label{analysis}
 
-\subsection{Dataset for Analysis}\label{dataset-for-analysis}
+A statistical analysis using Multivariate Analysis of variance (MANOVA)
+model is performed on \emph{error dataset} and \emph{component dataset}
+in order to understand the association between data properties and the
+estimation methods. Let the corresponding models be \emph{error model}
+\eqref{eq:err-model} and \emph{component model} \eqref{eq:comp-model}. In
+the model, we will consider the interaction of simulation parameters
+(\texttt{p}, \texttt{gamma}, \texttt{eta}, and \texttt{relpos}) and
+\texttt{Method} The model is fitted using corresponding \emph{error
+dataset} (\(\mathbf{u}\)) and \emph{component dataset} (\(\mathbf{v}\)).
 
-\subsection{Discuss Model}\label{discuss-model}
+\textbf{Error Model:}
+
+\begin{equation}
+  \mathbf{u} = \boldsymbol{\mu} +
+  (\texttt{p} + \texttt{gamma} + \texttt{eta} +
+    \texttt{relpos} + \texttt{Methods})^3 +
+    \boldsymbol{\varepsilon}
+  \label{eq:err-model}
+\end{equation}
+
+\textbf{Component Model:}
+
+\begin{equation}
+  \mathbf{v} = \boldsymbol{\mu} +
+  (\texttt{p} + \texttt{gamma} + \texttt{eta} +
+    \texttt{relpos} + \texttt{Methods})^3 +
+    \boldsymbol{\varepsilon}
+  \label{eq:comp-model}
+\end{equation}
+
+where, \(\mathbf{u}\) corresponds to the estimation errors in
+\emph{error dataset} and \(\mathbf{v}\) corresponds to the number of
+components used by a method to obtain minimum estimation error in the
+\emph{component dataset}.
+
+To make the analysis equivalent to \citet{rimal2019pred}, we have also
+used Pillai's trace statistic for accessing the result of MANOVA. Figure
+\ref{fig:manova-plot} plots the Pillai's trace statistics as bars with
+corresponding F-values as text labels. The left plot corresponds to the
+\emph{error model} and the right plot corresponds to the \emph{component
+model}.
 
 
 
@@ -656,12 +742,58 @@ bar represents the Pillai Statistic and the text labels are F-value for
 corresponding factor.}\label{fig:manova-plot}
 \end{figure}
 
-\subsection{Interpretation of the fitted MANOVA
-Model}\label{interpretation-of-the-fitted-manova-model}
+\begin{description}
+\tightlist
+\item[\textbf{Error Model:}]
+Unlike prediction error in \citet{rimal2019pred}, \texttt{Method} has a
+lesser effect while the amount of multicollinearity controlled by
+\texttt{gamma} parameter has a huge effect in the case of estimation
+error (Figure \ref{fig:manova-plot}). In addition, the position of
+relevant predictors and its interaction with the \texttt{gamma}
+parameters also have a substantial effect on the estimation error. This
+also supports the results seen in the
+\protect\hyperlink{exploration}{Exploration} section where relevant
+predictors at position 5, 6, 7, 8 with high multicollinearity design
+creates large uninformative variance in the components 1, 2, 3, 4 making
+the design difficult. The effect of this on the estimation error is much
+larger than on the prediction error.
 
-\subsection{Effect of MANOVA}\label{effect-of-manova}
+Furthermore, the \texttt{eta} factor controlling the correlation between
+the responses, and its second-order interaction with other factors
+except for the number of predictors is significant. The effect is also
+comparable with the main effect of \texttt{Method} and \texttt{eta}.
+\item[\textbf{Component Model:}]
+Although the \texttt{Method} does not have a large impact on the
+estimation error, the \emph{component model} in Figure
+\ref{fig:manova-plot} (right) shows that the methods are significantly
+different and has a huge effect on the number of components they use to
+obtain the minimum estimation error. The result also corresponds to the
+case of prediction error in \citet{rimal2019pred}. However, the F-value
+corresponding the \texttt{relpos} and \texttt{gamma} shows that the
+significance of these factors are much stronger compared to the case of
+prediction error.
+\end{description}
 
-\subsubsection{Error Model}\label{error-model}
+We will further explore the effects of individual levels of different
+factors in the following subsection.
+
+\subsection{Effect Analysis of the Error
+Model}\label{effect-analysis-of-the-error-model}
+
+In figure \ref{fig:est-eff-plots} (left), the effect of correlation
+between the responses controlled by \texttt{eta} parameter has a clear
+influence on the estimation error and the effect is highly dependent on
+the estimation methods. In the case of envelope methods, the effect of
+\texttt{eta} on estimation error is smaller than other methods and are
+similar in the case of both levels of the position of relevant
+predictors (\texttt{relpos}). However, PCR, PLS1 and PLS2 have shown a
+clear difference in the estimation error for four different levels of
+response correlation. The error in the case of relevant predictors at
+position 5, 6, 7, 8 is huge as compared to the case where relevant
+predictors are at position 1, 2, 3, 4. Among these methods, PLS1 has the
+highest estimation error in both levels of relevant predictors since the
+method models the response variables independently and does not consider
+the correlation structure in them.
 
 
 
@@ -671,15 +803,37 @@ Model}\label{interpretation-of-the-fitted-manova-model}
 linear model of estimation error}\label{fig:est-eff-plots}
 \end{figure}
 
-\begin{itemize}
-\tightlist
-\item
-  Effect analysis of estimation error model
-\item
-  Tie up these results with prediction error in previous paper
-\end{itemize}
+Figure \ref{fig:est-eff-plots} (right) shows the large difference in the
+effect of two levels of the position of relevant predictors especially
+in the designs with high multicollinearity. In the case of high
+multicollinearity, all methods have noticeable poor performance compared
+to the case of low multicollinearity.
 
-\subsubsection{Component Model}\label{component-model}
+Figure \ref{fig:est-eff-plots} also shows that PCR and PLS2 methods have
+the smallest effect on the estimation error in both levels of relevant
+predictors in the case of moderate to high level of correlation present
+in the response. In the case of low correlation, envelope methods have
+the smallest estimation error. Similarly, the designs with low
+multicollinearity are favourable to the envelope methods. Their
+estimation errors in these cases are smaller than other methods.
+
+\subsection{Effect Analysis of the Component
+Model}\label{effect-analysis-of-the-component-model}
+
+In the case of \emph{component model}, envelope methods are the clear
+winner in almost all designs. In the case of low multicollinearity and
+position of relevant predictors at 1, 2, 3, 4, PLS1 has obtained the
+minimum estimation error similar to the envelope methods, however in the
+case of high multicollinearity PLS1 has also used a fairly large number
+of components to obtain the minimum prediction error. It is interesting
+to observe that the envelope methods have comparable and minimum
+estimation error in most of the designs have used 1-2 components on
+average. The effect of the correlation in the response has minimal
+effect on the number of components used by the methods. The design nine
+which we have considered in the previous section has minimum estimation
+error from envelope methods using at most 2 components by Xenv and 3
+components by Senv. This corresponds with the results seen in Figure
+\ref{fig:comp-eff-plots}.
 
 
 
@@ -688,14 +842,6 @@ linear model of estimation error}\label{fig:est-eff-plots}
 \includegraphics[width=1\linewidth]{Estimation-Paper_files/figure-latex/comp-eff-plots-1} \caption{Effect plot of some interactions of the multivariate
 linear model of number of components to get minimum prediction error}\label{fig:comp-eff-plots}
 \end{figure}
-
-\begin{itemize}
-\tightlist
-\item
-  Effect analysis of number of component model
-\item
-  Tie up these results in previous paper
-\end{itemize}
 
 \section{Discussion and Conclusion}\label{discussion-and-conclusion}
 

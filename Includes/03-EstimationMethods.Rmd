@@ -1,0 +1,75 @@
+# Estimation Methods #
+
+A regression model is written as,
+
+\begin{equation}
+\underset{(1\times m)}{\mathbf{y}} =
+  \underset{(1\times p)(p\times m)}
+    {\mathbf{x}\boldsymbol{\beta}} +
+  \underset{(1 \times m)}{\boldsymbol{\varepsilon}}
+(\#eq:reg-model)
+\end{equation}
+where $\mathbf{y}$ is a vector of $m$ responses measured about their means, $\mathbf{x}$ is a vector of $p$ predictors measured about their means, $\boldsymbol{\beta}$ is a matrix of regression coefficients and $\boldsymbol{\varepsilon}$ is a vector of independent error terms with constant variance $\boldsymbol{\Sigma}_{y|x}$. In ordinary least squares, coefficient $\boldsymbol{\beta}$ is estimated as,
+
+\begin{equation}
+\underset{(p\times m)}{\boldsymbol{\hat{\beta}}} =
+  \left(\underset{(p\times n)}{\mathbf{x}^t}
+  \underset{(n\times p)}{\mathbf{x}}\right)^{-1}
+  \underset{(p \times n)(n \times m)}{\mathbf{x}^t\mathbf{y}}
+(\#eq:reg-beta)
+\end{equation}
+
+## Principal Components Regression ##
+
+Principal Components are new set of variables from the transformation of original dataset such that they are uncorrelated with each other and the variation in the original data are ordered from first to last of these new variables. Let us define a transformation of $\mathbf{x}$ as,
+
+\begin{equation}
+\underset{(1\times p)}{\mathbf{x}} =
+  \underset{(1 \times k)}{\mathbf{z}}
+  \underset{(k \times p)}{\mathbf{R}^t}
+(\#eq:x2z)
+\end{equation}
+where $\mathbf{R}$ is the eigenvectors corresponding to the covariance of
+$\mathbf{x}$ and $\mathbf{z}$ are the principal components. A regression model  can be defined in terms of $\mathbf{z}$ as,
+
+\begin{equation}
+\underset{(1 \times m)}{\mathbf{y}} =
+  \underset{(1 \times k)}{\mathbf{z}}
+    \underset{(k \times m)}{\boldsymbol{\alpha}} +
+  \underset{(1 \times m)}{\boldsymbol{\varepsilon}}
+(\#eq:latent-model)
+\end{equation}
+
+Since the variation is ordered in $z$, only $k\le p$ columns of $z$ are used so that $p-k$ uninformative components are not used for modeling. The regression coefficient of \@ref(eq:latent-model) can be estimated as,
+
+\begin{equation}
+\underset{(k\times m)}{\boldsymbol{\hat{\alpha}}} =
+  \left(\underset{(k \times n)}{\mathbf{z}^t}
+    \underset{(n \times k)}{\mathbf{z}}\right)^{-1}
+  \underset{(k \times n)(n \times m)}{\mathbf{z}^t\mathbf{y}}
+(\#eq:reg-alpha)
+\end{equation}
+
+Using \@ref(eq:x2z) in \@ref(eq:reg-beta), we get,
+
+$$
+\begin{aligned}
+\underset{(p\times m)}{\boldsymbol{\hat{\beta}}} =
+  \left[
+    \underset{(p\times k)(k \times n)}{\mathbf{R}\mathbf{z}^t}
+    \underset{(n\times k)(k \times p)}{\mathbf{z} \mathbf{R}^t}
+  \right]^{-1}
+  \underset{(p\times k)(k \times n)}{\mathbf{R}\mathbf{z}^t}
+  \underset{(n\times m)}{y}
+\end{aligned}
+$$
+
+## Partial Least Squares Regression ##
+- How beta coefficients are constructed
+- How it is dependent on the variance-covariance matrices
+- In what way PLS1 and PLS2 differ
+
+## Envelope Estimations ##
+- How beta coefficients are constructed
+- How it is dependent on the variance-covariance matrices
+- In what way Xenv and Senv differ

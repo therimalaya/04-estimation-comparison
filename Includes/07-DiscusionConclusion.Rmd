@@ -1,0 +1,3 @@
+# Discussion and Conclusion
+- A similar discussion but based more on why the methods worked in the way we have seen in the results in previous sections
+- Some concluding remarks and limitations (or a gate for further exploration)

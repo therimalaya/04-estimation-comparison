@@ -1,0 +1,140 @@
+# Analysis
+A statistical analysis using Multivariate Analysis of variance (MANOVA) model is performed on _error dataset_ and _component dataset_ in order to understand the association between data properties and the estimation methods. Let the corresponding models be _error model_ \@ref(eq:err-model) and _component model_ \@ref(eq:comp-model). In the model, we will consider the interaction of simulation parameters (`p`, `gamma`, `eta`, and `relpos`) and `Method` The model is fitted using corresponding _error dataset_ ($\mathbf{u}$) and _component dataset_ ($\mathbf{v}$).
+
+**Error Model:**
+\begin{equation}
+  \mathbf{u} = \boldsymbol{\mu} +
+  (\texttt{p} + \texttt{gamma} + \texttt{eta} +
+    \texttt{relpos} + \texttt{Methods})^3 +
+    \boldsymbol{\varepsilon}
+  (\#eq:err-model)
+\end{equation}
+
+**Component Model:**
+\begin{equation}
+  \mathbf{v} = \boldsymbol{\mu} +
+  (\texttt{p} + \texttt{gamma} + \texttt{eta} +
+    \texttt{relpos} + \texttt{Methods})^3 +
+    \boldsymbol{\varepsilon}
+  (\#eq:comp-model)
+\end{equation}
+
+where, $\mathbf{u}$ corresponds to the estimation errors in _error dataset_ and $\mathbf{v}$  corresponds to the number of components used by a method to obtain minimum estimation error in the _component dataset_.
+
+To make the analysis equivalent to @rimal2019pred, we have also used Pillai's trace statistic for accessing the result of MANOVA. Figure \@ref(fig:manova-plot) plots the Pillai's trace statistics as bars with corresponding F-values as text labels. The left plot corresponds to the _error model_ and the right plot corresponds to the _component model_.
+
+
+```{r manova-model}
+est_mdl <- lm(
+  formula = cbind(Y1, Y2, Y3, Y4) ~ (p + gamma + eta + relpos + Method) ^ 3,
+  data = est_min)
+comp_mdl <- lm(
+  formula = cbind(Y1, Y2, Y3, Y4) ~ (p + gamma + eta + relpos + Method) ^ 3,
+  data = comp_min)
+```
+
+```{r manova-summary}
+est_aov <- anova(est_mdl) %>%
+  as_tibble(rownames = "Factors")
+comp_aov <- anova(comp_mdl) %>%
+  as_tibble(rownames = "Factors")
+aov_df <- bind_rows(list(Est = est_aov, Comp = comp_aov), .id = "Type")
+```
+
+(ref:manova-plot) Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for corresponding factor.
+
+```{r manova-plot, fig.width=8, out.width='100%', fig.asp=0.8, fig.cap="(ref:manova-plot)"}
+model_labels <- c(
+  Comp = "Model: Number of Components",
+  Est = "Model: Estimation Error"
+)
+aov_df %>%
+    filter(!(Factors %in% c('Residuals', '(Intercept)'))) %>%
+    select(Model = Type, Factors, Pillai,
+           Fvalue = `approx F`, Pvalue = `Pr(>F)`) %>%
+    mutate(Model = factor(Model, levels = c("Est", "Comp"))) %>%
+    mutate(Pvalue = ifelse(Pvalue < 0.05, "<0.05", ">=0.05")) %>%
+    ggplot(aes(reorder(Factors, Pillai), Pillai, fill = Pvalue)) +
+    geom_bar(stat = "identity") +
+    geom_text(aes(label = round(Fvalue, 2)), family = 'mono',
+              angle = 0, hjust = "inward", size = 3) +
+    facet_grid(cols = vars(Model), scales = 'free_x',
+               labeller = labeller(Model = model_labels)) +
+    theme_grey(base_family = "mono") +
+    theme(legend.position = c(0.85, 0.1),
+          legend.direction = 'horizontal',
+          axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    guides(fill = guide_legend(title.position = "top",
+                               title.hjust = 0.5)) +
+    labs(x = NULL, y = "Pillai Statistic") +
+    coord_flip()
+```
+
+**Error Model:**
+: Unlike prediction error in @rimal2019pred, `Method` has a lesser effect while the amount of multicollinearity controlled by `gamma` parameter has a huge effect in the case of estimation error (Figure \@ref(fig:manova-plot)). In addition, the position of relevant predictors and its interaction with the `gamma` parameters also have a substantial effect on the estimation error. This also supports the results seen in the [Exploration] section where relevant predictors at position 5, 6, 7, 8 with high multicollinearity design creates large uninformative variance in the components 1, 2, 3, 4 making the design difficult. The effect of this on the estimation error is much larger than on the prediction error.
+: Furthermore, the `eta` factor controlling the correlation between the responses, and its second-order interaction with other factors except for the number of predictors is significant. The effect is also comparable with the main effect of `Method` and `eta`.
+
+
+**Component Model:**
+: Although the `Method` does not have a large impact on the estimation error, the _component model_ in Figure \@ref(fig:manova-plot) (right) shows that the methods are significantly different and has a huge effect on the number of components they use to obtain the minimum estimation error. The result also corresponds to the case of prediction error in @rimal2019pred. However, the F-value corresponding the `relpos` and `gamma` shows that the significance of these factors are much stronger compared to the case of prediction error.
+
+We will further explore the effects of individual levels of different factors in the following subsection.
+
+## Effect Analysis of the Error Model
+In figure \@ref(fig:est-eff-plots) (left), the effect of correlation between the responses controlled by `eta` parameter has a clear influence on the estimation error and the effect is highly dependent on the estimation methods. In the case of envelope methods, the effect of `eta` on estimation error is smaller than other methods and are similar in the case of both levels of the position of relevant predictors (`relpos`). However, PCR, PLS1 and PLS2 have shown a clear difference in the estimation error for four different levels of response correlation. The error in the case of relevant predictors at position 5, 6, 7, 8 is huge as compared to the case where relevant predictors are at position 1, 2, 3, 4. Among these methods, PLS1 has the highest estimation error in both levels of relevant predictors since the method models the response variables independently and does not consider the correlation structure in them.
+
+(ref:est-eff-plot) Effect plot of some interactions of the multivariate linear model of estimation error
+
+```{r est-eff-plots, fig.width=7, out.width='100%', fig.cap='(ref:est-eff-plot)', fig.asp = 0.6}
+thm <- theme(plot.title = element_blank(),
+             plot.subtitle = element_blank(),
+             legend.position = "top",
+             axis.title = element_blank())
+plt1 <- eff_df("eta:relpos:Method", est_mdl) %>%
+  eff_plot3(reorder = FALSE, labeller = label_both,
+            scales = "free_y") +
+  theme_grey(base_family = "mono") +
+  thm
+plt2 <- eff_df("relpos:gamma:Method", est_mdl) %>%
+  eff_plot3(reorder = FALSE, labeller = label_both,
+            scales = "free_y") +
+  theme_grey(base_family = "mono") +
+  thm
+plt <- gridExtra::arrangeGrob(plt1, plt2, ncol = 2,
+                       bottom="Methods", padding = unit(0.04, 'npc'),
+                       left = "Fitted Estimation Error")
+grid::grid.newpage()
+grid::grid.draw(plt)
+```
+
+Figure \@ref(fig:est-eff-plots) (right) shows the large difference in the effect of two levels of the position of relevant predictors especially in the designs with high multicollinearity. In the case of high multicollinearity, all methods have noticeable poor performance compared to the case of low multicollinearity.
+
+Figure \@ref(fig:est-eff-plots) also shows that PCR and PLS2 methods have the smallest effect on the estimation error in both levels of relevant predictors in the case of moderate to high level of correlation present in the response. In the case of low correlation, envelope methods have the smallest estimation error. Similarly, the designs with low multicollinearity are favourable to the envelope methods. Their estimation errors in these cases are smaller than other methods.
+
+
+## Effect Analysis of the Component Model
+In the case of _component model_, envelope methods are the clear winner in almost all designs. In the case of low multicollinearity and position of relevant predictors at 1, 2, 3, 4, PLS1 has obtained the minimum estimation error similar to the envelope methods, however in the case of high multicollinearity PLS1 has also used a fairly large number of components to obtain the minimum prediction error. It is interesting to observe that the envelope methods have comparable and minimum estimation error in most of the designs have used  1-2 components on average. The effect of the correlation in the response has minimal effect on the number of components used by the methods. The design nine which we have considered in the previous section has minimum estimation error from envelope methods using at most 2 components by Xenv and 3 components by Senv. This corresponds with the results seen in Figure \@ref(fig:comp-eff-plots).
+
+(ref:comp-eff-plot) Effect plot of some interactions of the multivariate linear model of number of components to get minimum prediction error
+
+```{r comp-eff-plots, fig.width=7, out.width='100%', fig.cap='(ref:comp-eff-plot)', fig.asp = 0.6, fig.pos="!htb"}
+thm <- theme(plot.title = element_blank(),
+             plot.subtitle = element_blank(),
+             legend.position = "top",
+             axis.title = element_blank())
+plt1 <- eff_df("eta:relpos:Method", comp_mdl) %>%
+  eff_plot3(reorder = FALSE, labeller = label_both) +
+  theme_grey(base_family = "mono") +
+  thm
+plt2 <- eff_df("relpos:gamma:Method", comp_mdl) %>%
+  eff_plot3(reorder = FALSE, labeller = label_both) +
+  theme_grey(base_family = "mono") +
+  thm
+plt <- gridExtra::arrangeGrob(plt1, plt2, ncol = 2,
+                       bottom="Methods", padding = unit(0.04, 'npc'),
+                       left = "Fitted Number of Components")
+grid::grid.newpage()
+grid::grid.draw(plt)
+```
+
+

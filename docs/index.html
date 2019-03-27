@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-03-22">
+<meta name="date" content="2019-03-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -85,21 +85,18 @@ div.abstract{
 </ul></li>
 <li class="chapter" data-level="" data-path="experimental-design.html"><a href="experimental-design.html"><i class="fa fa-check"></i>Experimental Design</a></li>
 <li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html"><i class="fa fa-check"></i>Basis of Comparison</a><ul>
-<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html#data-preparation"><i class="fa fa-check"></i>Data Preparation</a></li>
+<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html#data-preparation"><i class="fa fa-check"></i>Data Preparation</a><ul>
+<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html#error-dataset"><i class="fa fa-check"></i>Error Dataset:</a></li>
+<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html#component-dataset"><i class="fa fa-check"></i>Component Dataset:</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html"><i class="fa fa-check"></i>Exploration</a></li>
 <li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i>Analysis</a><ul>
-<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#dataset-for-analysis"><i class="fa fa-check"></i>Dataset for Analysis</a></li>
-<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#discuss-model"><i class="fa fa-check"></i>Discuss Model</a></li>
-<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#interpretation-of-the-fitted-manova-model"><i class="fa fa-check"></i>Interpretation of the fitted MANOVA Model</a></li>
-<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#effect-of-manova"><i class="fa fa-check"></i>Effect of MANOVA</a><ul>
-<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#error-model"><i class="fa fa-check"></i>Error Model</a></li>
-<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#component-model"><i class="fa fa-check"></i>Component Model</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#effect-analysis-of-the-error-model"><i class="fa fa-check"></i>Effect Analysis of the Error Model</a></li>
+<li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#effect-analysis-of-the-component-model"><i class="fa fa-check"></i>Effect Analysis of the Component Model</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="discussion-and-conclusion.html"><a href="discussion-and-conclusion.html"><i class="fa fa-check"></i>Discussion and Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li class="toc-footer"><a href="https://bookdown.org" target="blank">Published with <em>BookDown</em></a></li>
 </ul>
@@ -133,7 +130,7 @@ KBM<br><a class="author_email" href="mailto:#"><a href="mailto:trygve.almoy@nmbu
 <address class="author_afil">
 NMBU<br><a class="author_email" href="mailto:#"><a href="mailto:solve.sabo@nmbu.no">solve.sabo@nmbu.no</a></a>
 </address>
-<p class="date"><em>2019-03-22</em></p>
+<p class="date"><em>2019-03-27</em></p>
 <div class="abstract">
 <p class="abstract">Abstract</p>
 <p>Prediction performance often does not reflect the estimation behaviour of a method. High error in estimation not necessarily results in high prediction error but can lead to an unreliable prediction when test data are in a different direction than the training data. In addition, the effect of a variable becomes unstable and can not be interpreted in such situations. Many research fields are more interested in these estimates than performing prediction. This study compares some newly-developed (envelope) and well-established (PCR, PLS) estimation methods using simulated data with specifically designed properties such as multicollinearity, the correlation between multiple responses and position of principal components of predictors that are relevant for the response. This study aims to give some insights into these methods and help the researchers to understand and use them for further study. <em>Write some specifics from the results to show what we have found.</em></p>
@@ -143,7 +140,8 @@ NMBU<br><a class="author_email" href="mailto:#"><a href="mailto:solve.sabo@nmbu.
 <h1>Introduction</h1>
 <p>Estimation of parameters in a regression model is an integral part of many research study. Research fields such as social science, econometrics, psychology and medical study are more interested in measuring the impact of certain indicator or variable rather than performing prediction. Such studies have a large influence on people’s perception and also help in policy making and decisions.</p>
 <p>Technology has facilitated researcher to collect a large amount of data however often times, such data either contains irrelevant information or are highly collinear. Researchers are devising new estimators to extract information and identify their inter-relationship. Some estimators are robust towards fixing the multicollinearity problem while some are targeted to model only the relevant information contained in the response variable.</p>
-<p>This study extends the <span class="citation">(Rimal, Almøy, and Sæbø <a href="references-1.html#ref-rimal2019pred">2019</a>)</span> and compares some well-established estimators such as Principal Components Analysis (PCA), Partial Least Squares (PLS) together with two new methods based on envelope estimation: Envelope estimation in predictor space (Xenv) <span class="citation">(R Dennis Cook, Li, and Chiaromonte <a href="references-1.html#ref-cook2010envelope">2010</a>)</span> and simultaneous estimation of envelope (Senv) <span class="citation">(R. Dennis Cook and Zhang <a href="references-1.html#ref-cook2015simultaneous">2015</a>)</span>. The estimation process of these methods is discussed in [Methods] section. The comparison tests the estimation performance of these methods using multi-response simulated data from a linear model with controlled properties. The properties include the number of predictors, level of multicollinearity, the correlation between different response variables and the position of relevant predictor components. These properties are explained in <a href="experimental-design.html#experimental-design">Experimental Design</a> section together with the strategy behind the simulation and data model.</p>
+<p>This study extends the <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-rimal2019pred">2019</a>)</span> and compares some well-established estimators such as Principal Components Analysis (PCA), Partial Least Squares (PLS) together with two new methods based on envelope estimation: Envelope estimation in predictor space (Xenv) <span class="citation">(R Dennis Cook, Li, and Chiaromonte <a href="references.html#ref-cook2010envelope">2010</a>)</span> and simultaneous estimation of envelope (Senv) <span class="citation">(R. Dennis Cook and Zhang <a href="references.html#ref-cook2015simultaneous">2015</a>)</span>. The estimation process of these methods is discussed in [Methods] section. The comparison tests the estimation performance of these methods using multi-response simulated data from a linear model with controlled properties. The properties include the number of predictors, level of multicollinearity, the correlation between different response variables and the position of relevant predictor components. These properties are explained in <a href="experimental-design.html#experimental-design">Experimental Design</a> section together with the strategy behind the simulation and data model.</p>
+
 </div>
             </section>
 
