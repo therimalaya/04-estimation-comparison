@@ -26,7 +26,7 @@ linespacing: 1.5
 fontfamily: mathpazo
 use-landscape-page: yes
 tables: yes
-bibliography: 'ref-db.bib'
+bibliography: 'References.bib'
 biblio-title: References
 biblio-style: elsarticle-harv
 link-citations: true

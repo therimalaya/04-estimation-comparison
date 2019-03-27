@@ -12,7 +12,16 @@ serve:
 	Rscript --quiet -e "servr::httd('docs', port = 5555, host = '0.0.0.0')"
 
 clean:
-	rm -rf $(DIR) && rm main*.* && rm -rf _bookdown_files
+	rm -f Estimation-Paper.Rmd
+	rm -f Estimation-Paper.log
+	rm -f Estimation-Paper.spl
+	rm -f Estimation-Paper.tex
+	rm -f Estimation-Paper.pdf
+	rm -f .DS_Store
+	rm -rf _bookdown_files
+
+cleanall:
+	make clean && rm -rf $(DIR)
 
 epub:
 	Rscript --quiet _render.R "bookdown::epub_book"

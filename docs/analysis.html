@@ -119,24 +119,24 @@ div.abstract{
 <div id="analysis" class="section level1">
 <h1>Analysis</h1>
 <p>A statistical analysis using Multivariate Analysis of variance (MANOVA) model is performed on <em>error dataset</em> and <em>component dataset</em> in order to understand the association between data properties and the estimation methods. Let the corresponding models be <em>error model</em> <a href="analysis.html#eq:err-model">(10)</a> and <em>component model</em> <a href="analysis.html#eq:comp-model">(11)</a>. In the model, we will consider the interaction of simulation parameters (<code>p</code>, <code>gamma</code>, <code>eta</code>, and <code>relpos</code>) and <code>Method</code> The model is fitted using corresponding <em>error dataset</em> (<span class="math inline">\(\mathbf{u}\)</span>) and <em>component dataset</em> (<span class="math inline">\(\mathbf{v}\)</span>).</p>
-<strong>Error Model:</strong>
+<p><strong>Error Model:</strong>
 <span class="math display" id="eq:err-model">\[\begin{equation}
   \mathbf{u} = \boldsymbol{\mu} +
   (\texttt{p} + \texttt{gamma} + \texttt{eta} +
     \texttt{relpos} + \texttt{Methods})^3 +
     \boldsymbol{\varepsilon}
   \tag{10}
-\end{equation}\]</span>
-<strong>Component Model:</strong>
+\end{equation}\]</span></p>
+<p><strong>Component Model:</strong>
 <span class="math display" id="eq:comp-model">\[\begin{equation}
   \mathbf{v} = \boldsymbol{\mu} +
   (\texttt{p} + \texttt{gamma} + \texttt{eta} +
     \texttt{relpos} + \texttt{Methods})^3 +
     \boldsymbol{\varepsilon}
   \tag{11}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>where, <span class="math inline">\(\mathbf{u}\)</span> corresponds to the estimation errors in <em>error dataset</em> and <span class="math inline">\(\mathbf{v}\)</span> corresponds to the number of components used by a method to obtain minimum estimation error in the <em>component dataset</em>.</p>
-<p>To make the analysis equivalent to <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred">2019</a>)</span>, we have also used Pillai’s trace statistic for accessing the result of MANOVA. Figure <a href="analysis.html#fig:manova-plot">8</a> plots the Pillai’s trace statistics as bars with corresponding F-values as text labels. The left plot corresponds to the <em>error model</em> and the right plot corresponds to the <em>component model</em>.</p>
+<p>To make the analysis equivalent to <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>, we have also used Pillai’s trace statistic for accessing the result of MANOVA. Figure <a href="analysis.html#fig:manova-plot">8</a> plots the Pillai’s trace statistics as bars with corresponding F-values as text labels. The left plot corresponds to the <em>error model</em> and the right plot corresponds to the <em>component model</em>.</p>
 
 <div class="figure"><span id="fig:manova-plot"></span>
 <img src="Estimation-Paper_files/figure-html/manova-plot-1.svg" alt="Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for corresponding factor." width="100%" />
@@ -146,12 +146,12 @@ Figure 8: Pillai Statistic and F-value for the MANOVA model. The bar represents 
 </div>
 <dl>
 <dt><strong>Error Model:</strong></dt>
-<dd>Unlike prediction error in <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred">2019</a>)</span>, <code>Method</code> has a lesser effect while the amount of multicollinearity controlled by <code>gamma</code> parameter has a huge effect in the case of estimation error (Figure <a href="analysis.html#fig:manova-plot">8</a>). In addition, the position of relevant predictors and its interaction with the <code>gamma</code> parameters also have a substantial effect on the estimation error. This also supports the results seen in the <a href="exploration.html#exploration">Exploration</a> section where relevant predictors at position 5, 6, 7, 8 with high multicollinearity design creates large uninformative variance in the components 1, 2, 3, 4 making the design difficult. The effect of this on the estimation error is much larger than on the prediction error.
+<dd>Unlike prediction error in <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>, <code>Method</code> has a lesser effect while the amount of multicollinearity controlled by <code>gamma</code> parameter has a huge effect in the case of estimation error (Figure <a href="analysis.html#fig:manova-plot">8</a>). In addition, the position of relevant predictors and its interaction with the <code>gamma</code> parameters also have a substantial effect on the estimation error. This also supports the results seen in the <a href="exploration.html#exploration">Exploration</a> section where relevant predictors at position 5, 6, 7, 8 with high multicollinearity design creates large uninformative variance in the components 1, 2, 3, 4 making the design difficult. The effect of this on the estimation error is much larger than on the prediction error.
 </dd>
 <dd>Furthermore, the <code>eta</code> factor controlling the correlation between the responses, and its second-order interaction with other factors except for the number of predictors is significant. The effect is also comparable with the main effect of <code>Method</code> and <code>eta</code>.
 </dd>
 <dt><strong>Component Model:</strong></dt>
-<dd>Although the <code>Method</code> does not have a large impact on the estimation error, the <em>component model</em> in Figure <a href="analysis.html#fig:manova-plot">8</a> (right) shows that the methods are significantly different and has a huge effect on the number of components they use to obtain the minimum estimation error. The result also corresponds to the case of prediction error in <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred">2019</a>)</span>. However, the F-value corresponding the <code>relpos</code> and <code>gamma</code> shows that the significance of these factors are much stronger compared to the case of prediction error.
+<dd>Although the <code>Method</code> does not have a large impact on the estimation error, the <em>component model</em> in Figure <a href="analysis.html#fig:manova-plot">8</a> (right) shows that the methods are significantly different and has a huge effect on the number of components they use to obtain the minimum estimation error. The result also corresponds to the case of prediction error in <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>. However, the F-value corresponding the <code>relpos</code> and <code>gamma</code> shows that the significance of these factors are much stronger compared to the case of prediction error.
 </dd>
 </dl>
 <p>We will further explore the effects of individual levels of different factors in the following subsection.</p>
@@ -237,7 +237,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
