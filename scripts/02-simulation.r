@@ -36,7 +36,6 @@ out <- map(1:50, function(r) {
   rep_chr  <- formatC(r, digits = 0, width = 2, format = "f", flag = "0")
   seed     <- as.numeric(paste0(dgn_chr, mthd_chr, rep_chr))
   use_pc <- all(mthd %in% c("Xenv", "Yenv", "Senv"), dgn %in% wide_idx)
-  browser()
   set.seed(seed)
   res <- design %>%
     get_design(dgn) %>%

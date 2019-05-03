@@ -274,7 +274,7 @@ getPredErr <- function(coef, minerr, trueBeta, sigma, scale = FALSE){
         return(diag(out))
     })
     names(out) <- c("0", dimnames(coef)[[3]])
-    ret <- map_df(out, ~map_df(.x, ~data_frame(Pred_Error = .x),
+    ret <- map_df(out, ~map_df(.x, ~tibble(Pred_Error = .x),
                                .id = "Response"),
     .id = "Tuning_Param")
     ret <- ret %>%
@@ -296,7 +296,7 @@ getEstErr <- function(coef, trueBeta){
         diag(err_out)
     })
     names(out) <- c("0", dimnames(coef)[[3]])
-    ret <- map_df(out, ~map_df(.x, ~data_frame(
+    ret <- map_df(out, ~map_df(.x, ~tibble(
         Est_Error = .x
     ), .id = "Response"),
     .id = "Tuning_Param")
@@ -356,6 +356,16 @@ coef_errors <- function(sim_obj, est_method, scale = FALSE, ...) {
     ## Estimation Error ----
     est_err <- coef %>%
         getEstErr(trueBeta = get_true_value(sim_obj, "coef"))
+    if (scale) {
+      varvec_y <- diag(sim_obj$Sigma[1:sim_obj$m, 1:sim_obj$m])
+      vardf_y <- tibble(
+        Response = seq_along(varvec_y),
+        Variance = varvec_y
+      )
+      est_err <- est_err %>% left_join(vardf_y, by = "Response") %>% 
+        mutate(Est_Error = Est_Error / Variance) %>% 
+        select(-Variance)
+    }
     class(est_err) <- append(class(est_err), "estimation_error_df")
 
     out <- list(

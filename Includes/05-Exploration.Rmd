@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Exploration
 
 This section explores the variation in the _error dataset_ and the _component dataset_ for which we have used Principal Component Analysis (PCA). Let $t_u$ and $t_v$ be the principal component score sets corresponding to PCA run on the $\mathbf{u}$ and $\mathbf{v}$ matrices respectively. The scores density in Figure \@ref(fig:est-pca-hist-mthd-gamma-relpos) and Figure \@ref(fig:comp-pca-hist-mthd-gamma-relpos) correspond to the first principal component of $\mathbf{u}$ and $\mathbf{v}$, i.e. the first column of $t_u$ and $t_v$ respectively.
@@ -12,37 +17,53 @@ comp_dta_with_pc <- bind_cols(comp_min, as.data.frame(scores(comp_pca)[]))
 ```
 
 ```{r pc-hist-plot-function}
-pc_density_plot <- function(dta, expl_var, title) {
-    dta %>%
-        ggplot(aes(PC1, eta, fill = relpos)) +
-        geom_density_ridges(
-            scale = 1,
-            alpha = 0.4, size = 0.25) +
-        geom_density_ridges(
-            scale = 0.95,
-            alpha = 0.2, size = 0.25,
-            stat = "binline", bins = 30) +
-        facet_wrap(
-            . ~ interaction(Method, paste0("gamma:", gamma), sep = "|"),
-            scales = 'free_x', ncol = 5,
-            labeller = labeller(gamma = label_both, p = label_both)) +
-        theme_grey(base_family = 'mono') +
-        theme(
-            legend.position = "bottom",
-            strip.text = element_text(family = "mono")) +
-        labs(x = paste0("PC1(", expl_var[1], "%)")) +
-        ggtitle(title) +
-        scale_x_continuous(breaks = scales::pretty_breaks(3)) +
-        scale_color_brewer(palette = "Set1") +
-        scale_fill_brewer(palette = "Set1")
+pc_density_plot <- function(dta, expl_var, title, facet_vars = c("Method", "gamma"),
+                            x_var = PC1, y_var = eta, fill_var = relpos, ncol = 5) {
+  x_var <- enquo(x_var)
+  y_var <- enquo(y_var)
+  fill_var <- enquo(fill_var)
+  plt <- dta %>%
+    ggplot(aes(!!x_var, !!y_var, fill = !!fill_var)) +
+    geom_density_ridges(
+      scale = 1,
+      alpha = 0.4, size = 0.25) +
+    geom_density_ridges(
+      scale = 0.95,
+      alpha = 0.2, size = 0.25,
+      stat = "binline", bins = 30) +
+    facet_grid(as.formula(paste(facet_vars, collapse = "~")),
+               scales = 'free_x', labeller = label_both) +
+    # facet_wrap(
+    #   . ~ do.call(interaction, append(facet_vars, facet_args)),
+    #   scales = 'free_x', ncol = ncol,
+    #   labeller = labeller(gamma = label_both, p = label_both)) +
+    theme_grey(base_family = 'mono') +
+    theme(
+      legend.position = "bottom",
+      strip.text = element_text(family = "mono")) +
+    labs(x = paste0("PC1(", expl_var[1], "%)")) +
+    ggtitle(title) +
+    scale_x_continuous(breaks = scales::pretty_breaks(3)) +
+    scale_color_brewer(palette = "Set1") +
+    scale_fill_brewer(palette = "Set1")
+  return(plt)
 }
 ```
 
 (ref:est-hist) Scores density corresponding to first principal component of _error dataset_ ($\mathbf{u}$) subdivided by `methods`, `gamma` and `eta` and grouped by `relpos`.
 
 ```{r est-pca-hist-mthd-gamma-relpos, message=FALSE, warning=FALSE, fig.cap="(ref:est-hist)", fig.pos="!htb"}
-pc_density_plot(est_dta_with_pc, expl_var,
-                title = "Density of PCA scores for error model")
+est_dta_with_pc %>% 
+  filter(PC1 <= 40) %>% 
+  pc_density_plot(
+    expl_var = expl_var,
+    x_var = PC1,
+    y_var = Method,
+    fill_var = relpos,
+    ncol = 4,
+    facet_vars = c("eta", "gamma + p"),
+    title = NULL) +
+    theme(legend.position = "none")
 ```
 
 The plot shows a clear difference between the effect of low and high multicollinearity in estimation error. In the case of low multicollinearity (`gamma: 0.2`), the estimation errors are smaller and have lesser variation compared to high multicollinearity (`gamma: 0.9`). High multicollinearity has a larger influence on all but noticeably in the methods based on envelopes. Some large estimation error in the envelope is more than 100 which in the case of other methods is less than 60.
@@ -95,11 +116,12 @@ coef_plt_pls2 <- coef_plot(
        subtitle = "Averaged over 50 Replicates") +
   theme(legend.position = "none")
 coef_plt_senv <- coef_plot(
-  dgn9_senv, ncomp = 10,
+  dgn9_senv, ncomp = 3,
   labeller = labeller(.rows = resp_lab, .cols = comp_lab)
 ) +
   labs(y = "Coefficient (Senv)",
-       x = "Predictors", title = NULL, subtitle = NULL)
+       x = "Predictors", title = NULL, subtitle = NULL) +
+  coord_cartesian(ylim = c(-1, 1))
 gridExtra::grid.arrange(
   coef_plt_pls2,
   coef_plt_senv,
