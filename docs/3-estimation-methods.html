@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Chapter 3 Estimation Methods | Comparison of Multivariate Estimation Methods" />
+<meta property="og:type" content="book" />
+<meta property="og:url" content="http://therimalaya.github.io/04-estimation-comparison" />
+
+
+<meta name="github-repo" content="therimalaya/04-estimation-comparison" />
+
+
+<meta name="date" content="2019-05-05" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="Chapter 3 Estimation Methods | Comparison of Multivariate Estimation Methods">
+
+<title>Chapter 3 Estimation Methods | Comparison of Multivariate Estimation Methods</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<style type="text/css">
+  p.abstract{
+    text-align: center;
+    font-weight: bold;
+  }
+  div.abstract{
+    margin: auto;
+    width: 90%;
+  }
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="2-simulation-model.html#simulation-model"><span class="toc-section-number">2</span> Simulation Model</a></li>
+<li class="has-sub"><a href="3-estimation-methods.html#estimation-methods"><span class="toc-section-number">3</span> Estimation Methods</a><ul>
+<li><a href="3-1-principal-components-regression.html#principal-components-regression"><span class="toc-section-number">3.1</span> Principal Components Regression</a></li>
+<li><a href="3-2-partial-least-squares-regression.html#partial-least-squares-regression"><span class="toc-section-number">3.2</span> Partial Least Squares Regression</a></li>
+<li><a href="3-3-envelope-estimations.html#envelope-estimations"><span class="toc-section-number">3.3</span> Envelope Estimations</a></li>
+</ul></li>
+<li><a href="4-experimental-design.html#experimental-design"><span class="toc-section-number">4</span> Experimental Design</a></li>
+<li class="has-sub"><a href="5-basis-of-comparison.html#basis-of-comparison"><span class="toc-section-number">5</span> Basis of Comparison</a><ul>
+<li class="has-sub"><a href="5-1-data-preparation.html#data-preparation"><span class="toc-section-number">5.1</span> Data Preparation</a><ul>
+<li><a href="5-1-data-preparation.html#error-dataset"><span class="toc-section-number">5.1.1</span> Error Dataset:</a></li>
+<li><a href="5-1-data-preparation.html#component-dataset"><span class="toc-section-number">5.1.2</span> Component Dataset:</a></li>
+</ul></li>
+</ul></li>
+<li><a href="6-exploration.html#exploration"><span class="toc-section-number">6</span> Exploration</a></li>
+<li class="has-sub"><a href="7-analysis.html#analysis"><span class="toc-section-number">7</span> Analysis</a><ul>
+<li><a href="7-1-effect-analysis-of-the-error-model.html#effect-analysis-of-the-error-model"><span class="toc-section-number">7.1</span> Effect Analysis of the Error Model</a></li>
+<li><a href="7-2-effect-analysis-of-the-component-model.html#effect-analysis-of-the-component-model"><span class="toc-section-number">7.2</span> Effect Analysis of the Component Model</a></li>
+</ul></li>
+<li><a href="8-discussion-and-conclusion.html#discussion-and-conclusion"><span class="toc-section-number">8</span> Discussion and Conclusion</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="estimation-methods" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Estimation Methods</h1>
+<p>A regression model is written as,</p>
+<span class="math display" id="eq:reg-model">\[\begin{equation}
+\underset{(1\times m)}{\mathbf{y}} =
+  \underset{(1\times p)(p\times m)}
+    {\mathbf{x}\boldsymbol{\beta}} +
+  \underset{(1 \times m)}{\boldsymbol{\varepsilon}}
+\tag{3.1}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\mathbf{y}\)</span> is a vector of <span class="math inline">\(m\)</span> responses measured about their means, <span class="math inline">\(\mathbf{x}\)</span> is a vector of <span class="math inline">\(p\)</span> predictors measured about their means, <span class="math inline">\(\boldsymbol{\beta}\)</span> is a matrix of regression coefficients and <span class="math inline">\(\boldsymbol{\varepsilon}\)</span> is a vector of independent error terms with constant variance <span class="math inline">\(\boldsymbol{\Sigma}_{y|x}\)</span>. In ordinary least squares, coefficient <span class="math inline">\(\boldsymbol{\beta}\)</span> is estimated as,</p>
+<span class="math display" id="eq:reg-beta">\[\begin{equation}
+\underset{(p\times m)}{\boldsymbol{\hat{\beta}}} =
+  \left(\underset{(p\times n)}{\mathbf{x}^t}
+  \underset{(n\times p)}{\mathbf{x}}\right)^{-1}
+  \underset{(p \times n)(n \times m)}{\mathbf{x}^t\mathbf{y}}
+\tag{3.2}
+\end{equation}\]</span> 
+</div>
+<p style="text-align: center;">
+<a href="2-simulation-model.html"><button class="btn btn-default">Previous</button></a>
+<a href="https://github.com/therimalaya/04-estimation-comparison/edit/master/Includes/03-EstimationMethods.Rmd"><button class="btn btn-default">Edit</button></a>
+<a href="3-1-principal-components-regression.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

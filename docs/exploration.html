@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-05-03">
+<meta name="date" content="2019-05-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -127,7 +127,7 @@ Figure 4: Scores density corresponding to first principal component of <em>error
 </p>
 </div>
 <p>The plot shows a clear difference between the effect of low and high multicollinearity in estimation error. In the case of low multicollinearity (<code>gamma: 0.2</code>), the estimation errors are smaller and have lesser variation compared to high multicollinearity (<code>gamma: 0.9</code>). High multicollinearity has a larger influence on all but noticeably in the methods based on envelopes. Some large estimation error in the envelope is more than 100 which in the case of other methods is less than 60.</p>
-<p>Furthermore, the relevant predictor components, in general, has a noticeable effect on estimation error. When relevant predictors are at position 5, 6, 7, 8, the predictor components at 1, 2, 3, 4, which carry most of the variation, becomes irrelevant. These irrelevant components with large variation add noise to the model and consequently increases the estimation error. The effect intensifies on highly collinear predictors. Designs with high multicollinearity and relevant predictors at position 5, 6, 7, 8 are relatively difficult to model for all the methods. Although these difficult designs have a large effect on estimation error, their effect on prediction error is less influential <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>.</p>
+<p>Furthermore, the relevant predictor components, in general, has a noticeable effect on estimation error. When relevant predictors are at position 5, 6, 7, 8, the predictor components at 1, 2, 3, 4, which carry most of the variation, becomes irrelevant. These irrelevant components with large variation add noise to the model and consequently increases the estimation error. The effect intensifies on highly collinear predictors. Designs with high multicollinearity and relevant predictors at position 5, 6, 7, 8 are relatively difficult to model for all the methods. Although these difficult designs have a large effect on estimation error, their effect on prediction error is less influential <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-rimal2019pred">2019</a>)</span>.</p>
 
 <p>In the case of the <em>component dataset</em> (Figure Above), PCR, PLS1 and PLS2 methods have used more components in the case of high multicollinearity compared to low. Surprisingly, the envelope methods (Senv and Xenv) mostly have used a distinctly lesser number of components in both the cases of multicollinearity compared to other methods.</p>
 <p>The plot also shows that there is no clear effect due to the correlation of response variable on the number of components used to obtain minimum estimation error.</p>
@@ -137,7 +137,7 @@ Figure 4: Scores density corresponding to first principal component of <em>error
 Figure 5: Score density corresponding to first principal component of <em>component dataset</em> (<span class="math inline">\(\mathbf{v}\)</span>) subdivided by <code>methods</code>, <code>gamma</code> and <code>eta</code> and grouped by <code>relpos</code>.
 </p>
 </div>
-<p>A clear interaction between the position of relevant predictors and the multicollinearity visible in the plot suggest that the methods use a larger number of components when the relevant components are at position 5, 6, 7, 8. Additionally, the use of components escalate and the difference between the two levels of <code>relpos</code> becomes wider in the case of high multicollinearity in the model. Such performance is also seen the the case of prediction error (See <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>) however the number of components used in that case is lesser than in this case. Envelope methods, however, have shown a distinct result in contrast to the other methods. Even when the relevant predictors are at position 5, 6, 7, 8, the envelope methods, in contrast to other methods, have used an almost similar number of components as in the case of relevant predictor at position 1, 2, 3, 4. This shows that the envelope methods identify the predictor space relevant to the response differently and with few numbers of latent components.</p>
+<p>A clear interaction between the position of relevant predictors and the multicollinearity visible in the plot suggest that the methods use a larger number of components when the relevant components are at position 5, 6, 7, 8. Additionally, the use of components escalate and the difference between the two levels of <code>relpos</code> becomes wider in the case of high multicollinearity in the model. Such performance is also seen the the case of prediction error (See <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred">2019</a>)</span>) however the number of components used in that case is lesser than in this case. Envelope methods, however, have shown a distinct result in contrast to the other methods. Even when the relevant predictors are at position 5, 6, 7, 8, the envelope methods, in contrast to other methods, have used an almost similar number of components as in the case of relevant predictor at position 1, 2, 3, 4. This shows that the envelope methods identify the predictor space relevant to the response differently and with few numbers of latent components.</p>
 <p>Following section explore the prediction and estimation error together with the regression coefficient of Simultaneous Envelope and Partial Least Squares for a design having high multicollinearity with predictor components at position 5, 6, 7, 8. Here we will use design with <span class="math inline">\(n&gt;p\)</span> and no correlation between the response which corresponds to Design-9.</p>
 <div class="figure"><span id="fig:coef-plot"></span>
 <img src="Estimation-Paper_files/figure-html/coef-plot-1.svg" alt="Regression Coefficients estimated by PLS2 and Simultaneous methods on the data based on Design 9." width="100%" />
@@ -411,7 +411,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "true";
+    var src = "";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

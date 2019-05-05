@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Chapter 4 Experimental Design | Comparison of Multivariate Estimation Methods" />
+<meta property="og:type" content="book" />
+<meta property="og:url" content="http://therimalaya.github.io/04-estimation-comparison" />
+
+
+<meta name="github-repo" content="therimalaya/04-estimation-comparison" />
+
+
+<meta name="date" content="2019-05-05" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="Chapter 4 Experimental Design | Comparison of Multivariate Estimation Methods">
+
+<title>Chapter 4 Experimental Design | Comparison of Multivariate Estimation Methods</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<style type="text/css">
+  p.abstract{
+    text-align: center;
+    font-weight: bold;
+  }
+  div.abstract{
+    margin: auto;
+    width: 90%;
+  }
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="2-simulation-model.html#simulation-model"><span class="toc-section-number">2</span> Simulation Model</a></li>
+<li class="has-sub"><a href="3-estimation-methods.html#estimation-methods"><span class="toc-section-number">3</span> Estimation Methods</a><ul>
+<li><a href="3-1-principal-components-regression.html#principal-components-regression"><span class="toc-section-number">3.1</span> Principal Components Regression</a></li>
+<li><a href="3-2-partial-least-squares-regression.html#partial-least-squares-regression"><span class="toc-section-number">3.2</span> Partial Least Squares Regression</a></li>
+<li><a href="3-3-envelope-estimations.html#envelope-estimations"><span class="toc-section-number">3.3</span> Envelope Estimations</a></li>
+</ul></li>
+<li><a href="4-experimental-design.html#experimental-design"><span class="toc-section-number">4</span> Experimental Design</a></li>
+<li class="has-sub"><a href="5-basis-of-comparison.html#basis-of-comparison"><span class="toc-section-number">5</span> Basis of Comparison</a><ul>
+<li class="has-sub"><a href="5-1-data-preparation.html#data-preparation"><span class="toc-section-number">5.1</span> Data Preparation</a><ul>
+<li><a href="5-1-data-preparation.html#error-dataset"><span class="toc-section-number">5.1.1</span> Error Dataset:</a></li>
+<li><a href="5-1-data-preparation.html#component-dataset"><span class="toc-section-number">5.1.2</span> Component Dataset:</a></li>
+</ul></li>
+</ul></li>
+<li><a href="6-exploration.html#exploration"><span class="toc-section-number">6</span> Exploration</a></li>
+<li class="has-sub"><a href="7-analysis.html#analysis"><span class="toc-section-number">7</span> Analysis</a><ul>
+<li><a href="7-1-effect-analysis-of-the-error-model.html#effect-analysis-of-the-error-model"><span class="toc-section-number">7.1</span> Effect Analysis of the Error Model</a></li>
+<li><a href="7-2-effect-analysis-of-the-component-model.html#effect-analysis-of-the-component-model"><span class="toc-section-number">7.2</span> Effect Analysis of the Component Model</a></li>
+</ul></li>
+<li><a href="8-discussion-and-conclusion.html#discussion-and-conclusion"><span class="toc-section-number">8</span> Discussion and Conclusion</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="experimental-design" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Experimental Design</h1>
+<p>An R <span class="citation">(R Core Team <a href="references.html#ref-coreR2018">2018</a>)</span> package <code>simrel</code> <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-Rimal2018">2018</a>; Sæbø, Almøy, and Helland <a href="references.html#ref-saebo2015simrel">2015</a>)</span> is used to simulate the data for comparison. In the simulation the number of observation is fixed at <span class="math inline">\(n = 100\)</span> and following four simulation parameters are used to obtain the data with wide range of properties.</p>
+<dl>
+<dt><strong>Number of predictors:</strong></dt>
+<dd>In order to cover both tall <span class="math inline">\((n&gt;p)\)</span> and wide <span class="math inline">\((p&gt;n)\)</span> cases, <span class="math inline">\(p=20\)</span> and <span class="math inline">\(p=250\)</span> number of predictors are simulated.
+</dd>
+<dt><strong>Multicollinearity in predictor variables:</strong></dt>
+<dd>A parameter <code>gamma</code> <span class="math inline">\((\gamma)\)</span> in simulation controls the exponential decline of eigenvalues <span class="math inline">\((\lambda_i, i = 1, \ldots p)\)</span> corresponding to predictor variables as,
+<span class="math display" id="eq:gamma">\[\begin{equation}
+  \lambda_i = e^{-\gamma(i-1)}, \gamma &gt; 0 \text{ and } i = 1, 2, \ldots p
+  \tag{4.1}
+  \end{equation}\]</span>
+</dd>
+<dd>Two levels 0.2 and 0.8 of <code>gamma</code> are used for simulation so that level 0.2 simulates the data with low multicollinearity and 0.8 simulates the data with high multicollinearity.
+</dd>
+<dt><strong>Position of relevant components:</strong></dt>
+<dd>Initial principal components of a non-singular covariance matrix are larger than the later one. If the principal components corresponding to predictors with larger variation is not relevant for a response, this will just increase noise in the model. Here we will use two different levels of position index of predictor components: a) 1, 2, 3, 4 and b) 5, 6, 7, 8. Predictor components irrelevant for a response makes prediction difficult <span class="citation">(I. S. Helland and Almøy <a href="references.html#ref-Helland1994b">1994</a>)</span>. When combined with multicollinearity, this factor can create both easy and difficult model for both estimation and prediction.
+</dd>
+<dt><strong>Correlation in response variables:</strong></dt>
+<dd>Many estimators also uses the structure of response for their estimation. Here the correlation between the responses are varied through a simulation parameter <code>eta</code> <span class="math inline">\((\eta)\)</span>. The parameter controls the exponential decline of eigenvalues <span class="math inline">\(\kappa_j, j = 1, \ldots m (\text{ number of responses})\)</span> corresponding to response variables as,
+<span class="math display" id="eq:eta">\[\begin{equation}
+\eta_i = e^{-\kappa(j-1)}, \kappa &gt; 0 \text{ and } j = 1, 2, \ldots m
+\tag{4.2}
+\end{equation}\]</span>
+</dd>
+<dd>Four levels 0, 0.4, 0.8 and 1.2 of <code>eta</code> are used in the so that level 0 simulates the data with uncorrelated response variables while 1.2 simulates the highly correlated response variables.
+</dd>
+</dl>
+<div class="figure"><span id="fig:design-plot"></span>
+<img src="Estimation-Paper_files/figure-html/design-plot-1.svg" alt="Experimental Design of simulation parameters. Each point represents an unique data property." width="100%" />
+<p class="caption marginnote shownote">
+Figure 4.1: Experimental Design of simulation parameters. Each point represents an unique data property.
+</p>
+</div>
+<p>Here we have assumed that there is only one informative response component. In the final dataset, all predictors together span the same space as the relevant predictor components and all response together span the same space as the one informative response component. In addition, coefficient of determination is fixed at 0.8 for all dataset.</p>
+<p>A complete factorial design is adopted using different levels of factors discussed above to create 32 design (Figure <a href="4-experimental-design.html#fig:design-plot">4.1</a>) each of which gives dataset with unique properties. From each of these design and each estimation method, 50 different datasets are simulated so that each of them have same true population structure. In total, <span class="math inline">\(5 \times 32 \times 50\)</span> i.e., 8000 datasets are simulated.</p>
+
+<div class="figure"><span id="fig:cov-plot"></span>
+<img src="Estimation-Paper_files/figure-html/cov-plot-1.svg" alt="Covariance between predictor components and response variables in population (top) and in the simulated data (bottom) for four different designs. The Bar in the background represents the variance of corresponding components." width="100%" />
+<p class="caption marginnote shownote">
+Figure 4.2: Covariance between predictor components and response variables in population (top) and in the simulated data (bottom) for four different designs. The Bar in the background represents the variance of corresponding components.
+</p>
+</div>
+<p>The simulation properties are directly reflected in the simulated data. For example, in Figure <a href="4-experimental-design.html#fig:cov-plot">4.2</a>, design pairs 1 and 4 as well as 6 and 9 differs their properties only in terms of relevant predictor components while the design pairs 1 and 6 as well as 14 and 9 differs only in-terms of level of multicollinearity. The properties in population are also reflected in the simulated samples.</p>
+<p><em></em></p>
+</div>
+<p style="text-align: center;">
+<a href="3-3-envelope-estimations.html"><button class="btn btn-default">Previous</button></a>
+<a href="https://github.com/therimalaya/04-estimation-comparison/edit/master/Includes/04-ExperimentalDesign.Rmd"><button class="btn btn-default">Edit</button></a>
+<a href="5-basis-of-comparison.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

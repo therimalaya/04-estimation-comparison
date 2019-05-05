@@ -16,7 +16,7 @@ comp_expl_var <- explvar(comp_pca) %>% round(2)
 comp_dta_with_pc <- bind_cols(comp_min, as.data.frame(scores(comp_pca)[]))
 ```
 
-```{r pc-hist-plot-function}
+```{r}
 pc_density_plot <- function(dta, expl_var, title, facet_vars = c("Method", "gamma"),
                             x_var = PC1, y_var = eta, fill_var = relpos, ncol = 5) {
   x_var <- enquo(x_var)

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="7.1 Effect Analysis of the Error Model | Comparison of Multivariate Estimation Methods" />
+<meta property="og:type" content="book" />
+<meta property="og:url" content="http://therimalaya.github.io/04-estimation-comparison" />
+
+
+<meta name="github-repo" content="therimalaya/04-estimation-comparison" />
+
+
+<meta name="date" content="2019-05-05" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="7.1 Effect Analysis of the Error Model | Comparison of Multivariate Estimation Methods">
+
+<title>7.1 Effect Analysis of the Error Model | Comparison of Multivariate Estimation Methods</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<style type="text/css">
+  p.abstract{
+    text-align: center;
+    font-weight: bold;
+  }
+  div.abstract{
+    margin: auto;
+    width: 90%;
+  }
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="2-simulation-model.html#simulation-model"><span class="toc-section-number">2</span> Simulation Model</a></li>
+<li class="has-sub"><a href="3-estimation-methods.html#estimation-methods"><span class="toc-section-number">3</span> Estimation Methods</a><ul>
+<li><a href="3-1-principal-components-regression.html#principal-components-regression"><span class="toc-section-number">3.1</span> Principal Components Regression</a></li>
+<li><a href="3-2-partial-least-squares-regression.html#partial-least-squares-regression"><span class="toc-section-number">3.2</span> Partial Least Squares Regression</a></li>
+<li><a href="3-3-envelope-estimations.html#envelope-estimations"><span class="toc-section-number">3.3</span> Envelope Estimations</a></li>
+</ul></li>
+<li><a href="4-experimental-design.html#experimental-design"><span class="toc-section-number">4</span> Experimental Design</a></li>
+<li class="has-sub"><a href="5-basis-of-comparison.html#basis-of-comparison"><span class="toc-section-number">5</span> Basis of Comparison</a><ul>
+<li class="has-sub"><a href="5-1-data-preparation.html#data-preparation"><span class="toc-section-number">5.1</span> Data Preparation</a><ul>
+<li><a href="5-1-data-preparation.html#error-dataset"><span class="toc-section-number">5.1.1</span> Error Dataset:</a></li>
+<li><a href="5-1-data-preparation.html#component-dataset"><span class="toc-section-number">5.1.2</span> Component Dataset:</a></li>
+</ul></li>
+</ul></li>
+<li><a href="6-exploration.html#exploration"><span class="toc-section-number">6</span> Exploration</a></li>
+<li class="has-sub"><a href="7-analysis.html#analysis"><span class="toc-section-number">7</span> Analysis</a><ul>
+<li><a href="7-1-effect-analysis-of-the-error-model.html#effect-analysis-of-the-error-model"><span class="toc-section-number">7.1</span> Effect Analysis of the Error Model</a></li>
+<li><a href="7-2-effect-analysis-of-the-component-model.html#effect-analysis-of-the-component-model"><span class="toc-section-number">7.2</span> Effect Analysis of the Component Model</a></li>
+</ul></li>
+<li><a href="8-discussion-and-conclusion.html#discussion-and-conclusion"><span class="toc-section-number">8</span> Discussion and Conclusion</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="effect-analysis-of-the-error-model" class="section level2">
+<h2><span class="header-section-number">7.1</span> Effect Analysis of the Error Model</h2>
+<p>In figure <a href="7-1-effect-analysis-of-the-error-model.html#fig:est-eff-plots">7.2</a> (left), the effect of correlation between the responses controlled by <code>eta</code> parameter has a clear influence on the estimation error and the effect is highly dependent on the estimation methods. In the case of envelope methods, the effect of <code>eta</code> on estimation error is smaller than other methods and are similar in the case of both levels of the position of relevant predictors (<code>relpos</code>). However, PCR, PLS1 and PLS2 have shown a clear difference in the estimation error for four different levels of response correlation. The error in the case of relevant predictors at position 5, 6, 7, 8 is huge as compared to the case where relevant predictors are at position 1, 2, 3, 4. Among these methods, PLS1 has the highest estimation error in both levels of relevant predictors since the method models the response variables independently and does not consider the correlation structure in them.</p>
+
+<div class="figure"><span id="fig:est-eff-plots"></span>
+<img src="Estimation-Paper_files/figure-html/est-eff-plots-1.svg" alt="Effect plot of some interactions of the multivariate linear model of estimation error" width="100%" />
+<p class="caption marginnote shownote">
+Figure 7.2: Effect plot of some interactions of the multivariate linear model of estimation error
+</p>
+</div>
+<p>Figure <a href="7-1-effect-analysis-of-the-error-model.html#fig:est-eff-plots">7.2</a> (right) shows the large difference in the effect of two levels of the position of relevant predictors especially in the designs with high multicollinearity. In the case of high multicollinearity, all methods have noticeable poor performance compared to the case of low multicollinearity.</p>
+<p>Figure <a href="7-1-effect-analysis-of-the-error-model.html#fig:est-eff-plots">7.2</a> also shows that PCR and PLS2 methods have the smallest effect on the estimation error in both levels of relevant predictors in the case of moderate to high level of correlation present in the response. In the case of low correlation, envelope methods have the smallest estimation error. Similarly, the designs with low multicollinearity are favourable to the envelope methods. Their estimation errors in these cases are smaller than other methods.</p>
+</div>
+<p style="text-align: center;">
+<a href="7-analysis.html"><button class="btn btn-default">Previous</button></a>
+<a href="https://github.com/therimalaya/04-estimation-comparison/edit/master/Includes/06-Analysis.Rmd"><button class="btn btn-default">Edit</button></a>
+<a href="7-2-effect-analysis-of-the-component-model.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

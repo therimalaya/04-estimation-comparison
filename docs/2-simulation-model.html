@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Chapter 2 Simulation Model | Comparison of Multivariate Estimation Methods" />
+<meta property="og:type" content="book" />
+<meta property="og:url" content="http://therimalaya.github.io/04-estimation-comparison" />
+
+
+<meta name="github-repo" content="therimalaya/04-estimation-comparison" />
+
+
+<meta name="date" content="2019-05-05" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="Chapter 2 Simulation Model | Comparison of Multivariate Estimation Methods">
+
+<title>Chapter 2 Simulation Model | Comparison of Multivariate Estimation Methods</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<style type="text/css">
+  p.abstract{
+    text-align: center;
+    font-weight: bold;
+  }
+  div.abstract{
+    margin: auto;
+    width: 90%;
+  }
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="2-simulation-model.html#simulation-model"><span class="toc-section-number">2</span> Simulation Model</a></li>
+<li class="has-sub"><a href="3-estimation-methods.html#estimation-methods"><span class="toc-section-number">3</span> Estimation Methods</a><ul>
+<li><a href="3-1-principal-components-regression.html#principal-components-regression"><span class="toc-section-number">3.1</span> Principal Components Regression</a></li>
+<li><a href="3-2-partial-least-squares-regression.html#partial-least-squares-regression"><span class="toc-section-number">3.2</span> Partial Least Squares Regression</a></li>
+<li><a href="3-3-envelope-estimations.html#envelope-estimations"><span class="toc-section-number">3.3</span> Envelope Estimations</a></li>
+</ul></li>
+<li><a href="4-experimental-design.html#experimental-design"><span class="toc-section-number">4</span> Experimental Design</a></li>
+<li class="has-sub"><a href="5-basis-of-comparison.html#basis-of-comparison"><span class="toc-section-number">5</span> Basis of Comparison</a><ul>
+<li class="has-sub"><a href="5-1-data-preparation.html#data-preparation"><span class="toc-section-number">5.1</span> Data Preparation</a><ul>
+<li><a href="5-1-data-preparation.html#error-dataset"><span class="toc-section-number">5.1.1</span> Error Dataset:</a></li>
+<li><a href="5-1-data-preparation.html#component-dataset"><span class="toc-section-number">5.1.2</span> Component Dataset:</a></li>
+</ul></li>
+</ul></li>
+<li><a href="6-exploration.html#exploration"><span class="toc-section-number">6</span> Exploration</a></li>
+<li class="has-sub"><a href="7-analysis.html#analysis"><span class="toc-section-number">7</span> Analysis</a><ul>
+<li><a href="7-1-effect-analysis-of-the-error-model.html#effect-analysis-of-the-error-model"><span class="toc-section-number">7.1</span> Effect Analysis of the Error Model</a></li>
+<li><a href="7-2-effect-analysis-of-the-component-model.html#effect-analysis-of-the-component-model"><span class="toc-section-number">7.2</span> Effect Analysis of the Component Model</a></li>
+</ul></li>
+<li><a href="8-discussion-and-conclusion.html#discussion-and-conclusion"><span class="toc-section-number">8</span> Discussion and Conclusion</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="simulation-model" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Simulation Model</h1>
+<p>As a follow-up, this study will continue using the same simulation model used by <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred">2019</a>)</span>. The data is simulated from a multivariate normal distribution where we assume that the variation in response variable y is partly explained by the predictor variable <span class="math inline">\(x\)</span>. However, in many situations, only a subspace of the predictor space is relevant for the variation in the response <span class="math inline">\(y\)</span>. This space can be referred to as the relevant space of <span class="math inline">\(x\)</span> and the rest as irrelevant space. In a similar way, for a certain model, we can assume that a subspace in the response space exists and contains the information that the relevant space in predictor can explain (Figure <a href="2-simulation-model.html#fig:relevant-space">2.1</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:relevant-space"></span>
+<img src="Estimation-Paper_files/figure-html/relevant-space-1.svg" alt="Relevant space in a regression model" width="80%" />
+<p class="caption marginnote shownote">
+Figure 2.1: Relevant space in a regression model
+</p>
+</div>
+<p>Following the concept of relevant space, a subset of predictor components can be imagined to span the predictor space. These components can be regarded as relevant predictor components. <span class="citation">Naes and Martens (<a href="references.html#ref-Naes1985">1985</a>)</span> introduced the concept of relevant components which was explored further by <span class="citation">I. S. Helland (<a href="references.html#ref-helland1990partial">1990</a>)</span>, <span class="citation">Næs and Helland (<a href="references.html#ref-naes1993relevant">1993</a>)</span>, <span class="citation">I. S. Helland and Almøy (<a href="references.html#ref-Helland1994b">1994</a>)</span> and <span class="citation">I. S. Helland (<a href="references.html#ref-Helland2000">2000</a>)</span>. The corresponding eigenvectors were referred to as relevant eigenvectors. A similar logic is introduced by <span class="citation">R Dennis Cook, Li, and Chiaromonte (<a href="references.html#ref-cook2010envelope">2010</a>)</span> and later by <span class="citation">R. D. Cook, Helland, and Su (<a href="references.html#ref-cook2013envelopes">2013</a>)</span> as an envelope which is the space spanned by the relevant eigenvectors <span class="citation">(R. Dennis Cook <a href="references.html#ref-cook2018envelope">2018</a>, , p.101)</span>. See <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-Rimal2018">2018</a>)</span>, <span class="citation">Sæbø, Almøy, and Helland (<a href="references.html#ref-saebo2015simrel">2015</a>)</span> and <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred">2019</a>)</span> for in-depth background on the model.</p>
+
+</div>
+<p style="text-align: center;">
+<a href="index.html"><button class="btn btn-default">Previous</button></a>
+<a href="https://github.com/therimalaya/04-estimation-comparison/edit/master/Includes/02-SimulationModel.Rmd"><button class="btn btn-default">Edit</button></a>
+<a href="3-estimation-methods.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>
