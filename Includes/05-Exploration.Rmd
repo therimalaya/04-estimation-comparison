@@ -16,7 +16,7 @@ comp_expl_var <- explvar(comp_pca) %>% round(2)
 comp_dta_with_pc <- bind_cols(comp_min, as.data.frame(scores(comp_pca)[]))
 ```
 
-```{r}
+```{r pc-hist-plot-function}
 pc_density_plot <- function(dta, expl_var, title, facet_vars = c("Method", "gamma"),
                             x_var = PC1, y_var = eta, fill_var = relpos, ncol = 5) {
   x_var <- enquo(x_var)
@@ -53,17 +53,18 @@ pc_density_plot <- function(dta, expl_var, title, facet_vars = c("Method", "gamm
 (ref:est-hist) Scores density corresponding to first principal component of _error dataset_ ($\mathbf{u}$) subdivided by `methods`, `gamma` and `eta` and grouped by `relpos`.
 
 ```{r est-pca-hist-mthd-gamma-relpos, message=FALSE, warning=FALSE, fig.cap="(ref:est-hist)", fig.pos="!htb"}
-est_dta_with_pc %>% 
-  filter(PC1 <= 40) %>% 
-  pc_density_plot(
-    expl_var = expl_var,
-    x_var = PC1,
-    y_var = Method,
-    fill_var = relpos,
-    ncol = 4,
-    facet_vars = c("eta", "gamma + p"),
-    title = NULL) +
+plt <- est_dta_with_pc %>% 
+    filter(PC1 <= 40) %>% 
+    pc_density_plot(
+      expl_var = expl_var,
+      x_var = PC1,
+      y_var = Method,
+      fill_var = relpos,
+      ncol = 4,
+      facet_vars = c("eta", "gamma + p"),
+      title = "Density of PCA scores corresponding to error dataset") +
     theme(legend.position = "none")
+suppressMessages({print(plt)})
 ```
 
 The plot shows a clear difference between the effect of low and high multicollinearity in estimation error. In the case of low multicollinearity (`gamma: 0.2`), the estimation errors are smaller and have lesser variation compared to high multicollinearity (`gamma: 0.9`). High multicollinearity has a larger influence on all but noticeably in the methods based on envelopes. Some large estimation error in the envelope is more than 100 which in the case of other methods is less than 60.
@@ -77,8 +78,17 @@ In the case of the _component dataset_ (Figure Above), PCR, PLS1 and PLS2 method
 The plot also shows that there is no clear effect due to the correlation of response variable on the number of components used to obtain minimum estimation error.
 
 ```{r comp-pca-hist-mthd-gamma-relpos, message=FALSE, warning=FALSE, fig.cap="(ref:comp-hist)", fig.pos="!htb"}
-pc_density_plot(comp_dta_with_pc, comp_expl_var,
-                title = "Density of PCA scores for component model")
+plt <- comp_dta_with_pc %>% 
+    pc_density_plot(
+      expl_var = comp_expl_var,
+      x_var = PC1,
+      y_var = Method,
+      fill_var = relpos,
+      ncol = 4,
+      facet_vars = c("eta", "gamma + p"),
+      title = "Density of PCA scores corresponding to component dataset") +
+    theme(legend.position = "none")
+suppressMessages({print(plt)})
 ```
 
 
@@ -116,7 +126,7 @@ coef_plt_pls2 <- coef_plot(
        subtitle = "Averaged over 50 Replicates") +
   theme(legend.position = "none")
 coef_plt_senv <- coef_plot(
-  dgn9_senv, ncomp = 3,
+  dgn9_senv, ncomp = 5,
   labeller = labeller(.rows = resp_lab, .cols = comp_lab)
 ) +
   labs(y = "Coefficient (Senv)",
@@ -197,6 +207,7 @@ min_err <- pred_error %>%
   arrange(Error_Type, Response)
 ```
 ```{r min-err-dgn9}
+kableExtra::html_dependency_kePrint()
 min_err %>% 
   select(-Error_Type) %>% 
   knitr::kable(

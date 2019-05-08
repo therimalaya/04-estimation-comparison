@@ -2,7 +2,7 @@
 An R [@coreR2018] package `simrel` [@Rimal2018; @saebo2015simrel] is used to simulate the data for comparison. In the simulation the number of observation is fixed at $n = 100$ and following four simulation parameters are used to obtain the data with wide range of properties.
 
 **Number of predictors:**
-: In order to cover both tall $(n>p)$ and wide $(p>n)$ cases, $p=20$ and $p=250$ number of predictors are simulated.
+: In order to cover both tall $(n>p)$ and wide $(p>n)$ cases, $p= `r opts$p[1]`$ and $p= `r opts$p[2]`$ number of predictors are simulated.
 
 **Multicollinearity in predictor variables:**
 : A parameter `gamma` $(\gamma)$ in simulation controls the exponential decline of eigenvalues $(\lambda_i, i = 1, \ldots p)$ corresponding to predictor variables as,
@@ -10,10 +10,10 @@ An R [@coreR2018] package `simrel` [@Rimal2018; @saebo2015simrel] is used to sim
   \lambda_i = e^{-\gamma(i-1)}, \gamma > 0 \text{ and } i = 1, 2, \ldots p
   (\#eq:gamma)
   \end{equation}
-: Two levels 0.2 and 0.8 of `gamma` are used for simulation so that level 0.2 simulates the data with low multicollinearity and 0.8 simulates the data with high multicollinearity.
+: Two levels `r catvec(opts$gamma)` of `gamma` are used for simulation so that level `r opts$gamma[1]` simulates the data with low multicollinearity and `r opts$gamma[2]` simulates the data with high multicollinearity.
 
 **Position of relevant components:**
-: Initial principal components of a non-singular covariance matrix are larger than the later one. If the principal components corresponding to predictors with larger variation is not relevant for a response, this will just increase noise in the model. Here we will use two different levels of position index of predictor components: a) 1, 2, 3, 4 and b) 5, 6, 7, 8. Predictor components irrelevant for a response makes prediction difficult [@Helland1994b]. When combined with multicollinearity, this factor can create both easy and difficult model for both estimation and prediction.
+: Initial principal components of a non-singular covariance matrix are larger than the later one. If the principal components corresponding to predictors with larger variation is not relevant for a response, this will just increase noise in the data. Here we will use two different levels of position index of predictor components: a) `r opts$relpos[1]` and b)  `r opts$relpos[1]`. Predictor components irrelevant for a response makes prediction difficult [@Helland1994b]. When combined with multicollinearity, this factor can create both easy and difficult model for both estimation and prediction.
 
 **Correlation in response variables:**
 : Many estimators also uses the structure of response for their estimation. Here the correlation between the responses are varied through a simulation parameter `eta` $(\eta)$. The parameter controls the exponential decline of eigenvalues $\kappa_j, j = 1, \ldots m (\text{ number of responses})$ corresponding to response variables as,
@@ -21,7 +21,7 @@ An R [@coreR2018] package `simrel` [@Rimal2018; @saebo2015simrel] is used to sim
 \eta_i = e^{-\kappa(j-1)}, \kappa > 0 \text{ and } j = 1, 2, \ldots m
 (\#eq:eta)
 \end{equation}
-: Four levels 0, 0.4, 0.8 and 1.2 of `eta` are used in the so that level 0 simulates the data with uncorrelated response variables while 1.2 simulates the highly correlated response variables.
+: Four levels  `r catvec(opts$eta)` of `eta` are used in the so that level `r opts$eta[1]` simulates the data with uncorrelated response variables while `r opts$eta[length(opts$eta)]` simulates the highly correlated response variables.
 
 ```{r design-plot, fig.cap="Experimental Design of simulation parameters. Each point represents an unique data property.", echo = FALSE, fig.asp=0.4, fig.width=8}
 design_chr %>%
@@ -32,14 +32,14 @@ design_chr %>%
       aes(label = Design),
       nudge_x = 0.03, family = 'mono', fontface = "bold") +
     facet_grid(p ~ relpos, labeller=label_both) +
-    scale_y_reverse(breaks = opts$gamma) +
+  scale_y_reverse(breaks = opts$gamma) +
     scale_x_continuous(breaks = opts$eta) +
     theme_minimal(base_size = 16, base_family = "mono") +
     theme(panel.grid.minor = element_blank(), text = element_text(face = "bold")) +
     coord_fixed(ratio=0.5)
 ```
 
-Here we have assumed that there is only one informative response component. In the final dataset, all predictors together span the same space as the relevant predictor components and all response together span the same space as the one informative response component. In addition, coefficient of determination is fixed at 0.8 for all dataset.
+Here we have assumed that there is only one informative response component. In the final dataset, all predictors together span the same space as the relevant predictor components and all response together span the same space as the one informative response component. In addition, coefficient of determination is fixed at `r unique(opts$R2)` for all dataset.
 
 A complete factorial design is adopted using different levels of factors discussed above to create 32 design (Figure \@ref(fig:design-plot)) each of which gives dataset with unique properties. From each  of these design and each estimation method, 50 different datasets are simulated so that each of them have same true population structure. In total, $`r length(mthds)` \times `r nrow(design)` \times 50$ i.e., `r length(mthds) * nrow(design) * 50` datasets are simulated.
 
@@ -104,8 +104,6 @@ ggplot(sigma_zy, aes(Predictor, Covariance, color = factor(Response))) +
 
 The simulation properties are directly reflected in the simulated data. For example, in Figure \@ref(fig:cov-plot), design pairs 1 and 4 as well as 6 and 9 differs their properties only in terms of relevant predictor components while the design pairs 1 and 6 as well as 14 and 9 differs only in-terms of level of multicollinearity. The properties in population are also reflected in the simulated samples.
 
-_\alert{May be we need to write few thing on how easy or difficult data are simulated with the interaction of these properties}_
-
 ```{r data-prep}
 est_dta <- design_chr %>%
   select_if(function(x) n_distinct(x) > 1) %>%
@@ -158,32 +156,22 @@ for response $j = 1, \ldots 4$ in a given design $i=1, 2, \ldots 32$ and method 
 
 \begin{equation}
 \widehat{\mathcal{EE}_{ijkl}} =
-  \frac{1}{50}\sum_{r=0}^{50}{\left[\left(\boldsymbol{\beta}_{ij} -
-  \boldsymbol{\hat{\beta}_{ijklr}}\right)^t
-  \left(\boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijklr}}\right)\right]}
+  \frac{1}{50}\sum_{r=1}^{50}{\left[
+  \left(\mathcal{EE}_\circ\right)_{ijklr}
+  \right]}
 (\#eq:estimated-est-error)
 \end{equation}
-where, $\widehat{\mathcal{EE}_{ijkl}}$ is the estimated prediction error averaged over $r=50$ replicates.
+where, $\widehat{\mathcal{EE}_{ijkl}}$ is the estimated prediction error averaged over $r=50$ replicates and,
+$$\left(\mathcal{EE}_\circ\right)_{ijklr} = \left(\boldsymbol{\beta}_{ij} -\boldsymbol{\hat{\beta}_{ijklr}}\right)^t\left(\boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijklr}}\right)$$
 
-## Data Preparation
-The dataset for further analysis consists of a) 32 designs created by the factors related to simulation parameters, b) 5 estimation methods, c) 11 (0-10) number of components, d) 50 replicates and e) 4 estimation error corresponding to each response computed as, 
-$$\left(\widehat{\mathcal{EE}_\circ}\right) = \left(\beta - \hat{\beta}\right)^t\left(\beta - \hat{\beta}\right)$$ 
-In addition, we will also refer to the results of prediction error in @rimal2019pred.
-
-Our discussion revolves around,
-a) minimum estimation error corresponds to _Error Dataset_ and 
-b) number of average components used by them to obtain the minimum estimation error _Component Dataset_ for every estimation methods. 
-
-### Error Dataset:
-For a given estimation method, design, and response, the component that gives the minimum of estimation error averaged over all replicates is selected as, 
+Our further discussion revolves around _Error Dataset_ and _Component Dataset_ as in the prediction comparison paper @rimal2019pred. For a given estimation method, design, and response, the component that gives the minimum of estimation error averaged over all replicates is selected as, 
 \begin{equation}
-  l_\circ = \operatorname*{argmin}_{l}\left[\frac{1}{50}\sum_{i=1}^{50}{\left(\widehat{\mathcal{EE}}_\circ\right)_{i}}\right]
+  l_\circ = \operatorname*{argmin}_{l}\left[\frac{1}{50}\sum_{r=1}^{50}{\left(\widehat{\mathcal{EE}}_\circ\right)_{r}}\right]
+  (\#eq:min-err)
 \end{equation}
-The estimation error $\widehat{\mathcal{EE}}_\circ$ for every methods, design and response corresponding to $l_\circ$ component is then regarded as _error dataset_ in the subsequent analysis. Let $\mathbf{u}_{8000\times4}=(u_j)$ for $j = 1, \ldots 4$ be the outcome variables measuring the estimation error corresponding to the response $j$ in the context of this dataset.
-
-### Component Dataset:
+The estimation error $\widehat{\mathcal{EE}}_\circ$ for every methods, design and response corresponding to $l_\circ$ component, computed as \@ref(eq:min-err), is then regarded as _error dataset_ in the subsequent analysis. Let $\mathbf{u}_{8000\times4}=(u_j)$ for $j = 1, \ldots 4$ be the outcome variables measuring the estimation error corresponding to the response $j$ in the context of this dataset. Further, let the number of components that result in minimum estimation error in each replication be $l_\circ$ computed as \@ref(eq:min-comp) will be considred as _component dataset_.
 
 \begin{equation}
   l_{\circ} = \operatorname*{argmin}_{l}\left[\widehat{\mathcal{EE}}_{\circ}\right]
+  (\#eq:min-comp)
 \end{equation}
-

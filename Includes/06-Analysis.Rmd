@@ -103,8 +103,8 @@ plt2 <- eff_df("relpos:gamma:Method", est_mdl) %>%
 plt <- gridExtra::arrangeGrob(plt1, plt2, ncol = 2,
                        bottom="Methods", padding = unit(0.04, 'npc'),
                        left = "Fitted Estimation Error")
-grid::grid.newpage()
-grid::grid.draw(plt)
+suppressMessages(grid::grid.newpage())
+suppressMessages(grid::grid.draw(plt))
 ```
 
 Figure \@ref(fig:est-eff-plots) (right) shows the large difference in the effect of two levels of the position of relevant predictors especially in the designs with high multicollinearity. In the case of high multicollinearity, all methods have noticeable poor performance compared to the case of low multicollinearity.
@@ -133,8 +133,8 @@ plt2 <- eff_df("relpos:gamma:Method", comp_mdl) %>%
 plt <- gridExtra::arrangeGrob(plt1, plt2, ncol = 2,
                        bottom="Methods", padding = unit(0.04, 'npc'),
                        left = "Fitted Number of Components")
-grid::grid.newpage()
-grid::grid.draw(plt)
+suppressMessages(grid::grid.newpage())
+suppressMessages(grid::grid.draw(plt))
 ```
 
 

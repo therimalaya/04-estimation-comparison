@@ -17,6 +17,15 @@ bookdown::gitbook:
       facebook: no
       twitter: yes
       google: yes
+bookdown::pdf_book:
+  fig_caption: yes
+  citation_package: natbib
+  md_extensions: -autolink_bare_uris
+  template: 'templates/Elsarticle.tex' 
+  keep_tex: yes
+  dev: "pdf"
+bookdown::epub_book:
+  dev: svg
 # bookdown::tufte_html_book:
 #   toc: yes
 #   css: [style.css, toc.css]
@@ -27,14 +36,4 @@ bookdown::gitbook:
 #   theme: yeti
 #   number_sections: no
 #   css: "custom.css"
-bookdown::pdf_book:
-  fig_caption: yes
-  citation_package: natbib
-  md_extensions: -autolink_bare_uris
-  template: 'templates/Elsarticle.tex' 
-  keep_tex: yes
-  dev: "pdf"
-# bookdown::epub_book:
-#   dev: svg
-  
 # bookdown::word_document2: default

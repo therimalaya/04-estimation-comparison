@@ -1,12 +1,16 @@
 DIR="docs"
 
+all:
+	Rscript --quiet -e 'source("_render.R")'
+	
 gitbook:
 	Rscript --quiet _render.R "bookdown::gitbook"
 
 pdf:
 	Rscript --quiet _render.R "bookdown::pdf_book"
 
-all: pdf gitbook epub
+epub:
+	Rscript --quiet _render.R "bookdown::epub_book"
 
 serve:
 	Rscript --quiet -e "servr::httd('docs', port = 5555, host = '0.0.0.0')"
@@ -22,9 +26,6 @@ clean:
 
 cleanall:
 	make clean && rm -rf $(DIR)
-
-epub:
-	Rscript --quiet _render.R "bookdown::epub_book"
 
 .PHONY: all app
 
