@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-05-05">
+<meta name="date" content="2019-05-08">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -78,18 +78,9 @@ div.abstract{
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
 <li class="chapter" data-level="" data-path="simulation-model.html"><a href="simulation-model.html"><i class="fa fa-check"></i>Simulation Model</a></li>
-<li class="chapter" data-level="" data-path="estimation-methods.html"><a href="estimation-methods.html"><i class="fa fa-check"></i>Estimation Methods</a><ul>
-<li class="chapter" data-level="" data-path="estimation-methods.html"><a href="estimation-methods.html#principal-components-regression"><i class="fa fa-check"></i>Principal Components Regression</a></li>
-<li class="chapter" data-level="" data-path="estimation-methods.html"><a href="estimation-methods.html#partial-least-squares-regression"><i class="fa fa-check"></i>Partial Least Squares Regression</a></li>
-<li class="chapter" data-level="" data-path="estimation-methods.html"><a href="estimation-methods.html#envelope-estimations"><i class="fa fa-check"></i>Envelope Estimations</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="estimation-methods.html"><a href="estimation-methods.html"><i class="fa fa-check"></i>Estimation Methods</a></li>
 <li class="chapter" data-level="" data-path="experimental-design.html"><a href="experimental-design.html"><i class="fa fa-check"></i>Experimental Design</a></li>
-<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html"><i class="fa fa-check"></i>Basis of Comparison</a><ul>
-<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html#data-preparation"><i class="fa fa-check"></i>Data Preparation</a><ul>
-<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html#error-dataset"><i class="fa fa-check"></i>Error Dataset:</a></li>
-<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html#component-dataset"><i class="fa fa-check"></i>Component Dataset:</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="basis-of-comparison.html"><a href="basis-of-comparison.html"><i class="fa fa-check"></i>Basis of Comparison</a></li>
 <li class="chapter" data-level="" data-path="exploration.html"><a href="exploration.html"><i class="fa fa-check"></i>Exploration</a></li>
 <li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i>Analysis</a><ul>
 <li class="chapter" data-level="" data-path="analysis.html"><a href="analysis.html#effect-analysis-of-the-error-model"><i class="fa fa-check"></i>Effect Analysis of the Error Model</a></li>
@@ -118,48 +109,40 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="basis-of-comparison" class="section level1">
 <h1>Basis of Comparison</h1>
-<p>The focus of this study is to extend the exploration of <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred">2019</a>)</span> to compare the estimative performance of PCR, PLS1, PLS2, Xenv and Senv methods. The performance is measured on the basis of,</p>
+<p>The focus of this study is to extend the exploration of <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span> to compare the estimative performance of PCR, PLS1, PLS2, Xenv and Senv methods. The performance is measured on the basis of,</p>
 <ol style="list-style-type: lower-alpha">
 <li>average estimation error of the method using arbitrary number of components</li>
 <li>average number of components used by the methods to give minimum estimation error</li>
 </ol>
 <p>Let us define the expected estimation error as,</p>
-<span class="math display" id="eq:est-error">\[\begin{equation}
+<p><span class="math display" id="eq:est-error">\[\begin{equation}
 \mathcal{EE}_{ijkl} =
   \mathsf{E}{\left[\left(\boldsymbol{\beta}_{ij} -
   \boldsymbol{\hat{\beta}_{ijkl}}\right)^t
   \left(\boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijkl}}\right)\right]}
-\tag{8}
+\tag{6}
 \end{equation}\]</span>
-<p>for response <span class="math inline">\(j = 1, \ldots 4\)</span> in a given design <span class="math inline">\(i=1, 2, \ldots 32\)</span> and method <span class="math inline">\(k=1(PCR), \ldots 5(Senv)\)</span> using <span class="math inline">\(l=0, \ldots 10\)</span> number of components. Since both the expectation and the variance of <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> are unknown, the prediction error are estimated using data from 50 replications as follows,</p>
-<span class="math display" id="eq:estimated-est-error">\[\begin{equation}
+for response <span class="math inline">\(j = 1, \ldots 4\)</span> in a given design <span class="math inline">\(i=1, 2, \ldots 32\)</span> and method <span class="math inline">\(k=1(PCR), \ldots 5(Senv)\)</span> using <span class="math inline">\(l=0, \ldots 10\)</span> number of components. Since both the expectation and the variance of <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> are unknown, the prediction error are estimated using data from 50 replications as follows,</p>
+<p><span class="math display" id="eq:estimated-est-error">\[\begin{equation}
 \widehat{\mathcal{EE}_{ijkl}} =
-  \frac{1}{50}\sum_{r=0}^{50}{\left[\left(\boldsymbol{\beta}_{ij} -
-  \boldsymbol{\hat{\beta}_{ijklr}}\right)^t
-  \left(\boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijklr}}\right)\right]}
-\tag{9}
+  \frac{1}{50}\sum_{r=1}^{50}{\left[
+  \left(\mathcal{EE}_\circ\right)_{ijklr}
+  \right]}
+\tag{7}
 \end{equation}\]</span>
-<p>where, <span class="math inline">\(\widehat{\mathcal{EE}_{ijkl}}\)</span> is the estimated prediction error averaged over <span class="math inline">\(r=50\)</span> replicates.</p>
-<div id="data-preparation" class="section level2">
-<h2>Data Preparation</h2>
-<p>The dataset for further analysis consists of a) 32 designs created by the factors related to simulation parameters, b) 5 estimation methods, c) 11 (0-10) number of components, d) 50 replicates and e) 4 estimation error corresponding to each response computed as, <span class="math display">\[\left(\widehat{\mathcal{EE}_\circ}\right) = \left(\beta - \hat{\beta}\right)^t\left(\beta - \hat{\beta}\right)\]</span> In addition, we will also refer to the results of prediction error in <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred">2019</a>)</span>.</p>
-<p>Our discussion revolves around, a) minimum estimation error corresponds to <em>Error Dataset</em> and b) number of average components used by them to obtain the minimum estimation error <em>Component Dataset</em> for every estimation methods.</p>
-<div id="error-dataset" class="section level3">
-<h3>Error Dataset:</h3>
-For a given estimation method, design, and response, the component that gives the minimum of estimation error averaged over all replicates is selected as,
-<span class="math display">\[\begin{equation}
-  l_\circ = \operatorname*{argmin}_{l}\left[\frac{1}{50}\sum_{i=1}^{50}{\left(\widehat{\mathcal{EE}}_\circ\right)_{i}}\right]
+where, <span class="math inline">\(\widehat{\mathcal{EE}_{ijkl}}\)</span> is the estimated prediction error averaged over <span class="math inline">\(r=50\)</span> replicates and,
+<span class="math display">\[\left(\mathcal{EE}_\circ\right)_{ijklr} = \left(\boldsymbol{\beta}_{ij} -\boldsymbol{\hat{\beta}_{ijklr}}\right)^t\left(\boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijklr}}\right)\]</span></p>
+<p>Our further discussion revolves around <em>Error Dataset</em> and <em>Component Dataset</em> as in the prediction comparison paper <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>. For a given estimation method, design, and response, the component that gives the minimum of estimation error averaged over all replicates is selected as,
+<span class="math display" id="eq:min-err">\[\begin{equation}
+  l_\circ = \operatorname*{argmin}_{l}\left[\frac{1}{50}\sum_{r=1}^{50}{\left(\widehat{\mathcal{EE}}_\circ\right)_{r}}\right]
+  \tag{8}
 \end{equation}\]</span>
-<p>The estimation error <span class="math inline">\(\widehat{\mathcal{EE}}_\circ\)</span> for every methods, design and response corresponding to <span class="math inline">\(l_\circ\)</span> component is then regarded as <em>error dataset</em> in the subsequent analysis. Let <span class="math inline">\(\mathbf{u}_{8000\times4}=(u_j)\)</span> for <span class="math inline">\(j = 1, \ldots 4\)</span> be the outcome variables measuring the estimation error corresponding to the response <span class="math inline">\(j\)</span> in the context of this dataset.</p>
-</div>
-<div id="component-dataset" class="section level3">
-<h3>Component Dataset:</h3>
-<span class="math display">\[\begin{equation}
+The estimation error <span class="math inline">\(\widehat{\mathcal{EE}}_\circ\)</span> for every methods, design and response corresponding to <span class="math inline">\(l_\circ\)</span> component, computed as <a href="basis-of-comparison.html#eq:min-err">(8)</a>, is then regarded as <em>error dataset</em> in the subsequent analysis. Let <span class="math inline">\(\mathbf{u}_{8000\times4}=(u_j)\)</span> for <span class="math inline">\(j = 1, \ldots 4\)</span> be the outcome variables measuring the estimation error corresponding to the response <span class="math inline">\(j\)</span> in the context of this dataset. Further, let the number of components that result in minimum estimation error in each replication be <span class="math inline">\(l_\circ\)</span> computed as <a href="basis-of-comparison.html#eq:min-comp">(9)</a> will be considred as <em>component dataset</em>.</p>
+<p><span class="math display" id="eq:min-comp">\[\begin{equation}
   l_{\circ} = \operatorname*{argmin}_{l}\left[\widehat{\mathcal{EE}}_{\circ}\right]
-\end{equation}\]</span>
+  \tag{9}
+\end{equation}\]</span></p>
 
-</div>
-</div>
 </div>
             </section>
 
@@ -217,7 +200,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

@@ -22,3 +22,4 @@ iterators
 doParallel
 gridExtra
 ggridges
+crayon

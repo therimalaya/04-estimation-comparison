@@ -804,7 +804,7 @@ eff_plot2 <- function(term, model, show_errorbar = FALSE,
 ## ---- Relevant Space Diagram ----
 plot_relspace <- function(rect_height = c(0.6, 0.6), rect_width = c(0.2, 0.6), rect_gap = 0.1,
                           space_fill_color = c('blue4', 'green3'), rect_fill_color = NULL) {
-    require(grid)
+    suppressPackageStartupMessages(require(grid))
 
     ## Starting coordinate for y
     y_x0 <- 0.05
@@ -926,7 +926,7 @@ plot_relspace <- function(rect_height = c(0.6, 0.6), rect_width = c(0.2, 0.6), r
 
 ## ---- Data Exploration Plot ------
 plot_data_transform <- function() {
-  library(grid)
+  suppressPackageStartupMessages(library(grid))
   grid.newpage()
 
   fctr_rect <- rectGrob(x = 0.1, y = 0.5, height = 0.8, width = 0.15)
