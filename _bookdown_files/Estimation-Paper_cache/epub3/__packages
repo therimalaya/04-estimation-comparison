@@ -1,4 +1,5 @@
 base
+crayon
 pls
 Renvlp
 simrel
@@ -22,4 +23,3 @@ iterators
 doParallel
 gridExtra
 ggridges
-crayon

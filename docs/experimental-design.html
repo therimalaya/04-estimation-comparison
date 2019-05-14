@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-05-08">
+<meta name="date" content="2019-05-14">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -109,7 +109,7 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="experimental-design" class="section level1">
 <h1>Experimental Design</h1>
-<p>An R <span class="citation">(R Core Team <a href="references.html#ref-coreR2018" role="doc-biblioref">2018</a>)</span> package <code>simrel</code> <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-Rimal2018" role="doc-biblioref">2018</a>; Sæbø, Almøy, and Helland <a href="references.html#ref-saebo2015simrel" role="doc-biblioref">2015</a>)</span> is used to simulate the data for comparison. In the simulation the number of observation is fixed at <span class="math inline">\(n = 100\)</span> and following four simulation parameters are used to obtain the data with wide range of properties.</p>
+<p>An R <span class="citation">(R Core Team <a href="references.html#ref-coreR2018">2018</a>)</span> package <code>simrel</code> <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-Rimal2018">2018</a>; Sæbø, Almøy, and Helland <a href="references.html#ref-saebo2015simrel">2015</a>)</span> is used to simulate the data for comparison. In the simulation the number of observation is fixed at <span class="math inline">\(n = 100\)</span> and following four simulation parameters are used to obtain the data with wide range of properties.</p>
 <dl>
 <dt><strong>Number of predictors:</strong></dt>
 <dd>In order to cover both tall <span class="math inline">\((n&gt;p)\)</span> and wide <span class="math inline">\((p&gt;n)\)</span> cases, <span class="math inline">\(p= 20\)</span> and <span class="math inline">\(p= 250\)</span> number of predictors are simulated.
@@ -124,7 +124,7 @@ div.abstract{
 <dd>Two levels 0.2 and 0.9 of <code>gamma</code> are used for simulation so that level 0.2 simulates the data with low multicollinearity and 0.9 simulates the data with high multicollinearity.
 </dd>
 <dt><strong>Position of relevant components:</strong></dt>
-<dd>Initial principal components of a non-singular covariance matrix are larger than the later one. If the principal components corresponding to predictors with larger variation is not relevant for a response, this will just increase noise in the data. Here we will use two different levels of position index of predictor components: a) 1, 2, 3, 4 and b) 1, 2, 3, 4. Predictor components irrelevant for a response makes prediction difficult <span class="citation">(Helland and Almøy <a href="references.html#ref-Helland1994b" role="doc-biblioref">1994</a>)</span>. When combined with multicollinearity, this factor can create both easy and difficult model for both estimation and prediction.
+<dd>Initial principal components of a non-singular covariance matrix are larger than the later one. If the principal components corresponding to predictors with larger variation is not relevant for a response, this will just increase noise in the data. Here we will use two different levels of position index of predictor components: a) 1, 2, 3, 4 and b) 1, 2, 3, 4. Predictor components irrelevant for a response makes prediction difficult <span class="citation">(Inge S. Helland and Almøy <a href="references.html#ref-Helland1994b">1994</a>)</span>. When combined with multicollinearity, this factor can create both easy and difficult model for both estimation and prediction.
 </dd>
 <dt><strong>Correlation in response variables:</strong></dt>
 <dd>Many estimators also uses the structure of response for their estimation. Here the correlation between the responses are varied through a simulation parameter <code>eta</code> <span class="math inline">\((\eta)\)</span>. The parameter controls the exponential decline of eigenvalues <span class="math inline">\(\kappa_j, j = 1, \ldots m (\text{ number of responses})\)</span> corresponding to response variables as,
@@ -209,7 +209,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "true";
+    var src = "";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
