@@ -41,9 +41,9 @@ comp_aov <- anova(comp_mdl) %>%
 aov_df <- bind_rows(list(Est = est_aov, Comp = comp_aov), .id = "Type")
 ```
 
-(ref:manova-plot) Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for corresponding factor.
+(ref:manova-plot) Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for the corresponding factor.
 
-```{r manova-plot, fig.width=8, out.width='100%', fig.asp=0.8, fig.cap="(ref:manova-plot)"}
+```{r manova-plot, fig.pos='H', fig.width=8, out.width='100%', fig.asp=0.8, fig.cap="(ref:manova-plot)"}
 model_labels <- c(
   Comp = "Model: Number of Components",
   Est = "Model: Estimation Error"
@@ -71,19 +71,19 @@ aov_df %>%
 ```
 
 **Error Model:**
-: Unlike prediction error in @rimal2019pred, `Method` has a lesser effect while the amount of multicollinearity controlled by `gamma` parameter has a huge effect in the case of estimation error (Figure \@ref(fig:manova-plot)). In addition, the position of relevant predictors and its interaction with the `gamma` parameters also have a substantial effect on the estimation error. This also supports the results seen in the [Exploration] section where relevant predictors at position 5, 6, 7, 8 with high multicollinearity design creates large uninformative variance in the components 1, 2, 3, 4 making the design difficult. The effect of this on the estimation error is much larger than on the prediction error.
+: Unlike prediction error in @rimal2019pred, `Method` has a lesser effect while the amount of multicollinearity controlled by `gamma` parameter has a huge effect in the case of estimation error (Figure \@ref(fig:manova-plot)). In addition, the position of relevant predictors and its interaction with the `gamma` parameters also have a substantial effect on the estimation error. This also supports the results seen in the [Exploration] section where relevant predictors at position 5, 6, 7, 8 with high multicollinearity design creates a large uninformative variance in the components 1, 2, 3, 4 making the design difficult. The effect of this on the estimation error is much larger than on the prediction error.
 : Furthermore, the `eta` factor controlling the correlation between the responses, and its second-order interaction with other factors except for the number of predictors is significant. The effect is also comparable with the main effect of `Method` and `eta`.
 
 
 **Component Model:**
-: Although the `Method` does not have a large impact on the estimation error, the _component model_ in Figure \@ref(fig:manova-plot) (right) shows that the methods are significantly different and has a huge effect on the number of components they use to obtain the minimum estimation error. The result also corresponds to the case of prediction error in @rimal2019pred. However, the F-value corresponding the `relpos` and `gamma` shows that the significance of these factors are much stronger compared to the case of prediction error.
+: Although the `Method` does not have a large impact on the estimation error, the _component model_ in Figure \@ref(fig:manova-plot) (right) shows that the methods are significantly different and has a huge effect on the number of components they use to obtain the minimum estimation error. The result also corresponds to the case of prediction error in @rimal2019pred. However, the F-value corresponding the `relpos` and `gamma` shows that the significance of these factors is much stronger compared to the case of prediction error.
 
-We will further explore the effects of individual levels of different factors in the following subsection.
+The following section will further explore the effects of individual levels of different factors.
 
 ## Effect Analysis of the Error Model
-In figure \@ref(fig:est-eff-plots) (left), the effect of correlation between the responses controlled by `eta` parameter has a clear influence on the estimation error and the effect is highly dependent on the estimation methods. In the case of envelope methods, the effect of `eta` on estimation error is smaller than other methods and are similar in the case of both levels of the position of relevant predictors (`relpos`). However, PCR, PLS1 and PLS2 have shown a clear difference in the estimation error for four different levels of response correlation. The error in the case of relevant predictors at position 5, 6, 7, 8 is huge as compared to the case where relevant predictors are at position 1, 2, 3, 4. Among these methods, PLS1 has the highest estimation error in both levels of relevant predictors since the method models the response variables independently and does not consider the correlation structure in them.
+In figure \@ref(fig:est-eff-plots) (left), the effect of correlation between the responses controlled by the `eta` parameter has a clear influence on the estimation error. In the case of envelope methods, high values of `eta`, i.e. highly correlated responses, have a negative effect on estimation error whereas the effect is negligible for other methods. In all methods, the error in the case of relevant predictors at position 5, 6, 7, 8 is huge as compared to the case where relevant predictors are at position 1, 2, 3, 4. Among these methods, PLS1 has the highest estimation error in both levels of relevant predictors since the method models the response variables independently and does not consider the correlation structure in them.
 
-(ref:est-eff-plot) Effect plot of some interactions of the multivariate linear model of estimation error
+(ref:est-eff-plot) Effect plot of some interactions of the multivariate linear model corresponding to _error model_
 
 ```{r est-eff-plots, fig.width=7, out.width='100%', fig.cap='(ref:est-eff-plot)', fig.asp = 0.6}
 thm <- theme(plot.title = element_blank(),
@@ -109,13 +109,13 @@ suppressMessages(grid::grid.draw(plt))
 
 Figure \@ref(fig:est-eff-plots) (right) shows the large difference in the effect of two levels of the position of relevant predictors especially in the designs with high multicollinearity. In the case of high multicollinearity, all methods have noticeable poor performance compared to the case of low multicollinearity.
 
-Figure \@ref(fig:est-eff-plots) also shows that PCR and PLS2 methods have the smallest effect on the estimation error in both levels of relevant predictors in the case of moderate to high level of correlation present in the response. In the case of low correlation, envelope methods have the smallest estimation error. Similarly, the designs with low multicollinearity are favourable to the envelope methods. Their estimation errors in these cases are smaller than other methods.
+Figure \@ref(fig:est-eff-plots) also shows that in the case of designs with uncorrelated responses, envelope methods have least average estimation error. While PCR and PLS2, being somewhat invariant to the effect of this correlation structure, they have performed better than envelope in the designs with correlated responses. In addition, the average estimation error corresponding to envelop methods in the designs with low multicollinearity is smaller than other methods.
 
 
 ## Effect Analysis of the Component Model
-In the case of _component model_, envelope methods are the clear winner in almost all designs. In the case of low multicollinearity and position of relevant predictors at 1, 2, 3, 4, PLS1 has obtained the minimum estimation error similar to the envelope methods, however in the case of high multicollinearity PLS1 has also used a fairly large number of components to obtain the minimum prediction error. It is interesting to observe that the envelope methods have comparable and minimum estimation error in most of the designs have used  1-2 components on average. The effect of the correlation in the response has minimal effect on the number of components used by the methods. The design nine which we have considered in the previous section has minimum estimation error from envelope methods using at most 2 components by Xenv and 3 components by Senv. This corresponds with the results seen in Figure \@ref(fig:comp-eff-plots).
+In the case of _component model_, envelope methods are the clear winner in almost all designs. In the case of low multicollinearity and position of relevant predictors at 1, 2, 3, 4, PLS1 has obtained the minimum estimation error similar to the envelope methods, however in the case of high multicollinearity PLS1 has also used a fairly large number of components to obtain the minimum prediction error. Although the envelope methods have comparable and minimum estimation error in some of the designs, in almost all the designs these methods have used  1-2 components on average. The effect of the correlation in the response has minimal effect on the number of components used by the methods. The design nine, which we have considered in the previous section has minimum estimation error from envelope methods using only one predictor components by both Xenv and Senv. In design 29 where the envelope methods have poor performance than the other methods due to highly correlated responses, the number of components used by them is still one. This corresponds to the results seen in Figure \@ref(fig:comp-eff-plots).
 
-(ref:comp-eff-plot) Effect plot of some interactions of the multivariate linear model of number of components to get minimum prediction error
+(ref:comp-eff-plot) Effect plot of some interactions of the multivariate linear model corresponding to _component model_.
 
 ```{r comp-eff-plots, fig.width=7, out.width='100%', fig.cap='(ref:comp-eff-plot)', fig.asp = 0.6, fig.pos="!htb"}
 thm <- theme(plot.title = element_blank(),

@@ -1,0 +1,14 @@
+setwd("..")
+source("scripts//03-collection.r")
+ls()
+selected_designs
+subset(selected_designs, gamma == 0.2)
+subset(selected_designs, gamma == 0.2, select="Design")
+catvec(subset(selected_designs, gamma == 0.2, select="Design"))
+args(subset)
+?subset
+subset(selected_designs, gamma == 0.2, select="Design", drop = TRUE)
+selected_designs
+selected_designs$relpos
+ls()
+design_chr_selected

@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-05-21">
+<meta name="date" content="2019-05-29">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -117,33 +117,34 @@ div.abstract{
 Figure 4: Scores density corresponding to first principal component of <em>error dataset</em> (<span class="math inline">\(\mathbf{u}\)</span>) subdivided by <code>methods</code>, <code>gamma</code> and <code>eta</code> and grouped by <code>relpos</code>.
 </p>
 </div>
-<p>The plot shows a clear difference between the effect of low and high multicollinearity in estimation error. In the case of low multicollinearity (<code>gamma: 0.2</code>), the estimation errors are smaller and have lesser variation compared to high multicollinearity (<code>gamma: 0.9</code>). High multicollinearity has a larger influence on all but noticeably in the methods based on envelopes. Some large estimation error in the envelope is more than 100 which in the case of other methods is less than 60.</p>
+<p>The plot in Figure <a href="exploration.html#fig:est-pca-hist-mthd-gamma-relpos">4</a> shows a clear difference between the effect of low and high multicollinearity in estimation error. In the case of low multicollinearity (<code>gamma: 0.2</code>), the estimation errors are smaller and have lesser variation compared to high multicollinearity (<code>gamma: 0.9</code>). In addition, the envelope methods have increased their estimation error in the case of highly correlated responses (<code>eta: 1.2</code>) whereas there is no effect of this correlation in other methods.</p>
 <p>Furthermore, the relevant predictor components, in general, has a noticeable effect on estimation error. When relevant predictors are at position 5, 6, 7, 8, the predictor components at 1, 2, 3, 4, which carry most of the variation, becomes irrelevant. These irrelevant components with large variation add noise to the model and consequently increases the estimation error. The effect intensifies on highly collinear predictors. Designs with high multicollinearity and relevant predictors at position 5, 6, 7, 8 are relatively difficult to model for all the methods. Although these difficult designs have a large effect on estimation error, their effect on prediction error is less influential <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>.</p>
 
-<p>In the case of the <em>component dataset</em> (Figure Above), PCR, PLS1 and PLS2 methods have used more components in the case of high multicollinearity compared to low. Surprisingly, the envelope methods (Senv and Xenv) mostly have used a distinctly lesser number of components in both the cases of multicollinearity compared to other methods.</p>
+<p>In the case of the <em>component dataset</em> (Figure <a href="exploration.html#fig:comp-pca-hist-mthd-gamma-relpos">5</a>), PCR, PLS1 and PLS2 methods have used more components in the case of high multicollinearity compared to low. Surprisingly, the envelope methods (Senv and Xenv) mostly have used a distinctly lesser number of components in both the cases of multicollinearity compared to other methods.</p>
 <p>The plot also shows that there is no clear effect due to the correlation of response variable on the number of components used to obtain minimum estimation error.</p>
 <div class="figure"><span id="fig:comp-pca-hist-mthd-gamma-relpos"></span>
-<img src="Estimation-Paper_files/figure-html/comp-pca-hist-mthd-gamma-relpos-1.svg" alt="Score density corresponding to first principal component of component dataset (\(\mathbf{v}\)) subdivided by methods, gamma and eta and grouped by relpos." width="100%" />
+<img src="Estimation-Paper_files/figure-html/comp-pca-hist-mthd-gamma-relpos-1.svg" alt="Score density corresponding to the first principal component of component dataset (\(\mathbf{v}\)) subdivided by methods, gamma and eta and grouped by relpos." width="100%" />
 <p class="caption">
-Figure 5: Score density corresponding to first principal component of <em>component dataset</em> (<span class="math inline">\(\mathbf{v}\)</span>) subdivided by <code>methods</code>, <code>gamma</code> and <code>eta</code> and grouped by <code>relpos</code>.
+Figure 5: Score density corresponding to the first principal component of <em>component dataset</em> (<span class="math inline">\(\mathbf{v}\)</span>) subdivided by <code>methods</code>, <code>gamma</code> and <code>eta</code> and grouped by <code>relpos</code>.
 </p>
 </div>
-<p>A clear interaction between the position of relevant predictors and the multicollinearity visible in the plot suggest that the methods use a larger number of components when the relevant components are at position 5, 6, 7, 8. Additionally, the use of components escalate and the difference between the two levels of <code>relpos</code> becomes wider in the case of high multicollinearity in the model. Such performance is also seen the the case of prediction error (See <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>) however the number of components used in that case is lesser than in this case. Envelope methods, however, have shown a distinct result in contrast to the other methods. Even when the relevant predictors are at position 5, 6, 7, 8, the envelope methods, in contrast to other methods, have used an almost similar number of components as in the case of relevant predictor at position 1, 2, 3, 4. This shows that the envelope methods identify the predictor space relevant to the response differently and with few numbers of latent components.</p>
-<p>Following section explore the prediction and estimation error together with the regression coefficient of Simultaneous Envelope and Partial Least Squares for a design having high multicollinearity with predictor components at position 5, 6, 7, 8. Here we will use design with <span class="math inline">\(n&gt;p\)</span> and no correlation between the response which corresponds to Design-9.</p>
+<p>A clear interaction between the position of relevant predictors and the multicollinearity visible in the plot suggest that the methods use a larger number of components when the relevant components are at position 5, 6, 7, 8. Additionally, the use of components escalate and the difference between the two levels of <code>relpos</code> becomes wider in the case of high multicollinearity in the model. Such performance is also seen the case of prediction error (See <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>) however the number of components used in that case is lesser than in this case. Even when the relevant predictors are at position 5, 6, 7, 8, the envelope methods, in contrast to other methods, have used an almost similar number of components as in the case of relevant predictor at position 1, 2, 3, 4. This shows that the envelope methods identify the predictor space relevant to the response differently and with very few numbers of latent components.</p>
+<p>Following section explore the prediction and estimation error together with the regression coefficient of Simultaneous Envelope and Partial Least Squares for a design having high multicollinearity with predictor components at position 5, 6, 7, 8. Here we will use design with <span class="math inline">\(n&gt;p\)</span> and two levels of correlation between the response. These correspond to Design-9 and Design-29.</p>
 <div class="figure"><span id="fig:coef-plot"></span>
 <img src="Estimation-Paper_files/figure-html/coef-plot-1.svg" alt="Regression Coefficients estimated by PLS2 and Simultaneous methods on the data based on Design 9 and 29." width="100%" />
 <p class="caption">
 Figure 6: Regression Coefficients estimated by PLS2 and Simultaneous methods on the data based on Design 9 and 29.
 </p>
 </div>
-<p>Figure <a href="exploration.html#fig:err-plot">7</a> shows a clear distinction between the modelling approach of PLS2 and Senv methods for the same model based on Design 9. In the case of PLS2, both minimum prediction error and minimum estimation error are obtained using seven to eight components and the estimated regression coefficients approximate the true coefficients. In contrast, the Senv method has approached the minimum prediction and minimum estimation error using one to two components and the corresponding estimated regression coefficients approximate the true coefficients (Figure <a href="exploration.html#fig:coef-plot">6</a>). Despite having contrast modelling result for a dataset with similar properties, the minimum errors produced by them are comparable (See Table <a href="exploration.html#tab:min-err-dgn9">1</a>).</p>
+<p>Figure <a href="exploration.html#fig:err-plot">7</a> shows a clear distinction between the modelling approach of PLS2 and Senv methods for the same model based on Design 9 (top) and Design 29 (bottom). In both of the designs, PLS2 has both minimum prediction error and minimum estimation error obtained using seven to eight components and the estimated regression coefficients approximate the true coefficients. In contrast, the Senv method has approached the minimum prediction and minimum estimation error using one to two components and the corresponding estimated regression coefficients approximate the true coefficients (Figure <a href="exploration.html#fig:coef-plot">6</a>). Despite having contrast modelling results for a dataset with similar properties, the minimum errors produced by them are comparable in the case of Design 9 (See Table <a href="exploration.html#tab:min-err-dgn9">1</a>). However, in the case of Design 29, estimation error corresponding to PLS1 and envelope methods are much higher than PCR and PLS2. It is interesting to see that despite having large estimation error, the prediction error corresponding to the envelope methods are much smaller in this design. Since the increased correlation in the response is responsible for the elevated estimation error in envelopes, it is certain that the performance of envelope methods which tries to find relevant space with few number of components is affected more than the other methods. Here the response dimension for the simultaneous envelope has been fixed at two components which might have affected its performance however both envelope methods had performed much better with the same restriction in the case of prediction.</p>
 <div class="figure"><span id="fig:err-plot"></span>
 <img src="Estimation-Paper_files/figure-html/err-plot-1.svg" alt="Minimum prediction and estimation error for PLS2 and Simultaneous methods. The point and lines are averaged over 50 replications." width="100%" />
 <p class="caption">
 Figure 7: Minimum prediction and estimation error for PLS2 and Simultaneous methods. The point and lines are averaged over 50 replications.
 </p>
 </div>
-<p>The Figure <a href="exploration.html#fig:err-plot">7</a> also shows that Senv has resulted in huge estimation error when the number of components is not optimal. This is also true for the PLS2 model however the extent of this variation is noticeably large in the Senv method. A similar observation as Senv is also found in Xenv method while PCR and PLS1 are closer to the PLS2 in terms of their use of components in order to produce the minimum error (See Table <a href="exploration.html#tab:min-err-dgn9">1</a>).</p>
+<p>Figure <a href="exploration.html#fig:err-plot">7</a> also shows that, in both designs, Senv has resulted in huge estimation error when the number of components is not optimal. This is also true for the PLS2 model however the extent of this variation is noticeably large in the Senv method. A similar observation as Senv is also found in Xenv method while PCR and PLS1 are closer to the PLS2 in terms of their use of components in order to produce the minimum error (See Table <a href="exploration.html#tab:min-err-dgn9">1</a>).</p>
+<p>In addition to the prediction and estimation error, Figure <a href="exploration.html#fig:coef-plot">6</a> gives a closer view of how the average coefficients corresponding to these methods approximate to true values. Here PLS2 has used seven to eight components to reach the closest approximation to the true coefficients which started to increase after including components larger than eight. This departure from true coefficient is usual for PLS when the relevant components are at 1, 2, 3, 4 whereas PCR has shown the more stable result in such situations. Further, the envelope methods have presented their ability to converge their estimates to the true value in just one or two components. However, one should be cautious about determining the optimal components in these methods due to a highly unstable and large error in non-optimal cases.</p>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:min-err-dgn9">Table 1: </span>Minimum Prediction and Estimation Error for Design 9
@@ -194,13 +195,13 @@ Xenv
 <td style="text-align:right;">
 8.56 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;">
 13.23 (6)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 8.17 (8)
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 6.65 (1)
 </td>
 <td style="text-align:right;">
@@ -217,13 +218,13 @@ Xenv
 <td style="text-align:right;">
 7.94 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;">
 14.42 (6)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 10.65 (8)
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 5.06 (1)
 </td>
 <td style="text-align:right;">
@@ -240,13 +241,13 @@ Xenv
 <td style="text-align:right;">
 7.02 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;">
 15.9 (6)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 8.22 (7)
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 8.55 (1)
 </td>
 <td style="text-align:right;">
@@ -263,13 +264,13 @@ Xenv
 <td style="text-align:right;">
 9.26 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;">
 13.14 (7)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 8.29 (7)
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 8.19 (1)
 </td>
 <td style="text-align:right;">
@@ -291,13 +292,13 @@ Xenv
 <td style="text-align:right;">
 1.08 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;">
 1.1 (7)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 1.09 (8)
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 1.03 (1)
 </td>
 <td style="text-align:right;">
@@ -314,13 +315,13 @@ Xenv
 <td style="text-align:right;">
 1.09 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;">
 1.11 (7)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 1.1 (8)
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 1.03 (1)
 </td>
 <td style="text-align:right;">
@@ -337,13 +338,13 @@ Xenv
 <td style="text-align:right;">
 1.08 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
-1.1 (7)
-</td>
-<td style="text-align:right;font-style: italic;">
-1.1 (7)
-</td>
 <td style="text-align:right;">
+1.1 (7)
+</td>
+<td style="text-align:right;font-weight: bold;font-style: italic;">
+1.1 (7)
+</td>
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 1.04 (1)
 </td>
 <td style="text-align:right;">
@@ -360,13 +361,13 @@ Xenv
 <td style="text-align:right;">
 1.09 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;">
 1.1 (7)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 1.09 (7)
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 1.04 (1)
 </td>
 <td style="text-align:right;">
@@ -393,13 +394,13 @@ Xenv
 <td style="text-align:right;">
 6.16 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;">
 13.64 (7)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 8.67 (7)
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 13.45 (1)
 </td>
 <td style="text-align:right;">
@@ -416,13 +417,13 @@ Xenv
 <td style="text-align:right;">
 6.29 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;">
 12.3 (7)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 8.49 (8)
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 13.62 (1)
 </td>
 <td style="text-align:right;">
@@ -439,13 +440,13 @@ Xenv
 <td style="text-align:right;">
 6.73 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;">
 13.03 (7)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 6.54 (8)
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 14.72 (1)
 </td>
 <td style="text-align:right;">
@@ -462,13 +463,13 @@ Xenv
 <td style="text-align:right;">
 6.28 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;">
 12.51 (7)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 8.66 (8)
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 10.76 (1)
 </td>
 <td style="text-align:right;">
@@ -490,13 +491,13 @@ Xenv
 <td style="text-align:right;">
 1.09 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
-1.1 (8)
-</td>
-<td style="text-align:right;font-style: italic;">
-1.1 (8)
-</td>
 <td style="text-align:right;">
+1.1 (8)
+</td>
+<td style="text-align:right;font-weight: bold;font-style: italic;">
+1.1 (8)
+</td>
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 1.07 (4)
 </td>
 <td style="text-align:right;">
@@ -513,13 +514,13 @@ Xenv
 <td style="text-align:right;">
 1.1 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;">
 1.11 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 1.09 (8)
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 1.1 (5)
 </td>
 <td style="text-align:right;">
@@ -536,13 +537,13 @@ Xenv
 <td style="text-align:right;">
 1.1 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
-1.1 (8)
-</td>
-<td style="text-align:right;font-style: italic;">
-1.1 (8)
-</td>
 <td style="text-align:right;">
+1.1 (8)
+</td>
+<td style="text-align:right;font-weight: bold;font-style: italic;">
+1.1 (8)
+</td>
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 1.09 (4)
 </td>
 <td style="text-align:right;">
@@ -559,13 +560,13 @@ Xenv
 <td style="text-align:right;">
 1.09 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;">
 1.11 (8)
 </td>
-<td style="text-align:right;font-style: italic;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 1.09 (8)
 </td>
-<td style="text-align:right;">
+<td style="text-align:right;font-weight: bold;font-style: italic;">
 1.09 (5)
 </td>
 <td style="text-align:right;">

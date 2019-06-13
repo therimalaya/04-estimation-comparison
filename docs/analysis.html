@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-05-21">
+<meta name="date" content="2019-05-29">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -130,43 +130,43 @@ div.abstract{
 <p>To make the analysis equivalent to <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>, we have also used Pillai’s trace statistic for accessing the result of MANOVA. Figure <a href="analysis.html#fig:manova-plot">8</a> plots the Pillai’s trace statistics as bars with corresponding F-values as text labels. The left plot corresponds to the <em>error model</em> and the right plot corresponds to the <em>component model</em>.</p>
 
 <div class="figure"><span id="fig:manova-plot"></span>
-<img src="Estimation-Paper_files/figure-html/manova-plot-1.svg" alt="Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for corresponding factor." width="100%" />
+<img src="Estimation-Paper_files/figure-html/manova-plot-1.svg" alt="Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for the corresponding factor." width="100%" />
 <p class="caption">
-Figure 8: Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for corresponding factor.
+Figure 8: Pillai Statistic and F-value for the MANOVA model. The bar represents the Pillai Statistic and the text labels are F-value for the corresponding factor.
 </p>
 </div>
 <dl>
 <dt><strong>Error Model:</strong></dt>
-<dd>Unlike prediction error in <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>, <code>Method</code> has a lesser effect while the amount of multicollinearity controlled by <code>gamma</code> parameter has a huge effect in the case of estimation error (Figure <a href="analysis.html#fig:manova-plot">8</a>). In addition, the position of relevant predictors and its interaction with the <code>gamma</code> parameters also have a substantial effect on the estimation error. This also supports the results seen in the <a href="exploration.html#exploration">Exploration</a> section where relevant predictors at position 5, 6, 7, 8 with high multicollinearity design creates large uninformative variance in the components 1, 2, 3, 4 making the design difficult. The effect of this on the estimation error is much larger than on the prediction error.
+<dd>Unlike prediction error in <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>, <code>Method</code> has a lesser effect while the amount of multicollinearity controlled by <code>gamma</code> parameter has a huge effect in the case of estimation error (Figure <a href="analysis.html#fig:manova-plot">8</a>). In addition, the position of relevant predictors and its interaction with the <code>gamma</code> parameters also have a substantial effect on the estimation error. This also supports the results seen in the <a href="exploration.html#exploration">Exploration</a> section where relevant predictors at position 5, 6, 7, 8 with high multicollinearity design creates a large uninformative variance in the components 1, 2, 3, 4 making the design difficult. The effect of this on the estimation error is much larger than on the prediction error.
 </dd>
 <dd>Furthermore, the <code>eta</code> factor controlling the correlation between the responses, and its second-order interaction with other factors except for the number of predictors is significant. The effect is also comparable with the main effect of <code>Method</code> and <code>eta</code>.
 </dd>
 <dt><strong>Component Model:</strong></dt>
-<dd>Although the <code>Method</code> does not have a large impact on the estimation error, the <em>component model</em> in Figure <a href="analysis.html#fig:manova-plot">8</a> (right) shows that the methods are significantly different and has a huge effect on the number of components they use to obtain the minimum estimation error. The result also corresponds to the case of prediction error in <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>. However, the F-value corresponding the <code>relpos</code> and <code>gamma</code> shows that the significance of these factors are much stronger compared to the case of prediction error.
+<dd>Although the <code>Method</code> does not have a large impact on the estimation error, the <em>component model</em> in Figure <a href="analysis.html#fig:manova-plot">8</a> (right) shows that the methods are significantly different and has a huge effect on the number of components they use to obtain the minimum estimation error. The result also corresponds to the case of prediction error in <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>. However, the F-value corresponding the <code>relpos</code> and <code>gamma</code> shows that the significance of these factors is much stronger compared to the case of prediction error.
 </dd>
 </dl>
-<p>We will further explore the effects of individual levels of different factors in the following subsection.</p>
+<p>The following section will further explore the effects of individual levels of different factors.</p>
 <div id="effect-analysis-of-the-error-model" class="section level2">
 <h2>Effect Analysis of the Error Model</h2>
-<p>In figure <a href="analysis.html#fig:est-eff-plots">9</a> (left), the effect of correlation between the responses controlled by <code>eta</code> parameter has a clear influence on the estimation error and the effect is highly dependent on the estimation methods. In the case of envelope methods, the effect of <code>eta</code> on estimation error is smaller than other methods and are similar in the case of both levels of the position of relevant predictors (<code>relpos</code>). However, PCR, PLS1 and PLS2 have shown a clear difference in the estimation error for four different levels of response correlation. The error in the case of relevant predictors at position 5, 6, 7, 8 is huge as compared to the case where relevant predictors are at position 1, 2, 3, 4. Among these methods, PLS1 has the highest estimation error in both levels of relevant predictors since the method models the response variables independently and does not consider the correlation structure in them.</p>
+<p>In figure <a href="analysis.html#fig:est-eff-plots">9</a> (left), the effect of correlation between the responses controlled by the <code>eta</code> parameter has a clear influence on the estimation error. In the case of envelope methods, high values of <code>eta</code>, i.e. highly correlated responses, have a negative effect on estimation error whereas the effect is negligible for other methods. In all methods, the error in the case of relevant predictors at position 5, 6, 7, 8 is huge as compared to the case where relevant predictors are at position 1, 2, 3, 4. Among these methods, PLS1 has the highest estimation error in both levels of relevant predictors since the method models the response variables independently and does not consider the correlation structure in them.</p>
 
 <div class="figure"><span id="fig:est-eff-plots"></span>
-<img src="Estimation-Paper_files/figure-html/est-eff-plots-1.svg" alt="Effect plot of some interactions of the multivariate linear model of estimation error" width="100%" />
+<img src="Estimation-Paper_files/figure-html/est-eff-plots-1.svg" alt="Effect plot of some interactions of the multivariate linear model corresponding to error model" width="100%" />
 <p class="caption">
-Figure 9: Effect plot of some interactions of the multivariate linear model of estimation error
+Figure 9: Effect plot of some interactions of the multivariate linear model corresponding to <em>error model</em>
 </p>
 </div>
 <p>Figure <a href="analysis.html#fig:est-eff-plots">9</a> (right) shows the large difference in the effect of two levels of the position of relevant predictors especially in the designs with high multicollinearity. In the case of high multicollinearity, all methods have noticeable poor performance compared to the case of low multicollinearity.</p>
-<p>Figure <a href="analysis.html#fig:est-eff-plots">9</a> also shows that PCR and PLS2 methods have the smallest effect on the estimation error in both levels of relevant predictors in the case of moderate to high level of correlation present in the response. In the case of low correlation, envelope methods have the smallest estimation error. Similarly, the designs with low multicollinearity are favourable to the envelope methods. Their estimation errors in these cases are smaller than other methods.</p>
+<p>Figure <a href="analysis.html#fig:est-eff-plots">9</a> also shows that in the case of designs with uncorrelated responses, envelope methods have least average estimation error. While PCR and PLS2, being somewhat invariant to the effect of this correlation structure, they have performed better than envelope in the designs with correlated responses. In addition, the average estimation error corresponding to envelop methods in the designs with low multicollinearity is smaller than other methods.</p>
 </div>
 <div id="effect-analysis-of-the-component-model" class="section level2">
 <h2>Effect Analysis of the Component Model</h2>
-<p>In the case of <em>component model</em>, envelope methods are the clear winner in almost all designs. In the case of low multicollinearity and position of relevant predictors at 1, 2, 3, 4, PLS1 has obtained the minimum estimation error similar to the envelope methods, however in the case of high multicollinearity PLS1 has also used a fairly large number of components to obtain the minimum prediction error. It is interesting to observe that the envelope methods have comparable and minimum estimation error in most of the designs have used 1-2 components on average. The effect of the correlation in the response has minimal effect on the number of components used by the methods. The design nine which we have considered in the previous section has minimum estimation error from envelope methods using at most 2 components by Xenv and 3 components by Senv. This corresponds with the results seen in Figure <a href="analysis.html#fig:comp-eff-plots">10</a>.</p>
+<p>In the case of <em>component model</em>, envelope methods are the clear winner in almost all designs. In the case of low multicollinearity and position of relevant predictors at 1, 2, 3, 4, PLS1 has obtained the minimum estimation error similar to the envelope methods, however in the case of high multicollinearity PLS1 has also used a fairly large number of components to obtain the minimum prediction error. Although the envelope methods have comparable and minimum estimation error in some of the designs, in almost all the designs these methods have used 1-2 components on average. The effect of the correlation in the response has minimal effect on the number of components used by the methods. The design nine, which we have considered in the previous section has minimum estimation error from envelope methods using only one predictor components by both Xenv and Senv. In design 29 where the envelope methods have poor performance than the other methods due to highly correlated responses, the number of components used by them is still one. This corresponds to the results seen in Figure <a href="analysis.html#fig:comp-eff-plots">10</a>.</p>
 
 <div class="figure"><span id="fig:comp-eff-plots"></span>
-<img src="Estimation-Paper_files/figure-html/comp-eff-plots-1.svg" alt="Effect plot of some interactions of the multivariate linear model of number of components to get minimum prediction error" width="100%" />
+<img src="Estimation-Paper_files/figure-html/comp-eff-plots-1.svg" alt="Effect plot of some interactions of the multivariate linear model corresponding to component model." width="100%" />
 <p class="caption">
-Figure 10: Effect plot of some interactions of the multivariate linear model of number of components to get minimum prediction error
+Figure 10: Effect plot of some interactions of the multivariate linear model corresponding to <em>component model</em>.
 </p>
 </div>
 

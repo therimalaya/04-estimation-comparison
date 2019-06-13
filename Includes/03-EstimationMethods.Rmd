@@ -1,56 +1,49 @@
 # Estimation Methods #
 
-Let us departure from the linear model \@ref(eq:reg-model),
+Consider a joint distribution of $\mathbf{y}$ and $\mathbf{x}$ with corresponding mean vectors $\boldsymbol{\mu}_y$ and $\boldsymbol{\mu}_x$ as,
 
 \begin{equation}
-\underset{(1\times m)}{\mathbf{y}} =
-  \underset{(1\times p)(p\times m)}
-    {\mathbf{x}\boldsymbol{\beta}} +
-  \underset{(1 \times m)}{\boldsymbol{\varepsilon}}
+\begin{bmatrix}
+\mathbf{y} \\ \mathbf{x}
+\end{bmatrix} \sim \mathsf{N}
+\begin{pmatrix}
+\begin{bmatrix}
+\boldsymbol{\mu}_y \\
+\boldsymbol{\mu}_x \\
+\end{bmatrix}, &&
+\begin{bmatrix}
+\boldsymbol{\Sigma}_{yy} & \boldsymbol{\Sigma}_{yx} \\
+\boldsymbol{\Sigma}_{xy} & \boldsymbol{\Sigma}_{xx} 
+\end{bmatrix}
+\end{pmatrix}
+(\#eq:model-1)
+\end{equation}
+
+Here, $\boldsymbol{\Sigma}_{xx}$ and $\boldsymbol{\Sigma}_{yy}$ are
+variance-covariance of $\mathbf{x}$ and $\mathbf{y}$ respectively. A linear regression model based on \@ref(eq:model-1) is 
+
+\begin{equation}
+\mathbf{y} = \boldsymbol{\mu}_y + \boldsymbol{\beta}^t\left( \mathbf{x} - \boldsymbol{\mu}_{x} \right) + \boldsymbol{\varepsilon}
 (\#eq:reg-model)
 \end{equation}
-where $\mathbf{y}$ is a vector of $m$ responses measured about their means, $\mathbf{x}$ is a vector of $p$ predictors measured about their means, $\boldsymbol{\beta}$ is a matrix of regression coefficients and $\boldsymbol{\varepsilon}$ is a vector of independent error terms with constant variance $\boldsymbol{\Sigma}_{y|x}$. In ordinary least squares, coefficient $\boldsymbol{\beta}$ is estimated as,
+
+where $\boldsymbol{\beta}$ is the regression coefficient that defines the relationship between $\mathbf{x}$ and $\mathbf{y}$ which is expressed in terms as covariance matrices as $\boldsymbol{\beta} = \boldsymbol{\Sigma}_{xx}^{-1}\boldsymbol{\Sigma}_{xy}$. With $n$ sample observations, the ordinary least square estimates $\boldsymbol{\beta}$ through the corresponding sample covariance matrices as $\boldsymbol{\hat{\beta}} = \mathbf{S}_{xx}^{-1}\mathbf{S}_{xy}$. Following a transformation as $\mathbf{z} = \mathbf{Rx}$ with an $p \times k (k<p)$ rotation matrix $\mathbf{R}$ with $k$ orthogonal columns, we can rewrite model \@ref(eq:reg-model) as,
 
 \begin{equation}
-\underset{(p\times m)}{\boldsymbol{\hat{\beta}}} =
-  \left(\underset{(p\times n)}{\mathbf{x}^t}
-  \underset{(n\times p)}{\mathbf{x}}\right)^{-1}
-  \underset{(p \times n)(n \times m)}{\mathbf{x}^t\mathbf{y}} =
-  \mathbf{S}_{xx}^{-1}\mathbf{S}_{xy}
-(\#eq:ols-coef)
-\end{equation}
-
-Let us define a transformation as $\mathbf{z} = \mathbf{xR}$, where $\mathbf{R}$ is a $p\times k$ matrix with orthogonal columns. Regression model \@ref(eq:latent-model) defines a linear relationship of these new variables $\mathbf{z}$ with $\mathbf{y}$ through the coefficients $\boldsymbol{\alpha}$.
-
-\begin{equation}
-\underset{(1 \times m)}{\mathbf{y}} =
-  \underset{(1 \times k)}{\mathbf{z}}
-    \underset{(k \times m)}{\boldsymbol{\alpha}} +
-  \underset{(1 \times m)}{\boldsymbol{\varepsilon}}
+\mathbf{y} = \boldsymbol{\mu}_y + \boldsymbol{\alpha}^t\left( \mathbf{z} - \boldsymbol{\mu}_{z} \right) + \boldsymbol{\tau}
 (\#eq:latent-model)
 \end{equation}
-The coefficients $\boldsymbol{\alpha}$ can be transformed back to oritinal coefficients $\boldsymbol{\beta}$ as $\boldsymbol{\beta} = \mathbf{R} \boldsymbol{\alpha}$. We can also write a general form of regression coefficient \@ref(eq:ols-coef) as,
 
-$$
-\begin{aligned}
-\underset{(p\times m)}{\boldsymbol{\hat{\beta}}} =
-  \left[
-    \underset{(p\times k)(k \times n)}{\mathbf{R}\mathbf{x}^t}
-    \underset{(n\times k)(k \times p)}{\mathbf{x} \mathbf{R}^t}
-  \right]^{-1}
-  \underset{(p\times k)(k \times n)}{\mathbf{R}\mathbf{x}^t}
-  \underset{(n\times m)}{\mathbf{y}} =
-  \left[\mathbf{RS}_{xx}\mathbf{R}^t\right]^{-1}\mathbf{RS}_{xy}^t
-\end{aligned}
-$$
+Regression model \@ref(eq:latent-model) defines a linear relationship of these new variables $\mathbf{z}$ with $\mathbf{y}$ through the coefficients $\boldsymbol{\alpha} = \boldsymbol{\Sigma}_{zz}^{-1}\boldsymbol{\Sigma}_{zy} = \left[\mathbf{R}\boldsymbol{\Sigma}_{xx}\mathbf{R}^t\right]^{-1}\mathbf{R}\boldsymbol{\Sigma}_{xy}$. The coefficients $\boldsymbol{\alpha}$ can be transformed back to original coefficients $\boldsymbol{\beta}$ as $\boldsymbol{\beta} = \mathbf{R}^t \boldsymbol{\alpha} = \mathbf{R}^t\left[\mathbf{R}\boldsymbol{\Sigma}_{xx}\mathbf{R}^t\right]^{-1}\mathbf{R}\boldsymbol{\Sigma}_{xy}$. Here we can write $\boldsymbol{\alpha}$ as,
+
+$$\boldsymbol{\alpha} = \mathbf{R} \boldsymbol{\beta} = \mathbf{R} \boldsymbol{\Sigma}_{xx}^{-1}\boldsymbol{\Sigma}_{xy} $$
+
+_Principal Components Regression_ (PCR) uses $k$ eigenvectors of $\mathbf{S}_{xx}$ as the columns of $\mathbf{R}$. Since PCR is based on capturing the maximum variation in predictors on every component it has used to model, this method does not consider the response structure [@Jolliffe2002]. In addition, if the relevant components are not in the initial position, the method requires more number of components to make precise prediction [@Alm_y_1996].
 
 
-_Principal Components Regression_ (PCR) uses $k$ eigenvectors of $\mathbf{S}_{xx}$ as the columns of $\mathbf{R}$. Since PCR is based on capturing the maximum variation in predictors on every components it used to model, this method does not consider the response structure [@Jolliffe2002]. In addition, if the relevant components are not in the initial position, the method require more number of components to make precise prediction [@rimal2019pred].
+_Partial Least Squares_ (PLS) regression tries to maximize the covariance between the predictors and the response scores [@DeJong1993]. Broadly, PLS can be divided into PLS1 and PLS2 where the former tries to model the response variables individually and the later using all the response variable together while modelling. Among the three widely used algorithms NIPALS [@wold75nipals], SIMPLS [@DeJong1993] and KernelPLS [@Lindgren_1993], for this study we will be using KernelPLS which gives equivalent results to the other two and is default in R-package `pls` [@mevik07_thepl].
 
 
-_Partial Least Squares_ (PLS) regression on the other hand tries to maximize the covariance between the predictors and the response scores (SIMPLS paper). Broadly, PLS can be divided into PLS1 and PLS2 where the former tries to model the response variables individually and the later using all the response variable together while modeling. Among the three widely used algorithms (NIPALS [@wold75nipals], SIMPLS [@DeJong1993] and KernelPLS [@Lindgren_1993]), for this study we will be using KernelPLS which gires results equivalent to the rest and is default in R-package `pls` [@mevik07_thepl].
+_Envelopes_ is first introduced by [@Cook2007a] as the smallest subspace that includes the span of true regression coefficients. _Predictor Envelopes_ (Xenv) identifies the envelope as a smallest subspace in predictor space by separating the predictor covariance $\boldsymbol{\Sigma}_{xx}$ into relevant (material) and irrelevant (immaterial) parts such that response $\mathbf{y}$ is uncorrelated with the irrelevant part given the relevant one. In addition, relevant and irrelevant parts are also uncorrelated. Such separation of the covariance matrix is made using the data through optimization of the objective function. Further, the regression coefficients are estimated only using the relevant part. @cook2010envelope, @cook2013envelopes and @cook2018envelope have extensively discussed the foundation and various mathematical constructs together with properties related to Predictor Envelope. 
 
-
-_Envelopes_ is first introduced by [@Cook2007a] as a smallest subspace that include the span of regression coefficients. _Predictor Envelopes_ (Xenv) identifies the envelope as a smallest subspace in predictor space by separating the predictor covariance $\mathbf{S}_{xx}$ into relevant (material) and irrelevant (immaterial) parts such that response $\mathbf{y}$ is uncorrelated with the irrelevant part given the relevant one. In addition, the relevant and irrelevant parts are also uncorrelated. Such separation of the covariance matrix is made using the data through optimization of objective function. Further, the regression coefficients are estimated only using the relevant part. @cook2010envelope, @cook2013envelopes and @cook2018envelope have extensively discussed the foundation and various mathematical constructs together with properties related to Predictor Envelope. 
-
-_Simultaneous Predictor-Response Envelope_ (Senv) implement the envelope in both response and predictor spaces. It separates the material and immaterial part in response space and predictor space such that the material part of response does not correlate with the immaterial part of predictor and the immaterial part of response does not correlate with the material part of predictor. The regression coefficients are computed using only the material part of the response and predictor space. The number of components specified in both of these methods during the fit influence the separation of these spaces. If the number of response components is equals to the number of responses, simultaneous envelope reduces to the predictor envelope and if the number of predictor components is equals to the number of predictors, the result will be equivalent to the ordinary least squares. @cook2015simultaneous and @cook2018envelope have discussed the method in detail. Further, @helland2016algorithms have discussed how the population model of PCR, PLS and Xenv are equivalent.
+_Simultaneous Predictor-Response Envelope_ (Senv) implement the envelope in both response and predictor spaces. It separates the material and immaterial part in response space and predictor space such that the material part of response does not correlate with the immaterial part of predictor and the immaterial part of response does not correlate with the material part of the predictor. The regression coefficients are computed using only the material part of the response and predictor space. The number of components specified in both of these methods during the fit influence the separation of these spaces. If the number of response components equals to the number of responses, simultaneous envelope reduces to the predictor envelope and if the number of predictor components equals to the number of predictors, the result will be equivalent to the ordinary least squares. @cook2015simultaneous and @cook2018envelope have discussed the method in detail. Further, @helland2016algorithms have discussed how the population model of PCR, PLS and Xenv are equivalent.
