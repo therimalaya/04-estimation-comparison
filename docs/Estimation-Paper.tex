@@ -174,7 +174,7 @@
     \address[NMBU]{Prorector, Norwegian University of Life Sciences, Ås, Norway}
   
   \begin{abstract}
-  Prediction performance often does not reflect the estimation behaviour of a method. High error in estimation not necessarily results in high prediction error but can lead to an unreliable prediction when test data are in a different direction than the training data. In addition, the effect of a variable becomes unstable and can not be interpreted in such situations. Many research fields are more interested in these estimates than performing prediction. This study compares some newly-developed (envelope) and well-established (PCR, PLS) estimation methods using simulated data with specifically designed properties such as multicollinearity, the correlation between multiple responses and the position of principal components corresponding to predictors that are relevant for the response. This study aims to give some insights into these methods and help the researchers to understand and use them for further study. Here we have found that not a single method is superior to others but each has their strength on some specific nature of data. In addition, newly developed envelope method has shown the impressive result in finding the relevant information out of the data using significantly few numbers of components.
+  Prediction performance often does not always reflect the estimation behaviour of a method. High error in estimation not necessarily results in high prediction error but can lead to an unreliable prediction when test data are in a different direction than the training data. In addition, poor estimation error leads to unstable estimates and consequently the effect of predictors on the response can not have a valid interpretation. Many research fields are more interested in the effect of predictor variables than performing prediction. This study compares some newly-developed (envelope) and well-established (PCR, PLS) estimation methods using simulated data with specifically designed properties such as multicollinearity in the predictor variables, the correlation between multiple responses and the position of principal components corresponding to predictors that are relevant for the response. This study aims to give some insights into these methods and help the researchers to understand and use them for further study. Here we have found that not a single method is superior to others but each has their strength on some specific nature of data. In addition, newly developed envelope method has shown the impressive result in finding the relevant information out of the data using significantly few numbers of components.
   \end{abstract}
    \begin{keyword} model-comparison,multi-response,simrel,estimation,estimation error,meta modeling\end{keyword}
 
@@ -183,11 +183,11 @@
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Estimation of parameters in a regression model is an integral part of many research study. Research fields such as social science, econometrics, psychology and medical study are more interested in measuring the impact of certain indicator or variable rather than performing prediction. Such studies have a large influence on people's perception and also help in policy making and decisions. A transparent, valid and robust research is critical in order to improve the trust in the findings of modern data science research \citep{eu2019auethics}. It makes the assessment of the error of the measurement, inference and prediction even more essential.
+Estimation of parameters in a linear regression model is an integral part of many research study. Research fields such as social science, econometrics, chemometrics, psychology and medical study are more interested in measuring the impact of certain indicator or variable rather than performing prediction. Such studies have a large influence on people's perception and also help in policy making and decisions. A transparent, valid and robust research is critical in order to improve the trust in the findings of modern data science research \citep{eu2019auethics}. It makes the assessment of the error of the measurement, inference and prediction even more essential.
 
 Technology has facilitated researcher to collect a large amount of data however often times, such data either contains irrelevant information or are highly collinear. Researchers are devising new estimators to extract information and identify their inter-relationship. Some estimators are robust towards fixing the multicollinearity problem while some are targeted to model only the relevant information contained in the response variable.
 
-This study extends the \citep{rimal2019pred} and compares some well-established estimators such as Principal Components Analysis (PCA), Partial Least Squares (PLS) together with two new methods based on envelope estimation: Envelope estimation in predictor space (Xenv) \citep{cook2010envelope} and simultaneous estimation of the envelope (Senv) \citep{cook2015simultaneous}. The estimation process of these methods is discussed in \protect\hyperlink{estimation-methods}{Estimation Methods} section. The comparison tests the estimation performance of these methods using multi-response simulated data from a linear model with controlled properties. The properties include the number of predictors, level of multicollinearity, the correlation between different response variables and the position of relevant predictor components. These properties are explained in \protect\hyperlink{experimental-design}{Experimental Design} section together with the strategy behind the simulation and data model.
+This study extends the \citep{rimal2019pred} with similar multi-response linear regression model setting and compares some well-established estimators such as Principal Components Analysis (PCA), Partial Least Squares (PLS) together with two new methods based on envelope estimation: Envelope estimation in predictor space (Xenv) \citep{cook2010envelope} and simultaneous estimation of the envelope (Senv) \citep{cook2015simultaneous}. The estimation process of these methods is discussed in \protect\hyperlink{estimation-methods}{Estimation Methods} section. The comparison tests the estimation performance of these methods using multi-response simulated data from a linear model with controlled properties. The properties include the number of predictors, level of multicollinearity, the correlation between different response variables and the position of relevant predictor components. These properties are explained in \protect\hyperlink{experimental-design}{Experimental Design} section together with the strategy behind the simulation and data model.
 
 \hypertarget{simulation-model}{%
 \section{Simulation Model}\label{simulation-model}}
@@ -211,40 +211,38 @@ Following the concept of relevant space, a subset of predictor components can be
 Consider a joint distribution of \(\mathbf{y}\) and \(\mathbf{x}\) with corresponding mean vectors \(\boldsymbol{\mu}_y\) and \(\boldsymbol{\mu}_x\) as,
 
 \begin{equation}
-\begin{bmatrix}
-\mathbf{y} \\ \mathbf{x}
-\end{bmatrix} \sim \mathsf{N}
-\begin{pmatrix}
-\begin{bmatrix}
-\boldsymbol{\mu}_y \\
-\boldsymbol{\mu}_x \\
-\end{bmatrix}, &&
-\begin{bmatrix}
-\boldsymbol{\Sigma}_{yy} & \boldsymbol{\Sigma}_{yx} \\
-\boldsymbol{\Sigma}_{xy} & \boldsymbol{\Sigma}_{xx} 
-\end{bmatrix}
-\end{pmatrix}
-\label{eq:model-1}
+  \begin{bmatrix}
+    \mathbf{y} \\ \mathbf{x}
+  \end{bmatrix} 
+  \sim \mathsf{N}
+  \begin{pmatrix}
+    \begin{bmatrix}
+      \boldsymbol{\mu}_y \\
+      \boldsymbol{\mu}_x \\
+    \end{bmatrix}, &&
+    \begin{bmatrix}
+      \boldsymbol{\Sigma}_{yy} & \boldsymbol{\Sigma}_{yx} \\
+      \boldsymbol{\Sigma}_{xy} & \boldsymbol{\Sigma}_{xx} 
+    \end{bmatrix}
+  \end{pmatrix}
+  \label{eq:model-1}
 \end{equation}
 
-Here, \(\boldsymbol{\Sigma}_{xx}\) and \(\boldsymbol{\Sigma}_{yy}\) are
-variance-covariance of \(\mathbf{x}\) and \(\mathbf{y}\) respectively. A linear regression model based on \eqref{eq:model-1} is
+Here, \(\boldsymbol{\Sigma}_{xx}\) and \(\boldsymbol{\Sigma}_{yy}\) are variance-covariance of \(\mathbf{x}\) and \(\mathbf{y}\) respectively and \(\boldsymbol{\Sigma}_{xy}=\boldsymbol{\Sigma}_{yx}^t\) is the covariance matrix of \(\mathbf{x}\) and \(\mathbf{y}\). Let \(\mathbf{S}_{xx}\), \(\mathbf{S}_{yy}\) and \(\mathbf{S}_{xy}=\mathbf{S}_{yx}^t\) be the respective estimates of these matrices. A linear regression model based on \eqref{eq:model-1} is
 
 \begin{equation}
 \mathbf{y} = \boldsymbol{\mu}_y + \boldsymbol{\beta}^t\left( \mathbf{x} - \boldsymbol{\mu}_{x} \right) + \boldsymbol{\varepsilon}
 \label{eq:reg-model}
 \end{equation}
 
-where \(\boldsymbol{\beta}\) is the regression coefficient that defines the relationship between \(\mathbf{x}\) and \(\mathbf{y}\) which is expressed in terms as covariance matrices as \(\boldsymbol{\beta} = \boldsymbol{\Sigma}_{xx}^{-1}\boldsymbol{\Sigma}_{xy}\). With \(n\) sample observations, the ordinary least square estimates \(\boldsymbol{\beta}\) through the corresponding sample covariance matrices as \(\boldsymbol{\hat{\beta}} = \mathbf{S}_{xx}^{-1}\mathbf{S}_{xy}\). Following a transformation as \(\mathbf{z} = \mathbf{Rx}\) with an \(p \times k (k<p)\) rotation matrix \(\mathbf{R}\) with \(k\) orthogonal columns, we can rewrite model \eqref{eq:reg-model} as,
+where \(\boldsymbol{\beta}=\boldsymbol{\Sigma}_{xx}^{-1}\boldsymbol{\Sigma}_{xy}\) is the regression coefficient that defines the relationship between \(\mathbf{x}\) and \(\mathbf{y}\). We can write the least square estimates of \(\boldsymbol{\beta}\) using the sample estimates as \(\boldsymbol{\hat{\beta}}=\mathbf{S}_{xx}^{-1}\mathbf{S}_{xy}\). Consider a transformation \(\mathbf{z}=\mathbf{R^tx}\) with an \(k \times p (k<p)\) orthogonal rotation matrix \(\mathbf{R}\) with \(k\) orthogonal columns. We can rewrite the linear regression model in terms of these transformed variable as in model \eqref{eq:reg-model}.
 
 \begin{equation}
 \mathbf{y} = \boldsymbol{\mu}_y + \boldsymbol{\alpha}^t\left( \mathbf{z} - \boldsymbol{\mu}_{z} \right) + \boldsymbol{\tau}
 \label{eq:latent-model}
 \end{equation}
 
-Regression model \eqref{eq:latent-model} defines a linear relationship of these new variables \(\mathbf{z}\) with \(\mathbf{y}\) through the coefficients \(\boldsymbol{\alpha} = \boldsymbol{\Sigma}_{zz}^{-1}\boldsymbol{\Sigma}_{zy} = \left[\mathbf{R}\boldsymbol{\Sigma}_{xx}\mathbf{R}^t\right]^{-1}\mathbf{R}\boldsymbol{\Sigma}_{xy}\). The coefficients \(\boldsymbol{\alpha}\) can be transformed back to original coefficients \(\boldsymbol{\beta}\) as \(\boldsymbol{\beta} = \mathbf{R}^t \boldsymbol{\alpha} = \mathbf{R}^t\left[\mathbf{R}\boldsymbol{\Sigma}_{xx}\mathbf{R}^t\right]^{-1}\mathbf{R}\boldsymbol{\Sigma}_{xy}\). Here we can write \(\boldsymbol{\alpha}\) as,
-
-\[\boldsymbol{\alpha} = \mathbf{R} \boldsymbol{\beta} = \mathbf{R} \boldsymbol{\Sigma}_{xx}^{-1}\boldsymbol{\Sigma}_{xy} \]
+The ordinary least square estimate of regression coefficient in equation \eqref{eq:latent-model} is \(\boldsymbol{\hat{\alpha}}=\boldsymbol{S}_{zz}^{-1}\boldsymbol{S}_{zy}=\left[\mathbf{R}^t\mathbf{S}_{xx}\mathbf{R}\right]^{-1}\mathbf{R}^t \mathbf{S}_{xy}\). The coefficient \(\boldsymbol{\hat{\alpha}}\) can be transformed back to \(\boldsymbol{\hat{\beta}}\) as \(\boldsymbol{\hat{\beta}}=\mathbf{R}\boldsymbol{\hat{\alpha}}=\mathbf{R}\left[\mathbf{R}^t\mathbf{S}_{xx}\mathbf{R}\right]^{-1}\mathbf{R}^t \mathbf{S}_{xy}\). When \(\mathbf{R}\) is a full-rank matrix, i.e.~\(k=p\) then, \(\boldsymbol{\hat{\beta}}\) reduces to ordinary least square estimates \(\mathbf{S}_{xx}^{-1}\mathbf{S}_{xy}\).
 
 \emph{Principal Components Regression} (PCR) uses \(k\) eigenvectors of \(\mathbf{S}_{xx}\) as the columns of \(\mathbf{R}\). Since PCR is based on capturing the maximum variation in predictors on every component it has used to model, this method does not consider the response structure \citep{Jolliffe2002}. In addition, if the relevant components are not in the initial position, the method requires more number of components to make precise prediction \citep{Alm_y_1996}.
 
@@ -261,9 +259,9 @@ An R \citep{coreR2018} package \texttt{simrel} \citep{Rimal2018, saebo2015simrel
 
 \begin{description}
 \tightlist
-\item[\textbf{Number of predictors:}]
+\item[\textbf{Number of predictors: (\texttt{p})}]
 In order to cover both tall \((n>p)\) and wide \((p>n)\) cases, \(p= 20\) and \(p= 250\) number of predictors are simulated.
-\item[\textbf{Multicollinearity in predictor variables:}]
+\item[\textbf{Multicollinearity in predictor variables: (\texttt{gamma})}]
 A parameter \texttt{gamma} \((\gamma)\) in simulation controls the exponential decline of eigenvalues \((\lambda_i, i = 1, \ldots p)\) corresponding to predictor variables as,
 \begin{equation}
   \lambda_i = e^{-\gamma(i-1)}, \gamma > 0 \text{ and } i = 1, 2, \ldots p
@@ -271,12 +269,12 @@ A parameter \texttt{gamma} \((\gamma)\) in simulation controls the exponential d
   \end{equation}
 
 Two levels 0.2 and 0.9 of \texttt{gamma} are used for simulation so that level 0.2 simulates the data with low multicollinearity and 0.9 simulates the data with high multicollinearity.
-\item[\textbf{Position of relevant components:}]
-Initial principal components of a non-singular covariance matrix are larger than the later one. If the principal components corresponding to predictors with larger variation is not relevant for a response, this will just increase the noise in the data. Here we will use two different levels of position index of predictor components: a) 1, 2, 3, 4 and b) 1, 2, 3, 4. Predictor components irrelevant for a response makes prediction difficult \citep{Helland1994b}. When combined with multicollinearity, this factor can create both an easy and difficult model for both estimation and prediction.
-\item[\textbf{Correlation in response variables:}]
+\item[\textbf{Position of relevant components: (\texttt{relpos})}]
+Initial principal components of a non-singular covariance matrix are larger than the later one. If the principal components corresponding to predictors with larger variation is not relevant for a response, this will just increase the noise in the data. Here we will use two different levels of position index of predictor components (\texttt{relpos}): a) 1, 2, 3, 4 and b) 5, 6, 7, 8. Predictor components irrelevant for a response makes prediction difficult \citep{Helland1994b}. When combined with multicollinearity, this factor can create both an easy and difficult model for both estimation and prediction.
+\item[\textbf{Correlation in response variables: (\texttt{eta})}]
 Many estimators also uses the structure of response for their estimation. Here the correlation between the responses are varied through a simulation parameter \texttt{eta} \((\eta)\). The parameter controls the exponential decline of eigenvalues \(\kappa_j, j = 1, \ldots m (\text{ number of responses})\) corresponding to response variables as,
 \begin{equation}
-\eta_i = e^{-\kappa(j-1)}, \kappa > 0 \text{ and } j = 1, 2, \ldots m
+\eta_j = e^{-\kappa(j-1)}, \kappa > 0 \text{ and } j = 1, 2, \ldots m
 \label{eq:eta}
 \end{equation}
 
@@ -308,59 +306,59 @@ The focus of this study is to extend the exploration of \citet{rimal2019pred} to
 \def\labelenumi{\alph{enumi})}
 \tightlist
 \item
-  average estimation error of the method using an arbitrary number of components
+  average estimation error computed as in \eqref{eq:estimated-est-error}
 \item
   the average number of components used by the methods to give minimum estimation error
 \end{enumerate}
 
 Let us define the expected estimation error as
 \begin{equation}
-\mathcal{EE}_{ijkl} =
-  \mathsf{E}{\left[\frac{1}{\sigma_{y_j}^2}\left(\boldsymbol{\beta}_{ij} -
-  \boldsymbol{\hat{\beta}_{ijkl}}\right)^t
-  \left(\boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijkl}}\right)\right]}
+  \text{MSE}\left(
+    \boldsymbol{\hat{\beta}}_{ijkl}
+  \right) =
+  \mathsf{E}{\left[
+    \frac{1}{\sigma_{y_j}^2}\left(
+      \boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijkl}}
+    \right)^t
+    \left(
+      \boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijkl}}
+    \right)
+  \right]}
 \label{eq:est-error}
 \end{equation}
 for response \(j = 1, \ldots 4\) in a given design \(i=1, 2, \ldots 32\) and method \(k=1(PCR), \ldots 5(Senv)\) using \(l=0, \ldots 10\) number of components. Here \(\sigma_{y_j}^2\) is the variance of response \(j\). Since both the expectation and the variance of \(\hat{\boldsymbol{\beta}}\) are unknown, the estimation error are estimated using data from 50 replications as follows,
 
 \begin{equation}
-\widehat{\mathcal{EE}_{ijkl}} =
+\widehat{\text{MSE}\left(\hat{\beta}\right)_{ijkl}} =
   \frac{1}{50}\sum_{r=1}^{50}{\left[
-  \left(\mathcal{EE}_\circ\right)_{ijklr}
+    \widehat{\text{MSE}_\circ\left(\hat{\beta}\right)_{ijkl}}  
   \right]}
 \label{eq:estimated-est-error}
 \end{equation}
-where, \(\widehat{\mathcal{EE}_{ijkl}}\) is the estimated prediction error averaged over \(r=50\) replicates and,
-\[\left(\mathcal{EE}_\circ\right)_{ijklr} = \frac{1}{\sigma_{y_j}^2}\left[
-  \left(\boldsymbol{\beta}_{ij}
-    -\boldsymbol{\hat{\beta}_{ijklr}}\right)^t\left(\boldsymbol{\beta}_{ij} -
-    \boldsymbol{\hat{\beta}_{ijklr}}\right)
+where, \(\widehat{\text{MSE}\left(\hat{\beta}\right)_{ijkl}}\) is the estimated prediction error averaged over \(r=50\) replicates and, \[\text{MSE}_\circ\left(\boldsymbol{\hat{\beta}}\right)_{ijklr} = \frac{1}{\sigma_{y_j}^2}\left[\left(\boldsymbol{\beta}_{ij} -\boldsymbol{\hat{\beta}_{ijklr}}\right)^t\left(\boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijklr}}\right)
   \right]\]
 
 Our further discussion revolves around \emph{Error Dataset} and \emph{Component Dataset} as in the prediction comparison paper \citet{rimal2019pred}. For a given estimation method, design, and response, the component that gives the minimum of estimation error averaged over all replicates is selected as,
 \begin{equation}
-  l_\circ = \operatorname*{argmin}_{l}\left[\frac{1}{50}\sum_{r=1}^{50}{\left(\widehat{\mathcal{EE}}_\circ\right)_{r}}\right]
+  l_\circ = \operatorname*{argmin}_{l}\left[\frac{1}{50}\sum_{r=1}^{50}{\widehat{\text{MSE}_\circ\left(\hat{\beta}\right)}_{r}}\right]
   \label{eq:min-err}
 \end{equation}
-The estimation error \(\widehat{\mathcal{EE}}_\circ\) for every methods, design
-and response corresponding to \(l_\circ\) component, computed as
+The estimation error \(\widehat{\text{MSE}_\circ\left(\hat{\beta}\right)}\) for every methods, design and response corresponding to \(l_\circ\) component, computed as
 \eqref{eq:min-err}, is then regarded as \emph{error dataset} in the subsequent
-analysis. Let \(\mathbf{u}_{8000\times4}=(u_j)\) for \(j = 1, \ldots 4\) be the
-outcome variables measuring the estimation error corresponding to the response
-\(j\) in the context of this dataset. Further, let the number of components that
+analysis. Let \(\mathbf{u}_{8000\times4}=(u_j)\) where \(u_j\) is the \(j^\text{th}\) column of \(\mathbf{u}\) denoting the estimation error corresponding to response \(j=1, \ldots 4\) in the context of this dataset. Further, let the number of components that
 result in minimum estimation error in each replication be \(l_\circ\) computed as
 \eqref{eq:min-comp} will be considred as \emph{component dataset}. Let
-\(\mathbf{v}_{8000\times4}=(v_j)\) for \(j = 1, \ldots 4\) be the outcome variable measuring the number of components used to obtain minimum estimation error.
+\(\mathbf{v}_{8000\times4}=(v_j)\) where \(v_j\) is the \(j^\text{th}\) column of \(\mathbf{v}\) denoting the outcome variable measuring the number of components used to obtain minimum estimation error corresponding to response \(j=1, \ldots 4\).
 
 \begin{equation}
-  l_{\circ} = \operatorname*{argmin}_{l}\left[\widehat{\mathcal{EE}}_{\circ}\right]
+  l_{\circ} = \operatorname*{argmin}_{l}\left[\widehat{\text{MSE}_\circ\left(\hat{\beta}\right)}\right]
   \label{eq:min-comp}
 \end{equation}
 
 \hypertarget{exploration}{%
 \section{Exploration}\label{exploration}}
 
-This section explores the variation in the \emph{error dataset} and the \emph{component dataset} for which we have used Principal Component Analysis (PCA). Let \(t_u\) and \(t_v\) be the principal component score sets corresponding to PCA run on the \(\mathbf{u}\) and \(\mathbf{v}\) matrices respectively. The scores density in Figure \ref{fig:est-pca-hist-mthd-gamma-relpos} and Figure \ref{fig:comp-pca-hist-mthd-gamma-relpos} correspond to the first principal component of \(\mathbf{u}\) and \(\mathbf{v}\), i.e.~the first column of \(t_u\) and \(t_v\) respectively.
+This section explores the variation in the \emph{error dataset} and the \emph{component dataset} for which we have used Principal Component Analysis (PCA). Let \(t_u\) and \(t_v\) be columns vectors denoting the principal component scores corresponding to \(\mathbf{u}\) and \(\mathbf{v}\) matrices respectively. The scores density in Figure \ref{fig:est-pca-hist-mthd-gamma-relpos} and Figure \ref{fig:comp-pca-hist-mthd-gamma-relpos} correspond to the first principal component of \(\mathbf{u}\) and \(\mathbf{v}\), i.e.~the first column of \(t_u\) and \(t_v\) respectively. Here higher scores correspond to the larger estimation error and vice versa.
 
 
 
@@ -370,7 +368,7 @@ This section explores the variation in the \emph{error dataset} and the \emph{co
 
 The plot in Figure \ref{fig:est-pca-hist-mthd-gamma-relpos} shows a clear difference between the effect of low and high multicollinearity in estimation error. In the case of low multicollinearity (\texttt{gamma:\ 0.2}), the estimation errors are smaller and have lesser variation compared to high multicollinearity (\texttt{gamma:\ 0.9}). In addition, the envelope methods have increased their estimation error in the case of highly correlated responses (\texttt{eta:\ 1.2}) whereas there is no effect of this correlation in other methods.
 
-Furthermore, the relevant predictor components, in general, has a noticeable effect on estimation error. When relevant predictors are at position 5, 6, 7, 8, the predictor components at 1, 2, 3, 4, which carry most of the variation, becomes irrelevant. These irrelevant components with large variation add noise to the model and consequently increases the estimation error. The effect intensifies on highly collinear predictors. Designs with high multicollinearity and relevant predictors at position 5, 6, 7, 8 are relatively difficult to model for all the methods. Although these difficult designs have a large effect on estimation error, their effect on prediction error is less influential \citep{rimal2019pred}.
+Furthermore, position of the relevant predictor components has a noticeable effect on estimation error. When relevant predictors are at position 5, 6, 7, 8, the components at 1, 2, 3, 4, which carry most of the variation, become irrelevant. These irrelevant components with large variation add noise to the model and consequently increases the estimation error. The effect intensifies on highly collinear predictors. Designs with high multicollinearity and relevant predictors at position 5, 6, 7, 8 are relatively difficult to model for all the methods. Although these difficult designs have a large effect on estimation error, their effect on prediction error is less influential \citep{rimal2019pred}.
 
 
 
@@ -384,16 +382,16 @@ The plot also shows that there is no clear effect due to the correlation of resp
 
 A clear interaction between the position of relevant predictors and the multicollinearity visible in the plot suggest that the methods use a larger number of components when the relevant components are at position 5, 6, 7, 8. Additionally, the use of components escalate and the difference between the two levels of \texttt{relpos} becomes wider in the case of high multicollinearity in the model. Such performance is also seen the case of prediction error (See \citet{rimal2019pred}) however the number of components used in that case is lesser than in this case. Even when the relevant predictors are at position 5, 6, 7, 8, the envelope methods, in contrast to other methods, have used an almost similar number of components as in the case of relevant predictor at position 1, 2, 3, 4. This shows that the envelope methods identify the predictor space relevant to the response differently and with very few numbers of latent components.
 
-Following section explore the prediction and estimation error together with the regression coefficient of Simultaneous Envelope and Partial Least Squares for a design having high multicollinearity with predictor components at position 5, 6, 7, 8. Here we will use design with \(n>p\) and two levels of correlation between the response. These correspond to Design-9 and Design-29.
+Following sub-section explore the prediction and estimation error together with the regression coefficient of Simultaneous Envelope and Partial Least Squares for a design having high multicollinearity with predictor components at position 5, 6, 7, 8. Here we will use design with \(n>p\) and two levels of correlation between the response. These correspond to Design-9 and Design-29.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{Estimation-Paper_files/figure-latex/coef-plot-1} \caption{Regression Coefficients estimated by PLS2 and Simultaneous methods on the data based on Design 9 and 29.}\label{fig:coef-plot}
+\includegraphics[width=1\linewidth]{Estimation-Paper_files/figure-latex/coef-plot-1} \caption{Regression Coefficients (coef) estimated by PLS2 and Simultaneous Envelope methods on the data based on Design 9 and 29.}\label{fig:coef-plot}
 \end{figure}
 
 Figure \ref{fig:err-plot} shows a clear distinction between the modelling approach of PLS2 and Senv methods for the same model based on Design 9 (top) and Design 29 (bottom). In both of the designs, PLS2 has both minimum prediction error and minimum estimation error obtained using seven to eight components and the estimated regression coefficients approximate the true coefficients. In contrast, the Senv method has approached the minimum prediction and minimum estimation error using one to two components and the corresponding estimated regression coefficients approximate the true coefficients (Figure \ref{fig:coef-plot}). Despite having contrast modelling results for a dataset with similar properties, the minimum errors produced by them are comparable in the case of Design 9 (See Table \ref{tab:min-err-dgn9}). However, in the case of Design 29, estimation error corresponding to PLS1 and envelope methods are much higher than PCR and PLS2. It is interesting to see that despite having large estimation error, the prediction error corresponding to the envelope methods are much smaller in this design. Since the increased correlation in the response is responsible for the elevated estimation error in envelopes, it is certain that the performance of envelope methods which tries to find relevant space with few number of components is affected more than the other methods. Here the response dimension for the simultaneous envelope has been fixed at two components which might have affected its performance however both envelope methods had performed much better with the same restriction in the case of prediction.
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{Estimation-Paper_files/figure-latex/err-plot-1} \caption{Minimum prediction and estimation error for PLS2 and Simultaneous methods. The point and lines are averaged over 50 replications.}\label{fig:err-plot}
+\includegraphics[width=1\linewidth]{Estimation-Paper_files/figure-latex/err-plot-1} \caption{Minimum prediction and estimation error for PLS2 and Simultaneous Envelope methods. The point and lines are averaged over 50 replications.}\label{fig:err-plot}
 \end{figure}
 
 Figure \ref{fig:err-plot} also shows that, in both designs, Senv has resulted in huge estimation error when the number of components is not optimal. This is also true for the PLS2 model however the extent of this variation is noticeably large in the Senv method. A similar observation as Senv is also found in Xenv method while PCR and PLS1 are closer to the PLS2 in terms of their use of components in order to produce the minimum error (See Table \ref{tab:min-err-dgn9}).
@@ -445,7 +443,7 @@ Despite having a large variation in prediction and estimation error, the envelop
 \hypertarget{analysis}{%
 \section{Analysis}\label{analysis}}
 
-A statistical analysis using Multivariate Analysis of variance (MANOVA) model is performed on \emph{error dataset} and \emph{component dataset} in order to understand the association between data properties and the estimation methods. Let the corresponding models be \emph{error model} \eqref{eq:err-model} and \emph{component model} \eqref{eq:comp-model}. In the model, we will consider the interaction of simulation parameters (\texttt{p}, \texttt{gamma}, \texttt{eta}, and \texttt{relpos}) and \texttt{Method} The model is fitted using corresponding \emph{error dataset} (\(\mathbf{u}\)) and \emph{component dataset} (\(\mathbf{v}\)).
+A statistical analysis using Multivariate Analysis of variance (MANOVA) model is performed on \emph{error dataset} and \emph{component dataset} in order to understand the association between data properties and the estimation methods. Let the corresponding MANOVA models be \emph{error model} \eqref{eq:err-model} and \emph{component model} \eqref{eq:comp-model}. In the MANOVA model, we will consider the interaction of simulation parameters (\texttt{p}, \texttt{gamma}, \texttt{eta}, and \texttt{relpos}) and \texttt{Method} The model is fitted using corresponding \emph{error dataset} (\(\mathbf{u}\)) and \emph{component dataset} (\(\mathbf{v}\)).
 
 \textbf{Error Model:}
 \begin{equation}
@@ -482,7 +480,7 @@ Unlike prediction error in \citet{rimal2019pred}, \texttt{Method} has a lesser e
 
 Furthermore, the \texttt{eta} factor controlling the correlation between the responses, and its second-order interaction with other factors except for the number of predictors is significant. The effect is also comparable with the main effect of \texttt{Method} and \texttt{eta}.
 \item[\textbf{Component Model:}]
-Although the \texttt{Method} does not have a large impact on the estimation error, the \emph{component model} in Figure \ref{fig:manova-plot} (right) shows that the methods are significantly different and has a huge effect on the number of components they use to obtain the minimum estimation error. The result also corresponds to the case of prediction error in \citet{rimal2019pred}. However, the F-value corresponding the \texttt{relpos} and \texttt{gamma} shows that the significance of these factors is much stronger compared to the case of prediction error.
+Although the \texttt{Method} does not have a large impact on the estimation error, the \emph{component model} in Figure \ref{fig:manova-plot} (right) shows that the methods are significantly different and has a huge effect on the number of components they use to obtain the minimum estimation error. The result also corresponds to the case of prediction error in \citet{rimal2019pred}. However, the F-value corresponding the \texttt{relpos} and \texttt{gamma} shows that the importance of these factors is much stronger compared to the case of prediction error.
 \end{description}
 
 The following section will further explore the effects of individual levels of different factors.
@@ -490,12 +488,12 @@ The following section will further explore the effects of individual levels of d
 \hypertarget{effect-analysis-of-the-error-model}{%
 \subsection{Effect Analysis of the Error Model}\label{effect-analysis-of-the-error-model}}
 
-In figure \ref{fig:est-eff-plots} (left), the effect of correlation between the responses controlled by the \texttt{eta} parameter has a clear influence on the estimation error. In the case of envelope methods, high values of \texttt{eta}, i.e.~highly correlated responses, have a negative effect on estimation error whereas the effect is negligible for other methods. In all methods, the error in the case of relevant predictors at position 5, 6, 7, 8 is huge as compared to the case where relevant predictors are at position 1, 2, 3, 4. Among these methods, PLS1 has the highest estimation error in both levels of relevant predictors since the method models the response variables independently and does not consider the correlation structure in them.
+In figure \ref{fig:est-eff-plots} (left), the effect of correlation between the responses controlled by the \texttt{eta} parameter has a clear influence on the estimation error. For the envelope methods, high values of \texttt{eta}, i.e.~highly correlated responses, have a negative effect on estimation error whereas the effect is negligible for other methods. In all methods, the error in the case of relevant predictors at position 5, 6, 7, 8 is huge as compared to the case where relevant predictors are at position 1, 2, 3, 4. Among these methods, PLS1 has the highest estimation error in both levels of relevant predictors since the method models the response variables independently and does not consider the correlation structure in them.
 
 
 
 \begin{figure}
-\includegraphics[width=1\linewidth]{Estimation-Paper_files/figure-latex/est-eff-plots-1} \caption{Effect plot of some interactions of the multivariate linear model corresponding to \emph{error model}}\label{fig:est-eff-plots}
+\includegraphics[width=1\linewidth]{Estimation-Paper_files/figure-latex/est-eff-plots-1} \caption{Effect plot of some interactions of the MANOVA corresponding to fitted \emph{error model}}\label{fig:est-eff-plots}
 \end{figure}
 
 Figure \ref{fig:est-eff-plots} (right) shows the large difference in the effect of two levels of the position of relevant predictors especially in the designs with high multicollinearity. In the case of high multicollinearity, all methods have noticeable poor performance compared to the case of low multicollinearity.
@@ -505,7 +503,7 @@ Figure \ref{fig:est-eff-plots} also shows that in the case of designs with uncor
 \hypertarget{effect-analysis-of-the-component-model}{%
 \subsection{Effect Analysis of the Component Model}\label{effect-analysis-of-the-component-model}}
 
-In the case of \emph{component model}, envelope methods are the clear winner in almost all designs. In the case of low multicollinearity and position of relevant predictors at 1, 2, 3, 4, PLS1 has obtained the minimum estimation error similar to the envelope methods, however in the case of high multicollinearity PLS1 has also used a fairly large number of components to obtain the minimum prediction error. Although the envelope methods have comparable and minimum estimation error in some of the designs, in almost all the designs these methods have used 1-2 components on average. The effect of the correlation in the response has minimal effect on the number of components used by the methods. The design nine, which we have considered in the previous section has minimum estimation error from envelope methods using only one predictor components by both Xenv and Senv. In design 29 where the envelope methods have poor performance than the other methods due to highly correlated responses, the number of components used by them is still one. This corresponds to the results seen in Figure \ref{fig:comp-eff-plots}.
+In the case of fitted \emph{component model}, envelope methods are the clear winner in almost all designs. In the case of low multicollinearity and position of relevant predictors at 1, 2, 3, 4, PLS1 has obtained the minimum estimation error similar to the envelope methods, however in the case of high multicollinearity PLS1 has also used a fairly large number of components to obtain the minimum prediction error. Although the envelope methods have comparable and minimum estimation error in some of the designs, in almost all the designs these methods have used 1-2 components on average. The effect of the correlation in the response has minimal effect on the number of components used by the methods. The design nine, which we have considered in the previous section has minimum estimation error from envelope methods using only one predictor components by both Xenv and Senv. In design 29 where the envelope methods have poorer performance than the other methods due to highly correlated responses, the number of components used by them is still one. This corresponds to the results seen in Figure \ref{fig:comp-eff-plots}.
 
 
 

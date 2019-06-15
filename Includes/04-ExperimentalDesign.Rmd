@@ -1,10 +1,10 @@
 # Experimental Design #
 An R [@coreR2018] package `simrel` [@Rimal2018; @saebo2015simrel] is used to simulate the data for comparison. In the simulation, the number of observation is fixed at $n = 100$ and following four simulation parameters are used to obtain the data with a wide range of properties.
 
-**Number of predictors:**
+**Number of predictors: (`p`)**
 : In order to cover both tall $(n>p)$ and wide $(p>n)$ cases, $p= `r opts$p[1]`$ and $p= `r opts$p[2]`$ number of predictors are simulated.
 
-**Multicollinearity in predictor variables:**
+**Multicollinearity in predictor variables: (`gamma`)**
 : A parameter `gamma` $(\gamma)$ in simulation controls the exponential decline of eigenvalues $(\lambda_i, i = 1, \ldots p)$ corresponding to predictor variables as,
   \begin{equation}
   \lambda_i = e^{-\gamma(i-1)}, \gamma > 0 \text{ and } i = 1, 2, \ldots p
@@ -12,13 +12,13 @@ An R [@coreR2018] package `simrel` [@Rimal2018; @saebo2015simrel] is used to sim
   \end{equation}
 : Two levels `r catvec(opts$gamma)` of `gamma` are used for simulation so that level `r opts$gamma[1]` simulates the data with low multicollinearity and `r opts$gamma[2]` simulates the data with high multicollinearity.
 
-**Position of relevant components:**
-: Initial principal components of a non-singular covariance matrix are larger than the later one. If the principal components corresponding to predictors with larger variation is not relevant for a response, this will just increase the noise in the data. Here we will use two different levels of position index of predictor components: a) `r opts$relpos[1]` and b)  `r opts$relpos[1]`. Predictor components irrelevant for a response makes prediction difficult [@Helland1994b]. When combined with multicollinearity, this factor can create both an easy and difficult model for both estimation and prediction.
+**Position of relevant components: (`relpos`)**
+: Initial principal components of a non-singular covariance matrix are larger than the later one. If the principal components corresponding to predictors with larger variation is not relevant for a response, this will just increase the noise in the data. Here we will use two different levels of position index of predictor components (`relpos`): a) `r opts$relpos[1]` and b)  `r opts$relpos[2]`. Predictor components irrelevant for a response makes prediction difficult [@Helland1994b]. When combined with multicollinearity, this factor can create both an easy and difficult model for both estimation and prediction.
 
-**Correlation in response variables:**
+**Correlation in response variables: (`eta`)**
 : Many estimators also uses the structure of response for their estimation. Here the correlation between the responses are varied through a simulation parameter `eta` $(\eta)$. The parameter controls the exponential decline of eigenvalues $\kappa_j, j = 1, \ldots m (\text{ number of responses})$ corresponding to response variables as,
 \begin{equation}
-\eta_i = e^{-\kappa(j-1)}, \kappa > 0 \text{ and } j = 1, 2, \ldots m
+\eta_j = e^{-\kappa(j-1)}, \kappa > 0 \text{ and } j = 1, 2, \ldots m
 (\#eq:eta)
 \end{equation}
 : Four levels  `r catvec(opts$eta)` of `eta` are used in the so that level `r opts$eta[1]` simulates the data with uncorrelated response variables while `r opts$eta[length(opts$eta)]` simulates the highly correlated response variables.
@@ -82,7 +82,11 @@ design_chr_selected <- selected_designs %>%
     mutate_at("relpos", ~gsub("list\\(c\\((.+)\\))", "\\1", ..1))
 design_name <- paste0("Design", selected_designs$Design)
 design_lbl <- with(design_chr_selected, {
-  paste(design_name, map2_chr(relpos, gamma, paste, sep = " | "), sep = "\n")
+  paste(design_name,
+        map2_chr(
+          paste0("relpos:", relpos), paste0("gamma:", gamma),
+          paste, sep = " | "),
+        sep = "\n")
 })
 names(design_lbl) <- design_name
 ggplot(sigma_zy, aes(Predictor, Covariance, color = factor(Response))) +
@@ -140,49 +144,49 @@ comp_min <- est_dta %>%
 
 The focus of this study is to extend the exploration of @rimal2019pred to compare the estimation performance of PCR, PLS1, PLS2, Xenv and Senv methods. The performance is measured on the basis of,
 
-a) average estimation error of the method using an arbitrary number of components
+a) average estimation error computed as in \@ref(eq:estimated-est-error)
 b) the average number of components used by the methods to give minimum estimation error
 
 Let us define the expected estimation error as
 \begin{equation}
-\mathcal{EE}_{ijkl} =
-  \mathsf{E}{\left[\frac{1}{\sigma_{y_j}^2}\left(\boldsymbol{\beta}_{ij} -
-  \boldsymbol{\hat{\beta}_{ijkl}}\right)^t
-  \left(\boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijkl}}\right)\right]}
+  \text{MSE}\left(
+    \boldsymbol{\hat{\beta}}_{ijkl}
+  \right) =
+  \mathsf{E}{\left[
+    \frac{1}{\sigma_{y_j}^2}\left(
+      \boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijkl}}
+    \right)^t
+    \left(
+      \boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijkl}}
+    \right)
+  \right]}
 (\#eq:est-error)
 \end{equation}
 for response $j = 1, \ldots 4$ in a given design $i=1, 2, \ldots 32$ and method $k=1(PCR), \ldots 5(Senv)$ using $l=0, \ldots 10$ number of components. Here $\sigma_{y_j}^2$ is the variance of response $j$. Since both the expectation and the variance of $\hat{\boldsymbol{\beta}}$ are unknown, the estimation error are estimated using data from 50 replications as follows,
 
 \begin{equation}
-\widehat{\mathcal{EE}_{ijkl}} =
+\widehat{\text{MSE}\left(\hat{\beta}\right)_{ijkl}} =
   \frac{1}{50}\sum_{r=1}^{50}{\left[
-  \left(\mathcal{EE}_\circ\right)_{ijklr}
+    \widehat{\text{MSE}_\circ\left(\hat{\beta}\right)_{ijkl}}  
   \right]}
 (\#eq:estimated-est-error)
 \end{equation}
-where, $\widehat{\mathcal{EE}_{ijkl}}$ is the estimated prediction error averaged over $r=50$ replicates and,
-$$\left(\mathcal{EE}_\circ\right)_{ijklr} = \frac{1}{\sigma_{y_j}^2}\left[
-  \left(\boldsymbol{\beta}_{ij}
-    -\boldsymbol{\hat{\beta}_{ijklr}}\right)^t\left(\boldsymbol{\beta}_{ij} -
-    \boldsymbol{\hat{\beta}_{ijklr}}\right)
+where, $\widehat{\text{MSE}\left(\hat{\beta}\right)_{ijkl}}$ is the estimated prediction error averaged over $r=50$ replicates and, $$\text{MSE}_\circ\left(\boldsymbol{\hat{\beta}}\right)_{ijklr} = \frac{1}{\sigma_{y_j}^2}\left[\left(\boldsymbol{\beta}_{ij} -\boldsymbol{\hat{\beta}_{ijklr}}\right)^t\left(\boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijklr}}\right)
   \right]$$
 
 Our further discussion revolves around _Error Dataset_ and _Component Dataset_ as in the prediction comparison paper @rimal2019pred. For a given estimation method, design, and response, the component that gives the minimum of estimation error averaged over all replicates is selected as, 
 \begin{equation}
-  l_\circ = \operatorname*{argmin}_{l}\left[\frac{1}{50}\sum_{r=1}^{50}{\left(\widehat{\mathcal{EE}}_\circ\right)_{r}}\right]
+  l_\circ = \operatorname*{argmin}_{l}\left[\frac{1}{50}\sum_{r=1}^{50}{\widehat{\text{MSE}_\circ\left(\hat{\beta}\right)}_{r}}\right]
   (\#eq:min-err)
 \end{equation}
-The estimation error $\widehat{\mathcal{EE}}_\circ$ for every methods, design
-and response corresponding to $l_\circ$ component, computed as
+The estimation error $\widehat{\text{MSE}_\circ\left(\hat{\beta}\right)}$ for every methods, design and response corresponding to $l_\circ$ component, computed as
 \@ref(eq:min-err), is then regarded as _error dataset_ in the subsequent
-analysis. Let $\mathbf{u}_{8000\times4}=(u_j)$ for $j = 1, \ldots 4$ be the
-outcome variables measuring the estimation error corresponding to the response
-$j$ in the context of this dataset. Further, let the number of components that
+analysis. Let $\mathbf{u}_{8000\times4}=(u_j)$ where $u_j$ is the $j^\text{th}$ column of $\mathbf{u}$ denoting the estimation error corresponding to response $j=1, \ldots 4$ in the context of this dataset. Further, let the number of components that
 result in minimum estimation error in each replication be $l_\circ$ computed as
 \@ref(eq:min-comp) will be considred as _component dataset_. Let
-$\mathbf{v}_{8000\times4}=(v_j)$ for $j = 1, \ldots 4$ be the outcome variable measuring the number of components used to obtain minimum estimation error.
+$\mathbf{v}_{8000\times4}=(v_j)$ where $v_j$ is the $j^\text{th}$ column of $\mathbf{v}$ denoting the outcome variable measuring the number of components used to obtain minimum estimation error corresponding to response $j=1, \ldots 4$.
 
 \begin{equation}
-  l_{\circ} = \operatorname*{argmin}_{l}\left[\widehat{\mathcal{EE}}_{\circ}\right]
+  l_{\circ} = \operatorname*{argmin}_{l}\left[\widehat{\text{MSE}_\circ\left(\hat{\beta}\right)}\right]
   (\#eq:min-comp)
 \end{equation}

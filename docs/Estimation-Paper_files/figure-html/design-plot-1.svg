@@ -254,16 +254,16 @@
 <path style="fill:none;stroke-width:0.708661;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 136.648438 104.597656 L 140.558594 100.691406 "/>
 <path style="fill:none;stroke-width:0.708661;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 136.648438 100.691406 L 140.558594 104.597656 "/>
 <g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
-  <use xlink:href="#glyph0-1" x="68.929688" y="45.273438"/>
+  <use xlink:href="#glyph0-1" x="68.933594" y="45.273438"/>
 </g>
 <g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
   <use xlink:href="#glyph0-2" x="215.535156" y="102.25"/>
 </g>
 <g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
-  <use xlink:href="#glyph0-3" x="215.535156" y="45.273438"/>
+  <use xlink:href="#glyph0-3" x="215.539062" y="45.273438"/>
 </g>
 <g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
-  <use xlink:href="#glyph0-4" x="68.933594" y="102.25"/>
+  <use xlink:href="#glyph0-4" x="68.929688" y="102.25"/>
 </g>
 <g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
   <use xlink:href="#glyph0-1" x="142.242188" y="45.441406"/>
@@ -316,10 +316,10 @@
 <path style="fill:none;stroke-width:0.708661;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 283.253906 118.984375 L 287.164062 115.074219 "/>
 <path style="fill:none;stroke-width:0.708661;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 283.253906 115.074219 L 287.164062 118.984375 "/>
 <g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
-  <use xlink:href="#glyph0-7" x="215.539062" y="180.777344"/>
+  <use xlink:href="#glyph0-7" x="215.535156" y="180.777344"/>
 </g>
 <g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
-  <use xlink:href="#glyph0-8" x="68.929688" y="123.796875"/>
+  <use xlink:href="#glyph0-8" x="68.933594" y="123.796875"/>
 </g>
 <g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
   <use xlink:href="#glyph0-5" x="68.929688" y="180.777344"/>
@@ -443,8 +443,8 @@
 <path style="fill:none;stroke-width:0.708661;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 533.125 183.125 L 537.03125 179.214844 "/>
 <path style="fill:none;stroke-width:0.708661;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 533.125 179.214844 L 537.03125 183.125 "/>
 <g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
-  <use xlink:href="#glyph0-1" x="465.414062" y="123.964844"/>
-  <use xlink:href="#glyph0-1" x="472.015137" y="123.964844"/>
+  <use xlink:href="#glyph0-1" x="465.410156" y="123.964844"/>
+  <use xlink:href="#glyph0-1" x="472.01123" y="123.964844"/>
 </g>
 <g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
   <use xlink:href="#glyph0-1" x="318.808594" y="180.609375"/>
