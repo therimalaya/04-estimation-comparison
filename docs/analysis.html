@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-06-15">
+<meta name="date" content="2019-06-24">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -109,14 +109,14 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="analysis" class="section level1">
 <h1>Analysis</h1>
-<p>A statistical analysis using Multivariate Analysis of variance (MANOVA) model is performed on <em>error dataset</em> and <em>component dataset</em> in order to understand the association between data properties and the estimation methods. Let the corresponding MANOVA models be <em>error model</em> <a href="analysis.html#eq:err-model">(10)</a> and <em>component model</em> <a href="analysis.html#eq:comp-model">(11)</a>. In the MANOVA model, we will consider the interaction of simulation parameters (<code>p</code>, <code>gamma</code>, <code>eta</code>, and <code>relpos</code>) and <code>Method</code> The model is fitted using corresponding <em>error dataset</em> (<span class="math inline">\(\mathbf{u}\)</span>) and <em>component dataset</em> (<span class="math inline">\(\mathbf{v}\)</span>).</p>
+<p>A statistical analysis using Multivariate Analysis of variance (MANOVA) model is performed on <em>error dataset</em> and <em>component dataset</em> in order to understand the association between data properties and the estimation methods. Let the corresponding MANOVA models be <em>error model</em> <a href="analysis.html#eq:err-model">(9)</a> and <em>component model</em> <a href="analysis.html#eq:comp-model">(10)</a>. In the MANOVA model, we will consider the interaction of simulation parameters (<code>p</code>, <code>gamma</code>, <code>eta</code>, and <code>relpos</code>) and <code>Method</code> The model is fitted using corresponding <em>error dataset</em> (<span class="math inline">\(\mathbf{u}\)</span>) and <em>component dataset</em> (<span class="math inline">\(\mathbf{v}\)</span>).</p>
 <p><strong>Error Model:</strong>
 <span class="math display" id="eq:err-model">\[\begin{equation}
   \mathbf{u} = \boldsymbol{\mu} +
   (\texttt{p} + \texttt{gamma} + \texttt{eta} +
     \texttt{relpos} + \texttt{Methods})^3 +
     \boldsymbol{\varepsilon}
-  \tag{10}
+  \tag{9}
 \end{equation}\]</span></p>
 <p><strong>Component Model:</strong>
 <span class="math display" id="eq:comp-model">\[\begin{equation}
@@ -124,7 +124,7 @@ div.abstract{
   (\texttt{p} + \texttt{gamma} + \texttt{eta} +
     \texttt{relpos} + \texttt{Methods})^3 +
     \boldsymbol{\varepsilon}
-  \tag{11}
+  \tag{10}
 \end{equation}\]</span></p>
 <p>where, <span class="math inline">\(\mathbf{u}\)</span> corresponds to the estimation errors in <em>error dataset</em> and <span class="math inline">\(\mathbf{v}\)</span> corresponds to the number of components used by a method to obtain minimum estimation error in the <em>component dataset</em>.</p>
 <p>To make the analysis equivalent to <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>, we have also used Pillai’s trace statistic for accessing the result of MANOVA. Figure <a href="analysis.html#fig:manova-plot">8</a> plots the Pillai’s trace statistics as bars with corresponding F-values as text labels. The left plot corresponds to the <em>error model</em> and the right plot corresponds to the <em>component model</em>.</p>

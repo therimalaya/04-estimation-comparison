@@ -235,16 +235,11 @@ Here, \(\boldsymbol{\Sigma}_{xx}\) and \(\boldsymbol{\Sigma}_{yy}\) are variance
 \label{eq:reg-model}
 \end{equation}
 
-where \(\boldsymbol{\beta}=\boldsymbol{\Sigma}_{xx}^{-1}\boldsymbol{\Sigma}_{xy}\) is the regression coefficient that defines the relationship between \(\mathbf{x}\) and \(\mathbf{y}\). We can write the least square estimates of \(\boldsymbol{\beta}\) using the sample estimates as \(\boldsymbol{\hat{\beta}}=\mathbf{S}_{xx}^{-1}\mathbf{S}_{xy}\). Consider a transformation \(\mathbf{z}=\mathbf{R^tx}\) with an \(k \times p (k<p)\) orthogonal rotation matrix \(\mathbf{R}\) with \(k\) orthogonal columns. We can rewrite the linear regression model in terms of these transformed variable as in model \eqref{eq:reg-model}.
+where \(\boldsymbol{\beta}=\boldsymbol{\Sigma}_{xx}^{-1}\boldsymbol{\Sigma}_{xy}\)
+is the regression coefficient that defines the relationship between \(\mathbf{x}\)
+and \(\mathbf{y}\). With \(n\) samples, the least squares estimate of \(\boldsymbol{\beta}\) can be written as \(\boldsymbol{\hat{\beta}}=\mathbf{S}_{xx}^{-1}\mathbf{S}_{xy}\). Here in many situations \(\mathbf{S}_{xx}\) can either non-invertible or has small eigenvalues. In addition, \(\mathbf{S}_{xy}\) is influenced my high level of noise in the data. In order to solve these problems, various methods uses the concept of relevant space to identify the relevant components by reducing the dimension of either \(\mathbf{x}\) or \(\mathbf{y}\) or both.
 
-\begin{equation}
-\mathbf{y} = \boldsymbol{\mu}_y + \boldsymbol{\alpha}^t\left( \mathbf{z} - \boldsymbol{\mu}_{z} \right) + \boldsymbol{\tau}
-\label{eq:latent-model}
-\end{equation}
-
-The ordinary least square estimate of regression coefficient in equation \eqref{eq:latent-model} is \(\boldsymbol{\hat{\alpha}}=\boldsymbol{S}_{zz}^{-1}\boldsymbol{S}_{zy}=\left[\mathbf{R}^t\mathbf{S}_{xx}\mathbf{R}\right]^{-1}\mathbf{R}^t \mathbf{S}_{xy}\). The coefficient \(\boldsymbol{\hat{\alpha}}\) can be transformed back to \(\boldsymbol{\hat{\beta}}\) as \(\boldsymbol{\hat{\beta}}=\mathbf{R}\boldsymbol{\hat{\alpha}}=\mathbf{R}\left[\mathbf{R}^t\mathbf{S}_{xx}\mathbf{R}\right]^{-1}\mathbf{R}^t \mathbf{S}_{xy}\). When \(\mathbf{R}\) is a full-rank matrix, i.e.~\(k=p\) then, \(\boldsymbol{\hat{\beta}}\) reduces to ordinary least square estimates \(\mathbf{S}_{xx}^{-1}\mathbf{S}_{xy}\).
-
-\emph{Principal Components Regression} (PCR) uses \(k\) eigenvectors of \(\mathbf{S}_{xx}\) as the columns of \(\mathbf{R}\). Since PCR is based on capturing the maximum variation in predictors on every component it has used to model, this method does not consider the response structure \citep{Jolliffe2002}. In addition, if the relevant components are not in the initial position, the method requires more number of components to make precise prediction \citep{Alm_y_1996}.
+\emph{Principal Components Regression} (PCR) uses \(k\) eigenvectors of \(\mathbf{S}_{xx}\) as the number of components or the number of reduced dimension. Since PCR is based on capturing the maximum variation in predictors on every component it has used to model, this method does not consider the response structure \citep{Jolliffe2002}. In addition, if the relevant components are not in the initial position, the method requires more number of components to make precise prediction \citep{Alm_y_1996}.
 
 \emph{Partial Least Squares} (PLS) regression tries to maximize the covariance between the predictors and the response scores \citep{DeJong1993}. Broadly, PLS can be divided into PLS1 and PLS2 where the former tries to model the response variables individually and the later using all the response variable together while modelling. Among the three widely used algorithms NIPALS \citep{wold75nipals}, SIMPLS \citep{DeJong1993} and KernelPLS \citep{Lindgren_1993}, for this study we will be using KernelPLS which gives equivalent results to the other two and is default in R-package \texttt{pls} \citep{mevik07_thepl}.
 

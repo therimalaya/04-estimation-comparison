@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-06-15">
+<meta name="date" content="2019-06-24">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -118,7 +118,7 @@ div.abstract{
 <dd>A parameter <code>gamma</code> <span class="math inline">\((\gamma)\)</span> in simulation controls the exponential decline of eigenvalues <span class="math inline">\((\lambda_i, i = 1, \ldots p)\)</span> corresponding to predictor variables as,
 <span class="math display" id="eq:gamma">\[\begin{equation}
   \lambda_i = e^{-\gamma(i-1)}, \gamma &gt; 0 \text{ and } i = 1, 2, \ldots p
-  \tag{4}
+  \tag{3}
   \end{equation}\]</span>
 </dd>
 <dd>Two levels 0.2 and 0.9 of <code>gamma</code> are used for simulation so that level 0.2 simulates the data with low multicollinearity and 0.9 simulates the data with high multicollinearity.
@@ -130,7 +130,7 @@ div.abstract{
 <dd>Many estimators also uses the structure of response for their estimation. Here the correlation between the responses are varied through a simulation parameter <code>eta</code> <span class="math inline">\((\eta)\)</span>. The parameter controls the exponential decline of eigenvalues <span class="math inline">\(\kappa_j, j = 1, \ldots m (\text{ number of responses})\)</span> corresponding to response variables as,
 <span class="math display" id="eq:eta">\[\begin{equation}
 \eta_j = e^{-\kappa(j-1)}, \kappa &gt; 0 \text{ and } j = 1, 2, \ldots m
-\tag{5}
+\tag{4}
 \end{equation}\]</span>
 </dd>
 <dd>Four levels 0, 0.4, 0.8 and 1.2 of <code>eta</code> are used in the so that level 0 simulates the data with uncorrelated response variables while 1.2 simulates the highly correlated response variables.
