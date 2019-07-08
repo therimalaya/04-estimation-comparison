@@ -30,7 +30,7 @@ bibliography: 'References.bib'
 biblio-title: References
 biblio-style: elsarticle-harv
 link-citations: true
-github-repo: therimalaya/04-estimation-comparison
+github-repo: 'therimalaya/04-estimation-comparison'
 always_allow_html: true
 url: 'http\://therimalaya.github.io/04-estimation-comparison'
 knit: 'bookdown::render_book'
@@ -41,23 +41,21 @@ abstract: |
 ---
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE, cache=FALSE}
-options(digits = 3, scipen = 999)
 suppressMessages({
   source("scripts/00-function.r")
   source("scripts/01-setup.r")
-  source("scripts/03-collection.r")
 })
 knitr::opts_chunk$set(comment = NULL, out.width = "100%", echo = FALSE)
 if (knitr::is_html_output()) {
-  knitr::opts_chunk$set(
-    dev = c('svg', 'pdf'),
-    message = FALSE,
-    warning = FALSE,
-    cache = TRUE,
-    fig.retina = 2,
-    fig.pos='!htb'
-    )
+  knitr::opts_chunk$set(dev = 'svg', fig.retina = 2, dev.args = list(family="mono"))
 }
+```
+
+```{r}
+options(digits = 3, scipen = 999)
+suppressMessages({
+  source("scripts/03-collection.r")
+})
 ```
 
 # Introduction #

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Estimation Methods | Comparison of Multivariate Estimation Methods</title>
-  <meta name="description" content="Estimation Methods | Comparison of Multivariate Estimation Methods">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Estimation Methods | Comparison of Multivariate Estimation Methods" />
+  <meta name="generator" content="bookdown 0.11.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Estimation Methods | Comparison of Multivariate Estimation Methods" />
   <meta property="og:type" content="book" />
@@ -24,11 +23,11 @@
 
 
 
-<meta name="date" content="2019-06-24">
+<meta name="date" content="2019-06-26" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="simulation-model.html">
@@ -134,7 +133,7 @@ div.abstract{
 \end{equation}\]</span></p>
 <p>where <span class="math inline">\(\boldsymbol{\beta}=\boldsymbol{\Sigma}_{xx}^{-1}\boldsymbol{\Sigma}_{xy}\)</span>
 is the regression coefficient that defines the relationship between <span class="math inline">\(\mathbf{x}\)</span>
-and <span class="math inline">\(\mathbf{y}\)</span>. With <span class="math inline">\(n\)</span> samples, the least squares estimate of <span class="math inline">\(\boldsymbol{\beta}\)</span> can be written as <span class="math inline">\(\boldsymbol{\hat{\beta}}=\mathbf{S}_{xx}^{-1}\mathbf{S}_{xy}\)</span>. Here in many situations <span class="math inline">\(\mathbf{S}_{xx}\)</span> can either non-invertible or has small eigenvalues. In addition, <span class="math inline">\(\mathbf{S}_{xy}\)</span> is influenced my high level of noise in the data. In order to solve these problems, various methods uses the concept of relevant space to identify the relevant components by reducing the dimension of either <span class="math inline">\(\mathbf{x}\)</span> or <span class="math inline">\(\mathbf{y}\)</span> or both.</p>
+and <span class="math inline">\(\mathbf{y}\)</span>. With <span class="math inline">\(n\)</span> samples, the least squares estimate of <span class="math inline">\(\boldsymbol{\beta}\)</span> can be written as <span class="math inline">\(\boldsymbol{\hat{\beta}}=\mathbf{S}_{xx}^{-1}\mathbf{S}_{xy}\)</span>. Here in many situations <span class="math inline">\(\mathbf{S}_{xx}\)</span> can either non-invertible or has small eigenvalues. In addition, <span class="math inline">\(\mathbf{S}_{xy}\)</span> is influenced my high level of noise in the data. In order to solve these problems, various methods have used the concept of relevant space to identify the relevant components through the reduction of the dimension in either <span class="math inline">\(\mathbf{x}\)</span> or <span class="math inline">\(\mathbf{y}\)</span> or both. Some of the methods we have used for comparison are discussed below.</p>
 <p><em>Principal Components Regression</em> (PCR) uses <span class="math inline">\(k\)</span> eigenvectors of <span class="math inline">\(\mathbf{S}_{xx}\)</span> as the number of components or the number of reduced dimension. Since PCR is based on capturing the maximum variation in predictors on every component it has used to model, this method does not consider the response structure <span class="citation">(Jolliffe <a href="references.html#ref-Jolliffe2002" role="doc-biblioref">2002</a>)</span>. In addition, if the relevant components are not in the initial position, the method requires more number of components to make precise prediction <span class="citation">(Almøy <a href="references.html#ref-Alm_y_1996" role="doc-biblioref">1996</a>)</span>.</p>
 <p><em>Partial Least Squares</em> (PLS) regression tries to maximize the covariance between the predictors and the response scores <span class="citation">(Jong <a href="references.html#ref-DeJong1993" role="doc-biblioref">1993</a>)</span>. Broadly, PLS can be divided into PLS1 and PLS2 where the former tries to model the response variables individually and the later using all the response variable together while modelling. Among the three widely used algorithms NIPALS <span class="citation">(Wold <a href="references.html#ref-wold75nipals" role="doc-biblioref">1975</a>)</span>, SIMPLS <span class="citation">(Jong <a href="references.html#ref-DeJong1993" role="doc-biblioref">1993</a>)</span> and KernelPLS <span class="citation">(Lindgren, Geladi, and Wold <a href="references.html#ref-Lindgren_1993" role="doc-biblioref">1993</a>)</span>, for this study we will be using KernelPLS which gives equivalent results to the other two and is default in R-package <code>pls</code> <span class="citation">(Mevik and Wehrens <a href="references.html#ref-mevik07_thepl" role="doc-biblioref">2007</a>)</span>.</p>
 <p><em>Envelopes</em> is first introduced by <span class="citation">(Cook, Li, and Chiaromonte <a href="references.html#ref-Cook2007a" role="doc-biblioref">2007</a>)</span> as the smallest subspace that includes the span of true regression coefficients. <em>Predictor Envelopes</em> (Xenv) identifies the envelope as a smallest subspace in predictor space by separating the predictor covariance <span class="math inline">\(\boldsymbol{\Sigma}_{xx}\)</span> into relevant (material) and irrelevant (immaterial) parts such that response <span class="math inline">\(\mathbf{y}\)</span> is uncorrelated with the irrelevant part given the relevant one. In addition, relevant and irrelevant parts are also uncorrelated. Such separation of the covariance matrix is made using the data through optimization of the objective function. Further, the regression coefficients are estimated only using the relevant part. <span class="citation">Cook, Li, and Chiaromonte (<a href="references.html#ref-cook2010envelope" role="doc-biblioref">2010</a>)</span>, <span class="citation">Cook, Helland, and Su (<a href="references.html#ref-cook2013envelopes" role="doc-biblioref">2013</a>)</span> and <span class="citation">Cook (<a href="references.html#ref-cook2018envelope" role="doc-biblioref">2018</a>)</span> have extensively discussed the foundation and various mathematical constructs together with properties related to Predictor Envelope.</p>
@@ -186,7 +185,7 @@ gitbook.start({
 },
 "download": ["Estimation-Paper.epub", "Estimation-Paper.pdf"],
 "toc": {
-"collapse": "section"
+"collapse": "chapter"
 }
 });
 });

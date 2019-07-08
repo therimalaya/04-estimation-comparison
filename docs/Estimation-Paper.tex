@@ -30,6 +30,8 @@
 
 
 
+% 
+
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 
@@ -237,7 +239,7 @@ Here, \(\boldsymbol{\Sigma}_{xx}\) and \(\boldsymbol{\Sigma}_{yy}\) are variance
 
 where \(\boldsymbol{\beta}=\boldsymbol{\Sigma}_{xx}^{-1}\boldsymbol{\Sigma}_{xy}\)
 is the regression coefficient that defines the relationship between \(\mathbf{x}\)
-and \(\mathbf{y}\). With \(n\) samples, the least squares estimate of \(\boldsymbol{\beta}\) can be written as \(\boldsymbol{\hat{\beta}}=\mathbf{S}_{xx}^{-1}\mathbf{S}_{xy}\). Here in many situations \(\mathbf{S}_{xx}\) can either non-invertible or has small eigenvalues. In addition, \(\mathbf{S}_{xy}\) is influenced my high level of noise in the data. In order to solve these problems, various methods uses the concept of relevant space to identify the relevant components by reducing the dimension of either \(\mathbf{x}\) or \(\mathbf{y}\) or both.
+and \(\mathbf{y}\). With \(n\) samples, the least squares estimate of \(\boldsymbol{\beta}\) can be written as \(\boldsymbol{\hat{\beta}}=\mathbf{S}_{xx}^{-1}\mathbf{S}_{xy}\). Here in many situations \(\mathbf{S}_{xx}\) can either non-invertible or has small eigenvalues. In addition, \(\mathbf{S}_{xy}\) is influenced my high level of noise in the data. In order to solve these problems, various methods have used the concept of relevant space to identify the relevant components through the reduction of the dimension in either \(\mathbf{x}\) or \(\mathbf{y}\) or both. Some of the methods we have used for comparison are discussed below.
 
 \emph{Principal Components Regression} (PCR) uses \(k\) eigenvectors of \(\mathbf{S}_{xx}\) as the number of components or the number of reduced dimension. Since PCR is based on capturing the maximum variation in predictors on every component it has used to model, this method does not consider the response structure \citep{Jolliffe2002}. In addition, if the relevant components are not in the initial position, the method requires more number of components to make precise prediction \citep{Alm_y_1996}.
 
@@ -520,10 +522,6 @@ Both prediction and estimation corresponding to PCR methods are found to be stab
 We expect the results from this study helps researchers, working on theory, application and modelling, to understand these methods and their performance on various nature of the data. Based on the performance of envelope methods in these two studies, we would like to encourage readers to consider using new methods such as envelope for their research and analysis.
 
 The first part of this study \citep{rimal2019pred} on prediction comparison should be considered to obtain a comprehensive view of this comparison. A shiny \citep{shiny} web application at \url{http://therimalaya.shinyapps.io/Comparison} allows readers to explore all the visualizations for both prediction and estimation comparisons. In addition, a GitHub repository at \url{https://github.com/therimalaya/04-estimation-comparison} can be used to reproduce this study.
-
-\hypertarget{references}{%
-\section*{References}\label{references}}
-\addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
 
