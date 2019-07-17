@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2019-06-26" />
+<meta name="date" content="2019-07-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -116,41 +116,39 @@ div.abstract{
 <p>Let us define the expected estimation error as
 <span class="math display" id="eq:est-error">\[\begin{equation}
   \text{MSE}\left(
-    \boldsymbol{\hat{\beta}}_{ijkl}
-  \right) =
+    \widehat{\boldsymbol{\beta}}
+  \right)_{ijkl} =
   \mathsf{E}{\left[
     \frac{1}{\sigma_{y_j}^2}\left(
-      \boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijkl}}
+      \boldsymbol{\beta}_{ij} - \boldsymbol{\widehat{\beta}_{ijkl}}
     \right)^t
     \left(
-      \boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijkl}}
+      \boldsymbol{\beta}_{ij} - \boldsymbol{\widehat{\beta}_{ijkl}}
     \right)
   \right]}
 \tag{5}
 \end{equation}\]</span>
-for response <span class="math inline">\(j = 1, \ldots 4\)</span> in a given design <span class="math inline">\(i=1, 2, \ldots 32\)</span> and method <span class="math inline">\(k=1(PCR), \ldots 5(Senv)\)</span> using <span class="math inline">\(l=0, \ldots 10\)</span> number of components. Here <span class="math inline">\(\sigma_{y_j}^2\)</span> is the variance of response <span class="math inline">\(j\)</span>. Since both the expectation and the variance of <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span> are unknown, the estimation error are estimated using data from 50 replications as follows,</p>
+for response <span class="math inline">\(j = 1, \ldots 4\)</span> in a given design <span class="math inline">\(i=1, 2, \ldots 32\)</span> and method <span class="math inline">\(k=1(PCR), \ldots 5(Senv)\)</span> using <span class="math inline">\(l=0, \ldots 10\)</span> number of components. Here <span class="math inline">\(\sigma_{y_j}^2\)</span> is the variance of response <span class="math inline">\(j\)</span>. Since both the expectation and the variance of <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span> are unknown, the estimation error is estimated using data from 50 replications as follows,</p>
 <p><span class="math display" id="eq:estimated-est-error">\[\begin{equation}
-\widehat{\text{MSE}\left(\hat{\beta}\right)_{ijkl}} =
+\widehat{\text{MSE}\left(\widehat{\boldsymbol{\beta}}\right)_{ijkl}} =
   \frac{1}{50}\sum_{r=1}^{50}{\left[
-    \widehat{\text{MSE}_\circ\left(\hat{\beta}\right)_{ijkl}}  
+    \widehat{\text{MSE}_\circ\left(\widehat{\boldsymbol{\beta}}\right)_{ijklr}}  
   \right]}
 \tag{6}
 \end{equation}\]</span>
-where, <span class="math inline">\(\widehat{\text{MSE}\left(\hat{\beta}\right)_{ijkl}}\)</span> is the estimated prediction error averaged over <span class="math inline">\(r=50\)</span> replicates and, <span class="math display">\[\text{MSE}_\circ\left(\boldsymbol{\hat{\beta}}\right)_{ijklr} = \frac{1}{\sigma_{y_j}^2}\left[\left(\boldsymbol{\beta}_{ij} -\boldsymbol{\hat{\beta}_{ijklr}}\right)^t\left(\boldsymbol{\beta}_{ij} - \boldsymbol{\hat{\beta}_{ijklr}}\right)
-  \right]\]</span></p>
-<p>Our further discussion revolves around <em>Error Dataset</em> and <em>Component Dataset</em> as in the prediction comparison paper <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>. For a given estimation method, design, and response, the component that gives the minimum of estimation error averaged over all replicates is selected as,
+where, <span class="math inline">\(\widehat{\text{MSE}\left(\widehat{\boldsymbol{\beta}}\right)_{ijkl}}\)</span> is the estimated prediction error averaged over <span class="math inline">\(r=50\)</span> replicates and,
+<span class="math display">\[\widehat{\text{MSE}_\circ\left(\boldsymbol{\widehat{\beta}}\right)_{ijklr}} = 
+  \frac{1}{\sigma_{y_j}^2}\left[\left(\boldsymbol{\beta}_{ij} -\boldsymbol{\widehat{\beta}_{ijklr}}\right)^t\left(\boldsymbol{\beta}_{ij} - \boldsymbol{\widehat{\beta}_{ijklr}}\right)
+\right]\]</span></p>
+<p>Our further discussion revolves around what we will refer to as the <em>Error Dataset</em> and the <em>Component Dataset,</em> as in the prediction comparison paper <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>. For a given estimation method, design, and response, the component that gives the minimum estimation error averaged over all replicates is selected as,
 <span class="math display" id="eq:min-err">\[\begin{equation}
-  l_\circ = \operatorname*{argmin}_{l}\left[\frac{1}{50}\sum_{r=1}^{50}{\widehat{\text{MSE}_\circ\left(\hat{\beta}\right)}_{r}}\right]
+  l_\circ = \operatorname*{argmin}_{l}\left[\frac{1}{50}\sum_{r=1}^{50}{\widehat{\text{MSE}_\circ\left(\widehat{\boldsymbol{\beta}}\right)}_{r}}\right]
   \tag{7}
 \end{equation}\]</span>
-The estimation error <span class="math inline">\(\widehat{\text{MSE}_\circ\left(\hat{\beta}\right)}\)</span> for every methods, design and response corresponding to <span class="math inline">\(l_\circ\)</span> component, computed as
-<a href="basis-of-comparison.html#eq:min-err">(7)</a>, is then regarded as <em>error dataset</em> in the subsequent
-analysis. Let <span class="math inline">\(\mathbf{u}_{8000\times4}=(u_j)\)</span> where <span class="math inline">\(u_j\)</span> is the <span class="math inline">\(j^\text{th}\)</span> column of <span class="math inline">\(\mathbf{u}\)</span> denoting the estimation error corresponding to response <span class="math inline">\(j=1, \ldots 4\)</span> in the context of this dataset. Further, let the number of components that
-result in minimum estimation error in each replication be <span class="math inline">\(l_\circ\)</span> computed as
-<a href="basis-of-comparison.html#eq:min-comp">(8)</a> will be considred as <em>component dataset</em>. Let
-<span class="math inline">\(\mathbf{v}_{8000\times4}=(v_j)\)</span> where <span class="math inline">\(v_j\)</span> is the <span class="math inline">\(j^\text{th}\)</span> column of <span class="math inline">\(\mathbf{v}\)</span> denoting the outcome variable measuring the number of components used to obtain minimum estimation error corresponding to response <span class="math inline">\(j=1, \ldots 4\)</span>.</p>
+Here we have skipped further indices on <span class="math inline">\(\boldsymbol{\widehat{\boldsymbol{\beta}}}\)</span> for brevity. The estimation error <span class="math inline">\(\widehat{\text{MSE}_\circ\left(\widehat{\boldsymbol{\beta}}\right)}\)</span> for every method, design and response corresponding to component <span class="math inline">\(l_\circ\)</span>, computed as <a href="basis-of-comparison.html#eq:min-err">(7)</a>, is then regarded as the <em>error dataset</em> in the subsequent analysis. Let <span class="math inline">\(\mathbf{u}_{8000\times4}=(u_j)\)</span>, where <span class="math inline">\(u_j\)</span> is the <span class="math inline">\(j^\text{th}\)</span> column of <span class="math inline">\(\mathbf{u}\)</span> denoting the estimation error corresponding to response <span class="math inline">\(j=1, \ldots 4\)</span> in the context of this dataset. Further, let the number of components that
+result in minimum estimation error in each replication and computed as <a href="basis-of-comparison.html#eq:min-comp">(8)</a>, comprise the <em>component dataset</em>. Let <span class="math inline">\(\mathbf{v}_{8000\times4}=(v_j)\)</span> where <span class="math inline">\(v_j\)</span> is the <span class="math inline">\(j^\text{th}\)</span> column of <span class="math inline">\(\mathbf{v}\)</span> denoting the outcome variable measuring the number of components used to obtain minimum estimation error corresponding to response <span class="math inline">\(j=1, \ldots 4\)</span>.</p>
 <p><span class="math display" id="eq:min-comp">\[\begin{equation}
-  l_{\circ} = \operatorname*{argmin}_{l}\left[\widehat{\text{MSE}_\circ\left(\hat{\beta}\right)}\right]
+  l_{\circ} = \operatorname*{argmin}_{l}\left[\widehat{\text{MSE}_\circ\left(\widehat{\boldsymbol{\beta}}\right)}\right]
   \tag{8}
 \end{equation}\]</span></p>
 
