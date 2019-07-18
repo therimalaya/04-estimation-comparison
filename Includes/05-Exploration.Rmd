@@ -28,7 +28,6 @@ pc_density_plot <- function(dta, expl_var, title, facet_vars = c("Method", "gamm
       stat = "binline", bins = 30) +
     facet_grid(as.formula(paste(facet_vars, collapse = "~")),
                scales = 'free_x', labeller = label_both) +
-    theme_grey(base_family = 'mono') +
     theme(
       legend.position = "bottom",
       strip.text = element_text(family = "mono")) +
@@ -132,9 +131,6 @@ do.call(gridExtra::grid.arrange, cf_plt %>% pluck("plot") %>% append(list(ncol =
 
 
 Figure \@ref(fig:err-plot) shows a clear distinction between the modelling approach of PLS2 and Senv methods for the same model based on Design 9 (top) and Design 29 (bottom). In both of the designs, PLS2 has both minimum prediction error and minimum estimation error obtained using seven to eight components and the estimated regression coefficients approximate the true coefficients. In contrast, the Senv method has approached the minimum prediction and minimum estimation error using one to two components and the corresponding estimated regression coefficients approximate the true coefficients (Figure \@ref(fig:coef-plot)). Despite having contrasted modelling results for a dataset with similar properties, the minimum errors produced by them are comparable in the case of Design 9 (See Table \@ref(tab:min-err-dgn9)). However, in the case of Design 29, estimation error corresponding to PLS1 and envelope methods are much higher than PCR and PLS2. It is interesting to see that despite having large estimation error, the prediction error corresponding to the envelope methods are much smaller in this design. 
-
-\remove{
-Since the increased correlation in the response is responsible for the elevated estimation error in envelopes, it is certain that the performance of envelope methods which tries to find relevant space with few number of components is affected more than the other methods. 
 
 Here the response dimension for the simultaneous envelope has been fixed at two components, which might have affected its performance, however, both envelope methods had performed much better with the same restriction in the case of prediction.
 

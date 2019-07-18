@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: Main.aux
+The style file: elsarticle-harv.bst
+Database file #1: References.bib.bib
+Warning--empty publisher in Jolliffe2002
+You've used 23 entries,
+            2821 wiz_defined-function locations,
+            793 strings with 8531 characters,
+and the built_in function-call counts, 10739 in all, are:
+= -- 1128
+> -- 477
+< -- 15
++ -- 181
+- -- 156
+* -- 932
+:= -- 1947
+add.period$ -- 68
+call.type$ -- 23
+change.case$ -- 167
+chr.to.int$ -- 26
+cite$ -- 24
+duplicate$ -- 399
+empty$ -- 757
+format.name$ -- 217
+if$ -- 2151
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 22
+newline$ -- 81
+num.names$ -- 92
+pop$ -- 143
+preamble$ -- 1
+purify$ -- 144
+quote$ -- 0
+skip$ -- 299
+stack$ -- 0
+substring$ -- 671
+swap$ -- 53
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 201
+warning$ -- 1
+while$ -- 101
+width$ -- 0
+write$ -- 260
+(There was 1 warning)

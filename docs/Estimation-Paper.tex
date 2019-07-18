@@ -115,7 +115,7 @@
     breaklinks = true,
     bookmarks  = true,
     pdfauthor  = {},
-    pdftitle   = {Comparison of Multivariate Estimation Methods},
+    pdftitle   = {Comparison of Multi-response Estimation Methods},
     linkcolor  = mylinkcolor,
     citecolor  = mycitecolor,
     urlcolor   = myurlcolor,
@@ -161,7 +161,7 @@
 %% --- Front Matter Start --- %%
 \begin{frontmatter}
 
-  \title{Comparison of Multivariate Estimation Methods}
+  \title{Comparison of Multi-response Estimation Methods}
   
     \author[KBM]{Raju Rimal\corref{c1}}
    \ead{raju.rimal@nmbu.no} 
@@ -387,9 +387,6 @@ The following sub-section explores in particular the prediction and estimation e
 
 Figure \ref{fig:err-plot} shows a clear distinction between the modelling approach of PLS2 and Senv methods for the same model based on Design 9 (top) and Design 29 (bottom). In both of the designs, PLS2 has both minimum prediction error and minimum estimation error obtained using seven to eight components and the estimated regression coefficients approximate the true coefficients. In contrast, the Senv method has approached the minimum prediction and minimum estimation error using one to two components and the corresponding estimated regression coefficients approximate the true coefficients (Figure \ref{fig:coef-plot}). Despite having contrasted modelling results for a dataset with similar properties, the minimum errors produced by them are comparable in the case of Design 9 (See Table \ref{tab:min-err-dgn9}). However, in the case of Design 29, estimation error corresponding to PLS1 and envelope methods are much higher than PCR and PLS2. It is interesting to see that despite having large estimation error, the prediction error corresponding to the envelope methods are much smaller in this design.
 
-\textbackslash remove\{
-Since the increased correlation in the response is responsible for the elevated estimation error in envelopes, it is certain that the performance of envelope methods which tries to find relevant space with few number of components is affected more than the other methods.
-
 Here the response dimension for the simultaneous envelope has been fixed at two components, which might have affected its performance, however, both envelope methods had performed much better with the same restriction in the case of prediction.
 
 \begin{figure}
@@ -492,7 +489,7 @@ The following section will further explore the effects of individual levels of d
 
 In figure \ref{fig:est-eff-plots} (left), the effect of correlation between the responses controlled by the \texttt{eta} parameter has a clear influence on the estimation error for the envelope methods. In the case of designs with uncorrelated responses, envelope methods have on average smallest estimation errors. While PCR and PLS2, being somewhat invariant to the effect of this correlation structure, have performed better than the envelope methods in the designs with highly correlated responses.
 
-For all methods, the error in the case of relevant predictors at positions 5, 6, 7, 8 is huge as compared to the case where relevant predictors are at positions 1, 2, 3, 4. \remove{Among all methods, PLS1 has the highest estimation error for both levels of relevant predictors since the method models the response variables independently and does not consider the correlation structure in them.}
+For all methods, the error in the case of relevant predictors at positions 5, 6, 7, 8 is huge as compared to the case where relevant predictors are at positions 1, 2, 3, 4.
 
 
 
@@ -529,6 +526,10 @@ Both prediction and estimation corresponding to PCR methods are found to be stab
 We expect the results from this study may help researchers, working on theory, application and modelling, to understand these methods and their performance on data with varying properties.
 
 The first part of this study \citep{rimal2019pred} on prediction comparison should be considered to obtain a comprehensive view of this comparison. A shiny \citep{shiny} web application at \url{http://therimalaya.shinyapps.io/Comparison} allows readers to explore all the visualizations for both prediction and estimation comparisons. In addition, a GitHub repository at \url{https://github.com/therimalaya/04-estimation-comparison} can be used to reproduce this study.
+
+\hypertarget{references}{%
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
 

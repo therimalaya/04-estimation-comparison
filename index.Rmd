@@ -1,6 +1,6 @@
 ---
 site: bookdown::bookdown_site
-title: 'Comparison of Multivariate Estimation Methods'
+title: 'Comparison of Multi-response Estimation Methods'
 date: "`r Sys.Date()`"
 author:
   - name: Raju Rimal
@@ -45,7 +45,9 @@ suppressMessages({
 })
 knitr::opts_chunk$set(comment = NULL, out.width = "100%", echo = FALSE)
 if (knitr::is_html_output()) {
-  knitr::opts_chunk$set(dev = 'svg', fig.retina = 2, dev.args = list(family="mono"))
+  knitr::opts_chunk$set(dev = 'svg', fig.retina = 2)
+} else {
+  knitr::opts_chunk$set(dev = 'pdf', fig.retina = 2, dev.args = list(family="Helvetica"))
 }
 ```
 

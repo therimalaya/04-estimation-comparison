@@ -98,7 +98,8 @@ ggplot(sigma_zy, aes(Predictor, Covariance, color = factor(Response))) +
   geom_line(size = rel(0.5)) +
   facet_grid(cols = vars(Design), rows = vars(Type),
              labeller = labeller(Design = design_lbl )) +
-  theme(legend.position = "bottom") +
+  theme(legend.position = "bottom",
+        plot.subtitle = element_text(family = "mono")) +
   labs(x = "Components",
        y = "Absolute Covariances",
        color = "Response Variable",

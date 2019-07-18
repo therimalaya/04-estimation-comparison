@@ -83,7 +83,7 @@ The following section will further explore the effects of individual levels of d
 ## Effect Analysis of the Error Model
 In figure \@ref(fig:est-eff-plots) (left), the effect of correlation between the responses controlled by the `eta` parameter has a clear influence on the estimation error for the envelope methods. In the case of designs with uncorrelated responses, envelope methods have on average smallest estimation errors. While PCR and PLS2, being somewhat invariant to the effect of this correlation structure, have performed better than the envelope methods in the designs with highly correlated responses.
 
-For all methods, the error in the case of relevant predictors at positions 5, 6, 7, 8 is huge as compared to the case where relevant predictors are at positions 1, 2, 3, 4. \remove{Among all methods, PLS1 has the highest estimation error for both levels of relevant predictors since the method models the response variables independently and does not consider the correlation structure in them.}
+For all methods, the error in the case of relevant predictors at positions 5, 6, 7, 8 is huge as compared to the case where relevant predictors are at positions 1, 2, 3, 4.
 
 (ref:est-eff-plot) Effect plot of some interactions of the MANOVA corresponding to fitted _error model_
 
