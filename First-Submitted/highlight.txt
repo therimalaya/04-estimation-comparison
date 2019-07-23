@@ -1,6 +1,0 @@
-Highlights:
-
-- A comparative performance study of the estimation of multivariate linear regression methods in multi-response models
-- Method which have shown best performance in prediction should also be observed carefully while using their estimations
-- Methods based on envelopes have large estimation variation for non-optimal number of dimension but can give fine result for optimal one.
-- Demonstrates how different methods gives low prediction error even when their estimation is poor.
