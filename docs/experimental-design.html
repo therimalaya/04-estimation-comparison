@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html >
+
 <head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Experimental Design | Comparison of Multi-response Estimation Methods</title>
-  <meta name="description" content="Experimental Design | Comparison of Multi-response Estimation Methods" />
-  <meta name="generator" content="bookdown 0.11.1 and GitBook 2.6.7" />
+  <meta name="description" content="Experimental Design | Comparison of Multi-response Estimation Methods">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
   <meta property="og:title" content="Experimental Design | Comparison of Multi-response Estimation Methods" />
   <meta property="og:type" content="book" />
@@ -23,11 +24,11 @@
 
 
 
-<meta name="date" content="2019-07-18" />
+<meta name="date" content="2019-10-08">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
 <link rel="prev" href="estimation-methods.html">
@@ -108,7 +109,7 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="experimental-design" class="section level1">
 <h1>Experimental Design</h1>
-<p>An R <span class="citation">(R Core Team <a href="references.html#ref-coreR2018" role="doc-biblioref">2018</a>)</span> package <code>simrel</code> <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-Rimal2018" role="doc-biblioref">2018</a>; Sæbø, Almøy, and Helland <a href="references.html#ref-saebo2015simrel" role="doc-biblioref">2015</a>)</span> is used to simulate the data for comparison. In the simulation, the number of observations is fixed at <span class="math inline">\(n = 100\)</span>, and the following four simulation parameters are varied to obtain data with a wide range of properties.</p>
+<p>An R <span class="citation">(R Core Team <a href="references.html#ref-coreR2018">2018</a>)</span> package <code>simrel</code> <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-Rimal2018">2018</a>; Sæbø, Almøy, and Helland <a href="references.html#ref-saebo2015simrel">2015</a>)</span> is used to simulate the data for comparison. In the simulation, the number of observations is fixed at <span class="math inline">\(n = 100\)</span>, and the following four simulation parameters are varied to obtain data with a wide range of properties.</p>
 <dl>
 <dt><strong>Number of predictors: (<code>p</code>)</strong></dt>
 <dd>In order to cover both tall <span class="math inline">\((n&gt;p)\)</span> and wide <span class="math inline">\((p&gt;n)\)</span> cases, <span class="math inline">\(p= 20\)</span> and <span class="math inline">\(p= 250\)</span> number of predictors are simulated.
@@ -123,7 +124,7 @@ div.abstract{
 <dd>Two levels, 0.2 and 0.9, of <code>gamma</code> are used for simulation so that level 0.2 simulates data with low multicollinearity and 0.9 simulates the data with high multicollinearity in <span class="math inline">\(\mathbf{x}\)</span> respectively.
 </dd>
 <dt><strong>Position of relevant components: (<code>relpos</code>)</strong></dt>
-<dd>Initial principal components of a non-singular covariance matrix have higher variance than the later ones. If the principal components corresponding to predictors with larger variation are not relevant for a response, this will just increase the noise level in the data. Here we will use two different levels of a position index of predictor components (<code>relpos</code>): a) 1, 2, 3, 4 and b) 5, 6, 7, 8. Predictor components irrelevant for a response make prediction difficult <span class="citation">(Helland and Almøy <a href="references.html#ref-Helland1994b" role="doc-biblioref">1994</a>)</span>. When combined with multicollinearity, this factor can create both easy and difficult cases for both estimation and prediction.
+<dd>Initial principal components of a non-singular covariance matrix have higher variance than the later ones. If the principal components corresponding to predictors with larger variation are not relevant for a response, this will just increase the noise level in the data. Here we will use two different levels of a position index of predictor components (<code>relpos</code>): a) 1, 2, 3, 4 and b) 5, 6, 7, 8. Predictor components irrelevant for a response make prediction difficult <span class="citation">(Inge S. Helland and Almøy <a href="references.html#ref-Helland1994b">1994</a>)</span>. When combined with multicollinearity, this factor can create both easy and difficult cases for both estimation and prediction.
 </dd>
 <dt><strong>Correlation in response variables: (<code>eta</code>)</strong></dt>
 <dd>Some estimators also use the dependence structure of response for estimation. Here the correlation between the responses is varied through a simulation parameter <code>eta</code> <span class="math inline">\((\eta)\)</span>. The parameter controls the exponential decline of eigenvalues <span class="math inline">\(\kappa_j, j = 1, \ldots m (\text{ number of responses})\)</span> of <span class="math inline">\(\boldsymbol{\Sigma_{yy}}\)</span> as,
@@ -208,7 +209,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "true";
+    var src = "";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

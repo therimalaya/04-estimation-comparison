@@ -56,3 +56,6 @@ data
 auto
 *.log
 *.spl
+
+# Custom
+scratch
