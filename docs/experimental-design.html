@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Experimental Design | Comparison of Multi-response Estimation Methods</title>
-  <meta name="description" content="Experimental Design | Comparison of Multi-response Estimation Methods">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Experimental Design | Comparison of Multi-response Estimation Methods" />
+  <meta name="generator" content="bookdown 0.16.5 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Experimental Design | Comparison of Multi-response Estimation Methods" />
   <meta property="og:type" content="book" />
@@ -24,15 +23,15 @@
 
 
 
-<meta name="date" content="2019-10-08">
+<meta name="date" content="2020-01-13" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="estimation-methods.html">
-<link rel="next" href="basis-of-comparison.html">
+<link rel="prev" href="estimation-methods.html"/>
+<link rel="next" href="basis-of-comparison.html"/>
 <style type="text/css">
 p.abstract{
   text-align: center;
@@ -50,6 +49,9 @@ div.abstract{
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -109,7 +111,7 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="experimental-design" class="section level1">
 <h1>Experimental Design</h1>
-<p>An R <span class="citation">(R Core Team <a href="references.html#ref-coreR2018">2018</a>)</span> package <code>simrel</code> <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-Rimal2018">2018</a>; Sæbø, Almøy, and Helland <a href="references.html#ref-saebo2015simrel">2015</a>)</span> is used to simulate the data for comparison. In the simulation, the number of observations is fixed at <span class="math inline">\(n = 100\)</span>, and the following four simulation parameters are varied to obtain data with a wide range of properties.</p>
+<p>An R <span class="citation">(R Core Team <a href="references.html#ref-coreR2018" role="doc-biblioref">2018</a>)</span> package <code>simrel</code> <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-Rimal2018" role="doc-biblioref">2018</a>; Sæbø, Almøy, and Helland <a href="references.html#ref-saebo2015simrel" role="doc-biblioref">2015</a>)</span> is used to simulate the data for comparison. In the simulation, number of response variables <span class="math inline">\(m = 4\)</span> and number of observations <span class="math inline">\(n = 100\)</span> are fixed, and the following four simulation parameters are varied to obtain data with a wide range of properties.</p>
 <dl>
 <dt><strong>Number of predictors: (<code>p</code>)</strong></dt>
 <dd>In order to cover both tall <span class="math inline">\((n&gt;p)\)</span> and wide <span class="math inline">\((p&gt;n)\)</span> cases, <span class="math inline">\(p= 20\)</span> and <span class="math inline">\(p= 250\)</span> number of predictors are simulated.
@@ -124,7 +126,7 @@ div.abstract{
 <dd>Two levels, 0.2 and 0.9, of <code>gamma</code> are used for simulation so that level 0.2 simulates data with low multicollinearity and 0.9 simulates the data with high multicollinearity in <span class="math inline">\(\mathbf{x}\)</span> respectively.
 </dd>
 <dt><strong>Position of relevant components: (<code>relpos</code>)</strong></dt>
-<dd>Initial principal components of a non-singular covariance matrix have higher variance than the later ones. If the principal components corresponding to predictors with larger variation are not relevant for a response, this will just increase the noise level in the data. Here we will use two different levels of a position index of predictor components (<code>relpos</code>): a) 1, 2, 3, 4 and b) 5, 6, 7, 8. Predictor components irrelevant for a response make prediction difficult <span class="citation">(Inge S. Helland and Almøy <a href="references.html#ref-Helland1994b">1994</a>)</span>. When combined with multicollinearity, this factor can create both easy and difficult cases for both estimation and prediction.
+<dd>Initial principal components of a non-singular covariance matrix have higher variance than the later ones. If the principal components corresponding to predictors with larger variation are not relevant for a response, this will just increase the noise level in the data. Here we will use two different levels of a position index of true predictor components (<code>relpos</code>): a) 1, 2, 3, 4 and b) 5, 6, 7, 8. Predictor components irrelevant for a response make prediction difficult <span class="citation">(Helland and Almøy <a href="references.html#ref-Helland1994b" role="doc-biblioref">1994</a>)</span>. When combined with multicollinearity, this factor can create both easy and difficult cases for both estimation and prediction.
 </dd>
 <dt><strong>Correlation in response variables: (<code>eta</code>)</strong></dt>
 <dd>Some estimators also use the dependence structure of response for estimation. Here the correlation between the responses is varied through a simulation parameter <code>eta</code> <span class="math inline">\((\eta)\)</span>. The parameter controls the exponential decline of eigenvalues <span class="math inline">\(\kappa_j, j = 1, \ldots m (\text{ number of responses})\)</span> of <span class="math inline">\(\boldsymbol{\Sigma_{yy}}\)</span> as,
@@ -142,7 +144,26 @@ div.abstract{
 Figure 2: Experimental Design of simulation parameters. Each point represents an unique data property.
 </p>
 </div>
-<p>Here we have assumed that there is only one informative response component. Hence the relevant space of the response matrix has dimension one. In the final dataset all predictors together span the same space as the relevant predictor components and all responses together span the same space as the one informative response component. In addition, the coefficient of determination is fixed at 0.8 for all datasets.</p>
+<p>Using these simulation parameters, a latent covariance matrix is constructed as in .
+<span class="math display" id="eq:latent-model">\[\begin{equation}
+  \begin{bmatrix}
+    \mathbf{w} \\ \mathbf{z}
+  \end{bmatrix} 
+  \sim \mathsf{N}
+  \begin{pmatrix}
+    \begin{bmatrix}
+      \boldsymbol{\mu}_w \\
+      \boldsymbol{\mu}_z \\
+    \end{bmatrix}, &amp;&amp;
+    \begin{bmatrix}
+      \boldsymbol{\Sigma}_{ww} &amp; \boldsymbol{\Sigma}_{wz} \\
+      \boldsymbol{\Sigma}_{zw} &amp; \boldsymbol{\Sigma}_{zz} 
+    \end{bmatrix}
+  \end{pmatrix}
+  \tag{5}
+\end{equation}\]</span>
+For example, <span class="math inline">\(\eta=1.2\)</span> gives <span class="math inline">\(\boldsymbol{\Sigma}_{ww}\)</span> as a diagonal matrix with 1, 0.3, 0.09, 0.03 in its diagonal. However, for <span class="math inline">\(\eta=0\)</span> it will be an identity matrix <span class="math inline">\(\mathbf{I}_4\)</span>. A similar approach is used for covariance matrix <span class="math inline">\(\boldsymbol{\Sigma}_{zz}\)</span>. In addition, when the true relevant components are at position 1, 2, 3, 4, the covariance matrix <span class="math inline">\(\boldsymbol{\Sigma}_{wz}\)</span> with dimension <span class="math inline">\(p \times m\)</span> will have <span class="math inline">\(\sigma_{11}, \sigma_{12}, \sigma_{13}\)</span> and <span class="math inline">\(\sigma_{14}\)</span> in its first four columns and the rest are filled with zeros. These <span class="math inline">\(\sigma\)</span> values are the links that defines the relationship between the latent components of predictors and the first response component. A random orthogonal rotation matrix <span class="math inline">\(\mathbf{R}\)</span> and <span class="math inline">\(\mathbf{Q}\)</span> are used to rotate these latent covariances in order to obtain covariance matrices in . <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-Rimal2018" role="doc-biblioref">2018</a>)</span> have discussed the underlying mechanism in details.</p>
+<p>Here we have assumed that there is only one informative response component. Hence the relevant space of the response matrix has dimension one. In the final dataset all predictors together span the same information space as the relevant predictor components and all responses together span the same information space as the one informative response component. In addition, the coefficient of determination is fixed at 0.8 for all datasets.</p>
 <p>A complete factorial design is adopted using the different levels of factors discussed above to create 32 designs (Figure <a href="experimental-design.html#fig:design-plot">2</a>), each of which gives datasets with unique properties. From each of these design and each estimation method, 50 different datasets are simulated so that each of them has the same true population structure. In total, <span class="math inline">\(5 \times 32 \times 50\)</span> i.e., 8000 datasets are simulated.</p>
 
 <div class="figure"><span id="fig:cov-plot"></span>
@@ -151,7 +172,7 @@ Figure 2: Experimental Design of simulation parameters. Each point represents an
 Figure 3: Covariance between predictor components and each response variable in the population (top), and in the simulated data (bottom) for four different designs. The bars in the background represent the variance of the corresponding components (eigenvalues).
 </p>
 </div>
-<p>The simulation properties are directly reflected in the simulated data. For example, in Figure <a href="experimental-design.html#fig:cov-plot">3</a>, design pairs 1 and 14 as well as 6 and 9 differ in their properties only in terms of position of relevant predictor components, while the design pairs 1 and 6 as well as 9 and 14 differ only in-terms of the level of multicollinearity. The population properties are also reflected in the simulated samples (bottom row Figure <a href="#cov-plot"><strong>??</strong></a>). The combination of these factor levels creates datasets that are easy or difficult with regard to estimation and prediction. We observe from Figure <a href="experimental-design.html#fig:cov-plot">3</a> that it may be difficult to infer the structure of the latent relevant space of <span class="math inline">\(\mathbf{x}\)</span> from the estimated principal components and their estimated covariances with the observed responses.</p>
+<p>The simulation properties are directly reflected in the simulated data. For example, in Figure <a href="experimental-design.html#fig:cov-plot">3</a>, design pairs 1 and 14 as well as 6 and 9 differ in their properties only in terms of position of relevant predictor components, while the design pairs 1 and 6 as well as 9 and 14 differ only in-terms of the level of multicollinearity. The population properties are also reflected in the simulated samples (bottom row Figure <a href="experimental-design.html#fig:cov-plot">3</a>). The combination of these factor levels creates datasets that are easy or difficult with regard to estimation and prediction. We observe from Figure <a href="experimental-design.html#fig:cov-plot">3</a> that it may be difficult to infer the structure of the latent relevant space of <span class="math inline">\(\mathbf{x}\)</span> from the estimated principal components and their estimated covariances with the observed responses.</p>
 </div>
             </section>
 
@@ -164,11 +185,13 @@ Figure 3: Covariance between predictor components and each response variable in 
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -176,12 +199,12 @@ gitbook.start({
 "github": true,
 "facebook": false,
 "twitter": true,
-"google": true,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"],
+"google": true
 },
 "fontsettings": {
 "theme": "white",
@@ -193,6 +216,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -209,10 +236,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

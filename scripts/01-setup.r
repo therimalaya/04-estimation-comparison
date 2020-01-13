@@ -8,7 +8,9 @@ pkgs <- c("pls", "Renvlp", "simrel", "pander", "tidyverse", "ggpubr",
           "reshape2", "glmnet", "doParallel", "parallel", "gridExtra",
           "ggridges")
 for (pkg in pkgs) {
-  require(pkg, quietly = T, warn.conflicts = F, character.only = T)
+  suppressPackageStartupMessages({
+    require(pkg, quietly = T, warn.conflicts = F, character.only = T)
+  })
 }
 
 ## ----MakingDesign----------------------------------------

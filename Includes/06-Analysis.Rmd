@@ -1,10 +1,10 @@
 # Analysis
 
-A statistical analysis using a Multivariate Analysis of variance (MANOVA) model is performed on both the _error dataset_ and the _component dataset_ in order to better understand the association between data properties and the estimation methods. Let the corresponding MANOVA models be termed as the _error model_ \@ref(eq:err-model) and the _component model_ \@ref(eq:comp-model) in the following. In the MANOVA model, we will consider the interaction of simulation parameters (`p`, `gamma`, `eta`, and `relpos`) and `Method` The models are fitted using correspondingly the _error dataset_ ($\mathbf{u}$) and the _component dataset_ ($\mathbf{v}$).
+A statistical analysis using a Multivariate Analysis of variance (MANOVA) model is performed on both the _error dataset_ and the _component dataset_ in order to better understand the association between data properties and the estimation methods. Let the corresponding MANOVA models be termed as the _error model_ \@ref(eq:err-model) and the _component model_ \@ref(eq:comp-model) in the following. Here the equations represent a heuristic representation of the MANOVA model and is closer to R-representation than a proper mathematical formulation. In the model, we will consider up-to the third order interaction of simulation parameters (`p`, `gamma`, `eta`, and `relpos`) and `Method` as is represented by cube notation. The models are fitted using correspondingly the _error dataset_ ($\mathbf{u}$) and the _component dataset_ ($\mathbf{v}$).
 
 **Error Model:**
 \begin{equation}
-  \mathbf{u} = \boldsymbol{\mu} +
+  \mathbf{u} = \left(u_j\right) = \boldsymbol{\mu}_j +
   (\texttt{p} + \texttt{gamma} + \texttt{eta} +
     \texttt{relpos} + \texttt{Methods})^3 +
     \boldsymbol{\varepsilon}
@@ -13,7 +13,7 @@ A statistical analysis using a Multivariate Analysis of variance (MANOVA) model 
 
 **Component Model:**
 \begin{equation}
-  \mathbf{v} = \boldsymbol{\mu} +
+  \mathbf{v} = \left(v_j\right) = \boldsymbol{\mu}_j +
   (\texttt{p} + \texttt{gamma} + \texttt{eta} +
     \texttt{relpos} + \texttt{Methods})^3 +
     \boldsymbol{\varepsilon}

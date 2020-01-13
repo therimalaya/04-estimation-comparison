@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Discussion and Conclusion | Comparison of Multi-response Estimation Methods</title>
-  <meta name="description" content="Discussion and Conclusion | Comparison of Multi-response Estimation Methods">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Discussion and Conclusion | Comparison of Multi-response Estimation Methods" />
+  <meta name="generator" content="bookdown 0.16.5 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Discussion and Conclusion | Comparison of Multi-response Estimation Methods" />
   <meta property="og:type" content="book" />
@@ -24,15 +23,15 @@
 
 
 
-<meta name="date" content="2019-10-08">
+<meta name="date" content="2020-01-13" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="analysis.html">
-<link rel="next" href="references.html">
+<link rel="prev" href="analysis.html"/>
+<link rel="next" href="references.html"/>
 <style type="text/css">
 p.abstract{
   text-align: center;
@@ -50,6 +49,9 @@ div.abstract{
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -110,11 +112,16 @@ div.abstract{
 <div id="discussion-and-conclusion" class="section level1">
 <h1>Discussion and Conclusion</h1>
 <p>The overall performance of all methods highly depends on the nature of the data. The MANOVA plots show that most of the simulation parameters, except <code>p</code>, has significant interaction with the methods. In addition, the high interaction of <code>gamma</code> with the <code>relpos</code> parameter suggests to carefully consider the number of relevant predictor components in the case of highly multicollinear data since this choice may have a large effect on the results. Although the interaction does not have this extent of influence in prediction, one should be careful about interpreting the estimates. In such cases, careful validation of model complexity, preferably using cross-validation or test data is advisable also for estimation purposes.</p>
-<p>Designs with low multicollinearity and independent responses are in favour of envelope methods. The methods have produced the smallest prediction and estimation error with significantly few numbers of components in these designs. However, as the correlation in the responses increases, the estimation error in envelope methods in most cases also increases noticeably. This indicates that the reduction of the response space becomes unstable with high collinearity between the responses for the envelope methods. Despite the interaction of the <code>eta</code> parameter with the method is significant, the extent of its effect is rather small compared to both main and interaction effect of <code>gamma</code> and <code>relpos</code>.</p>
-<p>The effect of the number of variables is negligible in all cases for all designs. Here the use of principal components for reducing the dimension of <span class="math inline">\(n&lt;p\)</span> designs, as in <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred">2019</a>)</span>, has been useful so that we were able to model the data using envelope methods without losing too-much variation in the data.</p>
+<p>Designs with low multicollinearity and independent responses are in favour of envelope methods. The methods have produced the smallest prediction and estimation error with significantly few numbers of components in these designs. However, as the correlation in the responses increases, the estimation error in envelope methods in most cases also increases noticeably. This indicates that the reduction of the response space becomes unstable with high collinearity between the responses for the envelope methods. Despite the interaction of the <code>eta</code> parameter with the method is significant, the extent of its effect is rather small compared to both main and interaction effect of <code>gamma</code> and <code>relpos</code>. </p>
+<pre><code>- Here does the asymptotically efficient refers to smaller prediction 
+  and estimation errors?
+- When I went through some literature, it is efficient than usual MLE 
+  methods, does this apply for PLS1 and PLS2 as well. What about the 
+  interaction of efficiency with the biasedness?</code></pre>
+<p>The effect of the number of variables is negligible in all cases for all designs. Here the use of principal components for reducing the dimension of <span class="math inline">\(n&lt;p\)</span> designs, as in <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>, has been useful so that we were able to model the data using envelope methods without losing too-much variation in the data.</p>
 <p>Both prediction and estimation corresponding to PCR methods are found to be stable even when the non-optimal number of components are used. The PLS1 method, which models the responses separately, is in general performing poorer than other methods. Unlike in prediction comparison, the performance of the envelope methods is comparable to the others except for the use of the number of components to obtain the minimum estimation error. The envelope methods have used 1-2 components in almost all designs, which is quite impressive. However, non-optimal number of components can lead to large estimation error, so one should be careful in this respect while using the envelope methods. Both PLS1 and PLS2 use a smaller number of components when the relevant components are at positions 1, 2, 3, 4. However, both methods used 7-8 components for the designs with relevant components at positions 5, 6, 7, 8.</p>
 <p>We expect the results from this study may help researchers, working on theory, application and modelling, to understand these methods and their performance on data with varying properties.</p>
-<p>The first part of this study <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-rimal2019pred">2019</a>)</span> on prediction comparison should be considered to obtain a comprehensive view of this comparison. A shiny <span class="citation">(Chang et al. <a href="references.html#ref-shiny">2018</a>)</span> web application at <a href="http://therimalaya.shinyapps.io/Comparison" class="uri">http://therimalaya.shinyapps.io/Comparison</a> allows readers to explore all the visualizations for both prediction and estimation comparisons. In addition, a GitHub repository at <a href="https://github.com/therimalaya/04-estimation-comparison" class="uri">https://github.com/therimalaya/04-estimation-comparison</a> can be used to reproduce this study.</p>
+<p>The first part of this study <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span> on prediction comparison should be considered to obtain a comprehensive view of this comparison. A shiny <span class="citation">(Chang et al. <a href="references.html#ref-shiny" role="doc-biblioref">2018</a>)</span> web application at <a href="http://therimalaya.shinyapps.io/Comparison">http://therimalaya.shinyapps.io/Comparison</a> allows readers to explore all the visualizations for both prediction and estimation comparisons. In addition, a GitHub repository at <a href="https://github.com/therimalaya/04-estimation-comparison">https://github.com/therimalaya/04-estimation-comparison</a> can be used to reproduce this study.</p>
 
 <!-- # References {-} -->
 </div>
@@ -129,11 +136,13 @@ div.abstract{
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -141,12 +150,12 @@ gitbook.start({
 "github": true,
 "facebook": false,
 "twitter": true,
-"google": true,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"],
+"google": true
 },
 "fontsettings": {
 "theme": "white",
@@ -158,6 +167,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -174,10 +187,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

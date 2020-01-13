@@ -512,16 +512,16 @@ err_plot <- function(coef_error, error_type = "Prediction", ncomp = NULL,
 
     plt <- dta %>%
         ggplot(aes(Tuning_Param, Error, fill = Response)) +
-        stat_summary(fun.y = mean, geom = "line", size = 0.8,
+        stat_summary(fun = mean, geom = "line", size = 0.8,
                      aes(group = Response, color = Response))
     if (not_nested) {
-        plt <- plt + stat_summary(fun.y = mean, geom = "point",  size = 1, shape = 21,
+        plt <- plt + stat_summary(fun = mean, geom = "point",  size = 1, shape = 21,
                                   aes(group = Response, fill = Response),
                                   stroke = 0.2)
     }
     if (!is_shrinkage) {
         plt <- plt +
-            stat_summary(fun.y = mean, geom = "point",  size = 2, shape = 21,
+            stat_summary(fun = mean, geom = "point",  size = 2, shape = 21,
                          aes(group = Response, fill = Response))
     }
     if (!not_nested & !is_shrinkage) {
@@ -613,13 +613,13 @@ get_eff_plot <- function(effect_df, term, reorder = FALSE, show_errorbar = FALSE
   }
   if (length(trms) == 1) {
     plt <- plt +
-      stat_summary(fun.y = mean, geom = "line", group = 1) +
-      stat_summary(fun.y = mean, geom = "point")
+      stat_summary(fun = mean, geom = "line", group = 1) +
+      stat_summary(fun = mean, geom = "point")
   } else {
     plt <- plt +
-      stat_summary(fun.y = mean, geom = "line",
+      stat_summary(fun = mean, geom = "line",
                    aes(color = get(trms[2]), group = get(trms[2]))) +
-      stat_summary(fun.y = mean, geom = "point", size = 0.8,
+      stat_summary(fun = mean, geom = "point", size = 0.8,
                    aes(color = get(trms[2]), group = get(trms[2]))) +
       labs(color = trms[2])
   }
@@ -666,13 +666,13 @@ eff_plot <- function(effect_df, reorder = FALSE,
     }
     if (length(trms) == 1) {
         plt <- plt +
-            stat_summary(fun.y = mean, geom = "point") +
-            stat_summary(fun.y = mean, geom = "line", group = 1)
+            stat_summary(fun = mean, geom = "point") +
+            stat_summary(fun = mean, geom = "line", group = 1)
     } else {
         plt <- plt +
-            stat_summary(fun.y = mean, geom = "line",
+            stat_summary(fun = mean, geom = "line",
                          aes(color = get(trms[2]), group = get(trms[2]))) +
-            stat_summary(fun.y = mean, size = 0.8, geom = "point",
+            stat_summary(fun = mean, size = 0.8, geom = "point",
                          aes(group = get(trms[2]), color = get(trms[2]))) +
             labs(color = trms[2])
     }
@@ -721,13 +721,13 @@ eff_plot3 <- function(effect_df, reorder = FALSE,
     }
     if (length(trms) == 1) {
         plt <- plt +
-            stat_summary(fun.y = mean, geom = "line", group = 1) +
-            stat_summary(fun.y = mean, geom = "point")
+            stat_summary(fun = mean, geom = "line", group = 1) +
+            stat_summary(fun = mean, geom = "point")
     } else {
         plt <- plt +
-            stat_summary(fun.y = mean, geom = "line",
+            stat_summary(fun = mean, geom = "line",
                          aes(color = get(trms[2]), group = get(trms[2]))) +
-            stat_summary(fun.y = mean, geom = "point", size = 0.8,
+            stat_summary(fun = mean, geom = "point", size = 0.8,
                          aes(color = get(trms[2]), group = get(trms[2]))) +
             labs(color = trms[2])
     }

@@ -1,6 +1,6 @@
 # Experimental Design #
 
-An R [@coreR2018] package `simrel` [@Rimal2018; @saebo2015simrel] is used to simulate the data for comparison. In the simulation, the number of observations is fixed at $n = 100$, and the following four simulation parameters are varied to obtain data with a wide range of properties.
+An R [@coreR2018] package `simrel` [@Rimal2018; @saebo2015simrel] is used to simulate the data for comparison. In the simulation, number of response variables $m = 4$ and number of observations $n = 100$ are fixed, and the following four simulation parameters are varied to obtain data with a wide range of properties.
 
 **Number of predictors: (`p`)**
 : In order to cover both tall $(n>p)$ and wide $(p>n)$ cases, $p= `r opts$p[1]`$ and $p= `r opts$p[2]`$ number of predictors are simulated.
@@ -14,7 +14,7 @@ An R [@coreR2018] package `simrel` [@Rimal2018; @saebo2015simrel] is used to sim
 : Two levels, `r catvec(opts$gamma)`, of `gamma` are used for simulation so that level `r opts$gamma[1]` simulates data with low multicollinearity and `r opts$gamma[2]` simulates the data with high multicollinearity in $\mathbf{x}$ respectively.
 
 **Position of relevant components: (`relpos`)**
-: Initial principal components of a non-singular covariance matrix have higher variance than the later ones. If the principal components corresponding to predictors with larger variation are not relevant for a response, this will just increase the noise level in the data. Here we will use two different levels of a position index of predictor components (`relpos`): a) `r opts$relpos[1]` and b)  `r opts$relpos[2]`. Predictor components irrelevant for a response make prediction difficult [@Helland1994b]. When combined with multicollinearity, this factor can create both easy and difficult cases for both estimation and prediction.
+: Initial principal components of a non-singular covariance matrix have higher variance than the later ones. If the principal components corresponding to predictors with larger variation are not relevant for a response, this will just increase the noise level in the data. Here we will use two different levels of a position index of true predictor components (`relpos`): a) `r opts$relpos[1]` and b)  `r opts$relpos[2]`. Predictor components irrelevant for a response make prediction difficult [@Helland1994b]. When combined with multicollinearity, this factor can create both easy and difficult cases for both estimation and prediction.
 
 **Correlation in response variables: (`eta`)**
 : Some estimators also use the dependence structure of response for estimation. Here the correlation between the responses is varied through a simulation parameter `eta` $(\eta)$. The parameter controls the exponential decline of eigenvalues $\kappa_j, j = 1, \ldots m (\text{ number of responses})$ of $\boldsymbol{\Sigma_{yy}}$ as,
@@ -40,7 +40,27 @@ design_chr %>%
     coord_fixed(ratio=0.5)
 ```
 
-Here we have assumed that there is only one informative response component. Hence the relevant space of the response matrix has dimension one. In the final dataset all predictors together span the same space as the relevant predictor components and all responses together span the same space as the one informative response component. In addition, the coefficient of determination is fixed at `r unique(opts$R2)` for all datasets.
+Using these simulation parameters, a latent covariance matrix is constructed as in \ref{eq:latent-model}.
+\begin{equation}
+  \begin{bmatrix}
+    \mathbf{w} \\ \mathbf{z}
+  \end{bmatrix} 
+  \sim \mathsf{N}
+  \begin{pmatrix}
+    \begin{bmatrix}
+      \boldsymbol{\mu}_w \\
+      \boldsymbol{\mu}_z \\
+    \end{bmatrix}, &&
+    \begin{bmatrix}
+      \boldsymbol{\Sigma}_{ww} & \boldsymbol{\Sigma}_{wz} \\
+      \boldsymbol{\Sigma}_{zw} & \boldsymbol{\Sigma}_{zz} 
+    \end{bmatrix}
+  \end{pmatrix}
+  (\#eq:latent-model)
+\end{equation}
+For example, $\eta=1.2$ gives $\boldsymbol{\Sigma}_{ww}$ as a diagonal matrix with `r round(exp(-1.2 * (1:4 - 1)), 2)` in its diagonal. However, for $\eta=0$ it will be an identity matrix $\mathbf{I}_4$. A similar approach is used for covariance matrix $\boldsymbol{\Sigma}_{zz}$. In addition, when the true relevant components are at position 1, 2, 3, 4, the covariance matrix $\boldsymbol{\Sigma}_{wz}$ with dimension $p \times m$ will have $\sigma_{11}, \sigma_{12}, \sigma_{13}$ and $\sigma_{14}$ in its first four columns and the rest are filled with zeros. These $\sigma$ values are the links that defines the relationship between the latent components of predictors and the first response component. A random orthogonal rotation matrix $\mathbf{R}$ and $\mathbf{Q}$ are used to rotate these latent covariances in order to obtain covariance matrices in \ref{eq:model-1}. @Rimal2018 have discussed the underlying mechanism in details.
+
+Here we have assumed that there is only one informative response component. Hence the relevant space of the response matrix has dimension one. In the final dataset all predictors together span the same information space as the relevant predictor components and all responses together span the same information space as the one informative response component. In addition, the coefficient of determination is fixed at `r unique(opts$R2)` for all datasets.
 
 A complete factorial design is adopted using the different levels of factors discussed above to create 32 designs (Figure \@ref(fig:design-plot)), each of which gives datasets with unique properties. From each of these design and each estimation method, 50 different datasets are simulated so that each of them has the same true population structure. In total, $`r length(mthds)` \times `r nrow(design)` \times 50$ i.e., `r length(mthds) * nrow(design) * 50` datasets are simulated.
 
@@ -110,7 +130,7 @@ ggplot(sigma_zy, aes(Predictor, Covariance, color = factor(Response))) +
   scale_color_brewer(palette = "Set1")
 ```
 
-The simulation properties are directly reflected in the simulated data. For example, in Figure \@ref(fig:cov-plot), design pairs `r catvec(subset(design_chr_selected, gamma == 0.2, select = "Design", drop = TRUE))` as well as `r catvec(subset(design_chr_selected, gamma == 0.9, select = "Design", drop = TRUE))` differ in their properties only in terms of position of relevant predictor components, while the design pairs `r catvec(subset(design_chr_selected, relpos == "1, 2, 3, 4", select = "Design", drop = TRUE))` as well as `r catvec(subset(design_chr_selected, relpos == "5, 6, 7, 8", select = "Design", drop = TRUE))` differ only in-terms of the level of multicollinearity. The population properties are also reflected in the simulated samples (bottom row Figure \@ref(cov-plot)). The combination of these factor levels creates datasets that are easy or difficult with regard to estimation and prediction. We observe from Figure \@ref(fig:cov-plot) that it may be difficult to infer the structure of the latent relevant space of $\mathbf{x}$ from the estimated principal components and their estimated covariances with the observed responses.
+The simulation properties are directly reflected in the simulated data. For example, in Figure \@ref(fig:cov-plot), design pairs `r catvec(subset(design_chr_selected, gamma == 0.2, select = "Design", drop = TRUE))` as well as `r catvec(subset(design_chr_selected, gamma == 0.9, select = "Design", drop = TRUE))` differ in their properties only in terms of position of relevant predictor components, while the design pairs `r catvec(subset(design_chr_selected, relpos == "1, 2, 3, 4", select = "Design", drop = TRUE))` as well as `r catvec(subset(design_chr_selected, relpos == "5, 6, 7, 8", select = "Design", drop = TRUE))` differ only in-terms of the level of multicollinearity. The population properties are also reflected in the simulated samples (bottom row Figure \@ref(fig:cov-plot)). The combination of these factor levels creates datasets that are easy or difficult with regard to estimation and prediction. We observe from Figure \@ref(fig:cov-plot) that it may be difficult to infer the structure of the latent relevant space of $\mathbf{x}$ from the estimated principal components and their estimated covariances with the observed responses.
 
 ```{r data-prep}
 est_dta <- design_chr %>%

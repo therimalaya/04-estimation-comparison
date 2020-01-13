@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Comparison of Multi-response Estimation Methods</title>
-  <meta name="description" content="Comparison of Multi-response Estimation Methods">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Comparison of Multi-response Estimation Methods" />
+  <meta name="generator" content="bookdown 0.16.5 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Comparison of Multi-response Estimation Methods" />
   <meta property="og:type" content="book" />
@@ -24,15 +23,15 @@
 
 
 
-<meta name="date" content="2019-10-08">
+<meta name="date" content="2020-01-13" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 
-<link rel="next" href="simulation-model.html">
+<link rel="next" href="simulation-model.html"/>
 <style type="text/css">
 p.abstract{
   text-align: center;
@@ -50,6 +49,9 @@ div.abstract{
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -111,17 +113,17 @@ div.abstract{
 <h1 class="title">Comparison of Multi-response Estimation Methods</h1>
 <p class="author"><em>Raju Rimal</em></p>
 <address class="author_afil">
-KBM<br><a class="author_email" href="mailto:#"><a href="mailto:raju.rimal@nmbu.no">raju.rimal@nmbu.no</a></a>
+KBM<br><a class="author_email" href="mailto:#"><a href="mailto:raju.rimal@nmbu.no" class="email">raju.rimal@nmbu.no</a></a>
 </address>
 <p class="author"><em>Trygve Almøy</em></p>
 <address class="author_afil">
-KBM<br><a class="author_email" href="mailto:#"><a href="mailto:trygve.almoy@nmbu.no">trygve.almoy@nmbu.no</a></a>
+KBM<br><a class="author_email" href="mailto:#"><a href="mailto:trygve.almoy@nmbu.no" class="email">trygve.almoy@nmbu.no</a></a>
 </address>
 <p class="author"><em>Solve Sæbø</em></p>
 <address class="author_afil">
-KBM<br><a class="author_email" href="mailto:#"><a href="mailto:solve.sabo@nmbu.no">solve.sabo@nmbu.no</a></a>
+KBM<br><a class="author_email" href="mailto:#"><a href="mailto:solve.sabo@nmbu.no" class="email">solve.sabo@nmbu.no</a></a>
 </address>
-<p class="date"><em>2019-10-08</em></p>
+<p class="date"><em>2020-01-13</em></p>
 <div class="abstract">
 <p class="abstract">Abstract</p>
 <p>Prediction performance does not always reflect the estimation behaviour of a method. High error in estimation may necessarily not result in high prediction error, but can lead to an unreliable prediction if test data lie in a slightly different subspace than the training data. In addition, high estimation error often leads to unstable estimates, and consequently, the estimated effect of predictors on the response can not have a valid interpretation. Many research fields show more interest in the effect of predictor variables than actual prediction performance. This study compares some newly-developed (envelope) and well-established (PCR, PLS) estimation methods using simulated data with specifically designed properties such as Multicollinearity in the predictor variables, the correlation between multiple responses and the position of principal components corresponding to predictors that are relevant for the response. This study aims to give some insights into these methods and help the researchers to understand and use them for further study. Here we have, not surprisingly, found that no single method is superior to others, but each has its strength for some specific nature of data. In addition, the newly developed envelope method has shown impressive results in finding relevant information from data using significantly fewer components than the other methods.</p>
@@ -129,9 +131,9 @@ KBM<br><a class="author_email" href="mailto:#"><a href="mailto:solve.sabo@nmbu.n
 </div>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>Estimation of parameters in linear regression models is an integral part of many research studies. Research fields such as social science, econometrics, chemometrics, psychology and medicine show more interest in measuring the impact of certain indicators or variable than performing prediction. Such studies have a large influence on people’s perception and also help in policy-making and decisions. A transparent, valid and robust research is critical to improving the trust in the findings of modern data science research <span class="citation">(High-Level Expert Group on Artificial Intelligence <a href="references.html#ref-eu2019auethics">2019</a>)</span>. This makes the assessment of measurement error, inference and prediction even more essential.</p>
+<p>Estimation of parameters in linear regression models is an integral part of many research studies. Research fields such as social science, econometrics, chemometrics, psychology and medicine show more interest in measuring the impact of certain indicators or variable than performing prediction. Such studies have a large influence on people’s perception and also help in policy-making and decisions. A transparent, valid and robust research is critical to improving the trust in the findings of modern data science research <span class="citation">(High-Level Expert Group on Artificial Intelligence <a href="references.html#ref-eu2019auethics" role="doc-biblioref">2019</a>)</span>. This makes the assessment of measurement error, inference and prediction even more essential.</p>
 <p>Technology has facilitated researchers to collect large amounts of data, however, often such data either contains irrelevant information or are highly redundant. Researchers are devising new estimators to extract information and identify their inter-relationship. Some estimators are robust towards fixing the multicollinearity (redundancy) problem, while others are targeted to model only the relevant information contained in the response variable.</p>
-<p>This study extends <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-rimal2019pred">2019</a>)</span> with a similar multi-response, linear regression model setting and compares some well-established estimators such as Principal Components Regression (PCR), Partial Least Squares (PLSR) Regression, together with two new methods based on envelope estimation: Envelope estimation in predictor space (Xenv) <span class="citation">(R Dennis Cook, Li, and Chiaromonte <a href="references.html#ref-cook2010envelope">2010</a>)</span> and simultaneous estimation of the envelope (Senv) <span class="citation">(R. Dennis Cook and Zhang <a href="references.html#ref-cook2015simultaneous">2015</a>)</span>. The estimation processes of these methods are discussed in the <a href="estimation-methods.html#estimation-methods">Estimation Methods</a> section. The comparison is aimed at the estimation performance of these methods using multi-response simulated data from a linear model with controlled properties. The properties include the number of predictors, level of multicollinearity, the correlation between different response variables and the position of relevant predictor components. These properties are explained in the <a href="experimental-design.html#experimental-design">Experimental Design</a> section together with the strategy behind the simulation and data model.</p>
+<p>This study extends <span class="citation">(Rimal, Almøy, and Sæbø <a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span> with a similar multi-response, linear regression model setting and compares some well-established estimators such as Principal Components Regression (PCR), Partial Least Squares (PLSR) Regression, together with two new methods based on envelope estimation: Envelope estimation in predictor space (Xenv) <span class="citation">(Cook, Li, and Chiaromonte <a href="references.html#ref-cook2010envelope" role="doc-biblioref">2010</a>)</span> and simultaneous estimation of the envelope (Senv) <span class="citation">(Cook and Zhang <a href="references.html#ref-cook2015simultaneous" role="doc-biblioref">2015</a>)</span>. The estimation processes of these methods are discussed in the <a href="estimation-methods.html#estimation-methods">Estimation Methods</a> section. The comparison is aimed at the estimation performance of these methods using multi-response simulated data from a linear model with controlled properties. The properties include the number of predictors, level of multicollinearity, the correlation between different response variables and the position of relevant predictor components. These properties are explained in the <a href="experimental-design.html#experimental-design">Experimental Design</a> section together with the strategy behind the simulation and data model.</p>
 
 </div>
             </section>
@@ -145,11 +147,13 @@ KBM<br><a class="author_email" href="mailto:#"><a href="mailto:solve.sabo@nmbu.n
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -157,12 +161,12 @@ gitbook.start({
 "github": true,
 "facebook": false,
 "twitter": true,
-"google": true,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"],
+"google": true
 },
 "fontsettings": {
 "theme": "white",
@@ -174,6 +178,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -190,10 +198,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

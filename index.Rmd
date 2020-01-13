@@ -26,7 +26,7 @@ use-landscape-page: yes
 tables: yes
 bibliography: 'References.bib'
 biblio-title: References
-biblio-style: elsarticle-harv
+biblio-style: 'elsarticle-harv'
 link-citations: true
 github-repo: 'therimalaya/04-estimation-comparison'
 always_allow_html: true

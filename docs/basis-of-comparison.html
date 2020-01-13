@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Basis of Comparison | Comparison of Multi-response Estimation Methods</title>
-  <meta name="description" content="Basis of Comparison | Comparison of Multi-response Estimation Methods">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Basis of Comparison | Comparison of Multi-response Estimation Methods" />
+  <meta name="generator" content="bookdown 0.16.5 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Basis of Comparison | Comparison of Multi-response Estimation Methods" />
   <meta property="og:type" content="book" />
@@ -24,15 +23,15 @@
 
 
 
-<meta name="date" content="2019-10-08">
+<meta name="date" content="2020-01-13" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="experimental-design.html">
-<link rel="next" href="exploration.html">
+<link rel="prev" href="experimental-design.html"/>
+<link rel="next" href="exploration.html"/>
 <style type="text/css">
 p.abstract{
   text-align: center;
@@ -50,6 +49,9 @@ div.abstract{
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -109,12 +111,12 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="basis-of-comparison" class="section level1">
 <h1>Basis of Comparison</h1>
-<p>The focus of this study is to extend the exploration of <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred">2019</a>)</span> to compare the estimation performance of PCR, PLS1, PLS2, Xenv and Senv methods. The performance is measured on the basis of,</p>
+<p>The focus of this study is to extend the exploration of <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span> to compare the estimation performance of PCR, PLS1, PLS2, Xenv and Senv methods. The performance is measured on the basis of,</p>
 <ol style="list-style-type: lower-alpha">
-<li>average estimation error computed as in <a href="basis-of-comparison.html#eq:estimated-est-error">(6)</a></li>
+<li>average estimation error computed as in <a href="basis-of-comparison.html#eq:estimated-est-error">(7)</a></li>
 <li>the average number of components used by the methods to give minimum estimation error</li>
 </ol>
-Let us define the expected estimation error as
+<p>Let us define the expected estimation error as
 <span class="math display" id="eq:est-error">\[\begin{equation}
   \text{MSE}\left(
     \widehat{\boldsymbol{\beta}}
@@ -127,29 +129,31 @@ Let us define the expected estimation error as
       \boldsymbol{\beta}_{ij} - \boldsymbol{\widehat{\beta}_{ijkl}}
     \right)
   \right]}
-\tag{5}
+\tag{6}
 \end{equation}\]</span>
-<p>for response <span class="math inline">\(j = 1, \ldots 4\)</span> in a given design <span class="math inline">\(i=1, 2, \ldots 32\)</span> and method <span class="math inline">\(k=1(PCR), \ldots 5(Senv)\)</span> using <span class="math inline">\(l=0, \ldots 10\)</span> number of components. Here <span class="math inline">\(\sigma_{y_j}^2\)</span> is the variance of response <span class="math inline">\(j\)</span>. Since both the expectation and the variance of <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span> are unknown, the estimation error is estimated using data from 50 replications as follows,</p>
-<span class="math display" id="eq:estimated-est-error">\[\begin{equation}
+for response <span class="math inline">\(j = 1, \ldots 4\)</span> in a given design <span class="math inline">\(i=1, 2, \ldots 32\)</span> and method <span class="math inline">\(k=1(PCR), \ldots 5(Senv)\)</span> using <span class="math inline">\(l=0, \ldots 10\)</span> number of components. Here <span class="math inline">\(\sigma_{y_j}^2\)</span> is the variance of response <span class="math inline">\(j\)</span>. Since both the expectation and the variance of <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span> are unknown, the estimation error is estimated using data from 50 replications as follows,</p>
+<p><span class="math display" id="eq:estimated-est-error">\[\begin{equation}
 \widehat{\text{MSE}\left(\widehat{\boldsymbol{\beta}}\right)_{ijkl}} =
   \frac{1}{50}\sum_{r=1}^{50}{\left[
     \widehat{\text{MSE}_\circ\left(\widehat{\boldsymbol{\beta}}\right)_{ijklr}}  
   \right]}
-\tag{6}
+\tag{7}
 \end{equation}\]</span>
-<p>where, <span class="math inline">\(\widehat{\text{MSE}\left(\widehat{\boldsymbol{\beta}}\right)_{ijkl}}\)</span> is the estimated prediction error averaged over <span class="math inline">\(r=50\)</span> replicates and, <span class="math display">\[\widehat{\text{MSE}_\circ\left(\boldsymbol{\widehat{\beta}}\right)_{ijklr}} = 
+where, <span class="math inline">\(\widehat{\text{MSE}\left(\widehat{\boldsymbol{\beta}}\right)_{ijkl}}\)</span> is the estimated prediction error averaged over <span class="math inline">\(r=50\)</span> replicates and,
+<span class="math display">\[\widehat{\text{MSE}_\circ\left(\boldsymbol{\widehat{\beta}}\right)_{ijklr}} = 
   \frac{1}{\sigma_{y_j}^2}\left[\left(\boldsymbol{\beta}_{ij} -\boldsymbol{\widehat{\beta}_{ijklr}}\right)^t\left(\boldsymbol{\beta}_{ij} - \boldsymbol{\widehat{\beta}_{ijklr}}\right)
 \right]\]</span></p>
-Our further discussion revolves around what we will refer to as the <em>Error Dataset</em> and the <em>Component Dataset,</em> as in the prediction comparison paper <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred">2019</a>)</span>. For a given estimation method, design, and response, the component that gives the minimum estimation error averaged over all replicates is selected as,
+<p>Our further discussion revolves around what we will refer to as the <em>Error Dataset</em> and the <em>Component Dataset,</em> as in the prediction comparison paper <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>. For a given estimation method, design, and response, the component that gives the minimum estimation error averaged over all replicates is selected as,
 <span class="math display" id="eq:min-err">\[\begin{equation}
   l_\circ = \operatorname*{argmin}_{l}\left[\frac{1}{50}\sum_{r=1}^{50}{\widehat{\text{MSE}_\circ\left(\widehat{\boldsymbol{\beta}}\right)}_{r}}\right]
-  \tag{7}
-\end{equation}\]</span>
-<p>Here we have skipped further indices on <span class="math inline">\(\boldsymbol{\widehat{\boldsymbol{\beta}}}\)</span> for brevity. The estimation error <span class="math inline">\(\widehat{\text{MSE}_\circ\left(\widehat{\boldsymbol{\beta}}\right)}\)</span> for every method, design and response corresponding to component <span class="math inline">\(l_\circ\)</span>, computed as <a href="basis-of-comparison.html#eq:min-err">(7)</a>, is then regarded as the <em>error dataset</em> in the subsequent analysis. Let <span class="math inline">\(\mathbf{u}_{8000\times4}=(u_j)\)</span>, where <span class="math inline">\(u_j\)</span> is the <span class="math inline">\(j^\text{th}\)</span> column of <span class="math inline">\(\mathbf{u}\)</span> denoting the estimation error corresponding to response <span class="math inline">\(j=1, \ldots 4\)</span> in the context of this dataset. Further, let the number of components that result in minimum estimation error in each replication and computed as <a href="basis-of-comparison.html#eq:min-comp">(8)</a>, comprise the <em>component dataset</em>. Let <span class="math inline">\(\mathbf{v}_{8000\times4}=(v_j)\)</span> where <span class="math inline">\(v_j\)</span> is the <span class="math inline">\(j^\text{th}\)</span> column of <span class="math inline">\(\mathbf{v}\)</span> denoting the outcome variable measuring the number of components used to obtain minimum estimation error corresponding to response <span class="math inline">\(j=1, \ldots 4\)</span>.</p>
-<span class="math display" id="eq:min-comp">\[\begin{equation}
-  l_{\circ} = \operatorname*{argmin}_{l}\left[\widehat{\text{MSE}_\circ\left(\widehat{\boldsymbol{\beta}}\right)}\right]
   \tag{8}
 \end{equation}\]</span>
+Here we have skipped further indices on <span class="math inline">\(\boldsymbol{\widehat{\boldsymbol{\beta}}}\)</span> for brevity. The estimation error <span class="math inline">\(\widehat{\text{MSE}_\circ\left(\widehat{\boldsymbol{\beta}}\right)}\)</span> for every method, design and response corresponding to component <span class="math inline">\(l_\circ\)</span>, computed as <a href="basis-of-comparison.html#eq:min-err">(8)</a>, is then regarded as the <em>error dataset</em> in the subsequent analysis. Let <span class="math inline">\(\mathbf{u}_{8000\times4}=(u_j)\)</span>, where <span class="math inline">\(u_j\)</span> is the <span class="math inline">\(j^\text{th}\)</span> column of <span class="math inline">\(\mathbf{u}\)</span> denoting the estimation error corresponding to response <span class="math inline">\(j=1, \ldots 4\)</span> in the context of this dataset. Further, let the number of components that
+result in minimum estimation error in each replication and computed as <a href="basis-of-comparison.html#eq:min-comp">(9)</a>, comprise the <em>component dataset</em>. Let <span class="math inline">\(\mathbf{v}_{8000\times4}=(v_j)\)</span> where <span class="math inline">\(v_j\)</span> is the <span class="math inline">\(j^\text{th}\)</span> column of <span class="math inline">\(\mathbf{v}\)</span> denoting the outcome variable measuring the number of components used to obtain minimum estimation error corresponding to response <span class="math inline">\(j=1, \ldots 4\)</span>.</p>
+<p><span class="math display" id="eq:min-comp">\[\begin{equation}
+  l_{\circ} = \operatorname*{argmin}_{l}\left[\widehat{\text{MSE}_\circ\left(\widehat{\boldsymbol{\beta}}\right)}\right]
+  \tag{9}
+\end{equation}\]</span></p>
 
 </div>
             </section>
@@ -163,11 +167,13 @@ Our further discussion revolves around what we will refer to as the <em>Error Da
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -175,12 +181,12 @@ gitbook.start({
 "github": true,
 "facebook": false,
 "twitter": true,
-"google": true,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"],
+"google": true
 },
 "fontsettings": {
 "theme": "white",
@@ -192,6 +198,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -208,10 +218,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
