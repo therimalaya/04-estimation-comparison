@@ -1,0 +1,6 @@
+*/*.Rmd
+*/*.rmd
+*.Rmd
+*.rmd
+*.md
+*.markdown
