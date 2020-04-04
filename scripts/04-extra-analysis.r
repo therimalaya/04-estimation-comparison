@@ -14,8 +14,8 @@ simulate_n_compute <- function(design, d_idx = 29, nobs = 100, mthd) {
       get_design(d_idx) %>%
       list_modify(n = nobs) %>% 
       simulate()
-    res <- res %>%
-      coef_errors(mthd, need_pc = need_pc, ncomp = 20, scale = TRUE)
+    # res <- res %>%
+    #   coef_errors(mthd, need_pc = need_pc, ncomp = 20, scale = TRUE)
     return(res)
   })
   return(out)
@@ -100,7 +100,7 @@ plt2 <- ggplot(error_df %>%
   stat_summary(fun = mean, geom = "line") +
   geom_text(data = min_error %>% 
               mutate_at("Response", ~paste0("Y", ..1)), 
-            aes(x = 2, y = 1,
+            aes(x = c(rep(2, 12), rep(8, 8)), y = 1,
                 vjust = rep(seq.int(5, by = 2, length.out = 4), 5),
                 label = round(Error, 3)),
             family = "mono") +
@@ -112,4 +112,5 @@ plt2 <- ggplot(error_df %>%
        title = "Log of Estimation Error for different methods",
        subtitle = paste0("n=", nobs, ", design=", dgn))
 plot(plt2)
-
+ggsave(plt2, filename = "scripts/robj/plots/large-n-est-error.pdf",
+       width = 7, height = 4, units = "in")

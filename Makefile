@@ -1,7 +1,6 @@
 DIR="docs"
 
-all:
-	Rscript --quiet -e 'source("_render.R")'
+all: gitbook pdf epub
 	
 gitbook:
 	Rscript --quiet _render.R "bookdown::gitbook"

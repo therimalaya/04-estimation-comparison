@@ -1,0 +1,42 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "rmarkdown::render",
+      "type": "process",
+      "command": "Rscript",
+      "args": [
+        "-e",
+        "rmarkdown::render('${fileBasename}', encoding = 'UTF-8')"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "presentation": {
+        "showReuseMessage": false,
+        "focus": true
+      },
+      "problemMatcher": {
+        "owner": "R Markdown",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": [
+          {
+            "regexp": "Quitting from lines (\\d+)-(\\d+) \\((.*)\\)",
+            "file": 3,
+            "line": 1
+          },
+          {
+            "regexp": "^(Error in .+)$",
+            "message": 1
+          }
+        ]
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

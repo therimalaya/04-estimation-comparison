@@ -129,15 +129,14 @@ cf_plt <- err_coef %>%
   }))
 ```
 
-```{r coef-plot, fig.asp=1.2, fig.width=10, fig.retina=2, out.width='100%', fig.cap="Regression Coefficients (coef) estimated by PLS2 and Simultaneous Envelope methods on the data based on Design 9 and 29."}
+```{r coef-plot, fig.asp=1.2, fig.width=10, fig.retina=2, out.width='100%', fig.cap="Regression Coefficients (coef) estimated by PLS2 and Simultaneous Envelope methods on the data based on Design 9 and 29.", warning=FALSE, error=FALSE, message=FALSE}
 do.call(gridExtra::grid.arrange, 
         cf_plt %>% 
           pluck("plot") %>% 
           append(list(ncol = 1)))
 ```
 
-
-Figure \@ref(fig:err-plot) shows a clear distinction between the modelling approach of PLS2 and Senv methods for the same model based on Design 9 (top) and Design 29 (bottom). In both of the designs, PLS2 has both minimum prediction error and minimum estimation error obtained using seven to eight components and the estimated regression coefficients approximate the true coefficients. In contrast, the Senv method has approached the minimum prediction and minimum estimation error using one to two components and the corresponding estimated regression coefficients approximate the true coefficients (Figure \@ref(fig:coef-plot)). Despite having contrasted modelling results for a dataset with similar properties, the minimum errors produced by them are comparable in the case of Design 9 (See Table \@ref(tab:min-err-dgn9)). However, in the case of Design 29, estimation error corresponding to PLS1 and envelope methods are much higher than PCR and PLS2. It is interesting to see that despite having large estimation error, the prediction error corresponding to the envelope methods are much smaller in this design.
+Figure \@ref(fig:err-plot) shows a clear distinction between the modelling approach of PLS2 and Senv methods for the same model based on Design 9 (top) and Design 29 (bottom). In both of the designs, PLS2 has both minimum prediction error and minimum estimation error obtained using seven to eight components and the estimated regression coefficients approximate the true coefficients. In contrast, the Senv method has approached the minimum prediction and minimum estimation error using only one to two components and the corresponding estimated regression coefficients approximate the true coefficients (Figure \@ref(fig:coef-plot)). Despite having contrasted modelling results for a dataset with similar properties, the minimum errors produced by them are comparable in the case of Design 9 (See Table \@ref(tab:min-err-dgn9)). However, in the case of Design 29, estimation error corresponding to PLS1 and envelope methods are much higher than PCR and PLS2. It is interesting to see that despite having large estimation error, in design 29, the prediction error corresponding to the envelope methods are much smaller. In both of these designs and in prediction and estimation error, Xenv has equally and better in some responses than Senv. This difference needs further exploration in the case where there are more than one true response dimension.
 
 In this study, the response dimension for the simultaneous envelope has been fixed at two components, which might have affected its performance, however, both envelope methods had performed much better with the same restriction in the case of prediction.
 
@@ -188,7 +187,7 @@ plot_error <- function(error_df) {
 }
 ```
 
-```{r err-plot, fig.asp=1.2, fig.width=9, out.width='100%', fig.cap="Minimum prediction and estimation error for PLS2 and Simultaneous Envelope methods. The point and lines are averaged over 50 replications."}
+```{r err-plot, fig.asp=1.2, fig.width=9, out.width='100%', fig.cap="Minimum prediction and estimation error for PLS2 and Simultaneous Envelope methods. The point and lines are averaged over 50 replications.", message=FALSE, warning=FALSE}
 plt1 <- plot_error(Error_df %>% filter(design == 9))
 plt2 <- plot_error(Error_df %>% filter(design == 29))
 gridExtra::grid.arrange(plt1, plt2, ncol = 1)

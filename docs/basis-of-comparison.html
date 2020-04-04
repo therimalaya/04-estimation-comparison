@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Basis of Comparison | Comparison of Multi-response Estimation Methods</title>
   <meta name="description" content="Basis of Comparison | Comparison of Multi-response Estimation Methods" />
-  <meta name="generator" content="bookdown 0.16.5 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Basis of Comparison | Comparison of Multi-response Estimation Methods" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2020-01-13" />
+<meta name="date" content="2020-04-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -111,7 +111,7 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="basis-of-comparison" class="section level1">
 <h1>Basis of Comparison</h1>
-<p>The focus of this study is to extend the exploration of <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span> to compare the estimation performance of PCR, PLS1, PLS2, Xenv and Senv methods. The performance is measured on the basis of,</p>
+<p>The focus of this study is to extend the exploration of <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred">2019</a>)</span> to compare the estimation performance of PCR, PLS1, PLS2, Xenv and Senv methods. The performance is measured on the basis of,</p>
 <ol style="list-style-type: lower-alpha">
 <li>average estimation error computed as in <a href="basis-of-comparison.html#eq:estimated-est-error">(7)</a></li>
 <li>the average number of components used by the methods to give minimum estimation error</li>
@@ -143,7 +143,7 @@ where, <span class="math inline">\(\widehat{\text{MSE}\left(\widehat{\boldsymbol
 <span class="math display">\[\widehat{\text{MSE}_\circ\left(\boldsymbol{\widehat{\beta}}\right)_{ijklr}} = 
   \frac{1}{\sigma_{y_j}^2}\left[\left(\boldsymbol{\beta}_{ij} -\boldsymbol{\widehat{\beta}_{ijklr}}\right)^t\left(\boldsymbol{\beta}_{ij} - \boldsymbol{\widehat{\beta}_{ijklr}}\right)
 \right]\]</span></p>
-<p>Our further discussion revolves around what we will refer to as the <em>Error Dataset</em> and the <em>Component Dataset,</em> as in the prediction comparison paper <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred" role="doc-biblioref">2019</a>)</span>. For a given estimation method, design, and response, the component that gives the minimum estimation error averaged over all replicates is selected as,
+<p>Our further discussion revolves around what we will refer to as the <em>Error Dataset</em> and the <em>Component Dataset,</em> as in the prediction comparison paper <span class="citation">Rimal, Almøy, and Sæbø (<a href="references.html#ref-rimal2019pred">2019</a>)</span>. For a given estimation method, design, and response, the component that gives the minimum estimation error averaged over all replicates is selected as,
 <span class="math display" id="eq:min-err">\[\begin{equation}
   l_\circ = \operatorname*{argmin}_{l}\left[\frac{1}{50}\sum_{r=1}^{50}{\widehat{\text{MSE}_\circ\left(\widehat{\boldsymbol{\beta}}\right)}_{r}}\right]
   \tag{8}

@@ -1,0 +1,218 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathpazo}
+\usepackage[margin=1in, right=3in, marginparsep=5mm]{geometry}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{easyReview}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{hyperref}
+\usepackage{todonotes}
+\usepackage{enumitem}
+\usepackage[pages=all]{background}
+\usepackage{tikz}
+\usepackage{environ}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\lhead{Comparison of Multi-Response Estimation Methods}
+\rfoot{\nouppercase\leftmark $\vert$ \thepage}
+
+\setlength {\marginparwidth }{2.25in}
+\setstretch{1.25}
+
+\setcounter{secnumdepth}{0}
+\colorlet{mycolor1}{NavyBlue}
+\colorlet{mycolor2}{Violet}
+\colorlet{critical}{RedOrange}
+\colorlet{good}{ForestGreen}
+\colorlet{info}{OliveGreen}
+\colorlet{answers}{PineGreen}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\makeatletter
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\makeatother
+
+\setuptodonotes{textcolor=mycolor1, backgroundcolor=white, linecolor=mycolor1, size=footnotesize, bordercolor=white}
+\renewcommand{\labelitemi}{$\circ$}
+
+\backgroundsetup{
+scale=1,
+opacity=0.4,
+angle=0,
+contents={%
+  \tikz[remember picture, overlay] 
+    \fill[black!12] (current page.south east) rectangle ++(-2.85in,\paperheight);
+  }%
+}
+
+\NewEnviron{cbox}[2]{%
+  \fcolorbox{#1}{#2}{%
+    \begin{minipage}{\dimexpr\linewidth-2\fboxrule-2\fboxsep}
+      \BODY
+    \end{minipage}%
+  }%
+}
+
+\makeatletter
+\newcommand{\subtitle}[1]{\def\@subtitle{#1}}
+\renewcommand{\maketitle}{
+    \begin{minipage}[t][3cm][b]{\textwidth}
+        \raggedright
+        \LARGE \@title \\
+        \large \@subtitle
+    \end{minipage}
+}
+\makeatother
+
+\title{Comparison of Multi-Response Estimation Methods}
+\subtitle{Reviewers' Comments}
+
+\begin{document}
+\maketitle
+
+\thispagestyle{empty}
+\vspace{1em}
+
+Here \textcolor{mycolor1}{Blue} colors are the comments and
+\textcolor{answers}{Green} colors are the actual changes in the text.
+
+\section{Reviewer One}
+
+This manuscript compared the parameter estimation accuracy of some Multi-response linear regression model by simulated data with varying properties. This work gave some insights into these methods and helped the researchers to understand their performance. Based on this point, this work obtained some findings. I have the following comments and questions on this manuscript which the authors should consider.
+
+\begin{itemize}[leftmargin=1em]
+    
+\item Some authors' name should be corrected, for example, N{\ae}s on Page 3. \todo{\textcolor{mycolor1}{Fixed.}}$\square$
+
+\item I think the writing about the scalar, vector, and matrix should be used
+  according to the general rule. For example, italic lowercase is used for
+  scalar, such as equations (9) and (10).
+  \todo{Old \& new: pg-17 (last sentence)\\
+    \textit{First paragraph in Analysis section}\\
+    \textcolor{answers}{Here the ... represented by cube notation.}} $\square$
+
+\item Please explain why the optimal components determined in these methods are different. I hope the authors could give further explanation about this. 
+\todo{\textcolor{mycolor1}{\textit{Last paragraph of estimation methods}}\\\textcolor{answers}{Here, each methods uses ... need fewer components.}} $\square$
+
+\item Please show the relationships of the relevant space form the compared
+  methods. I hope the authors could give further discussion about this.
+  \todo{Helland, I.S., et. al. (2018) have discussed this in details and the references are included in several places.} $\square$
+
+\item For the real data, I think the manuscript has a significant flaw that don't use a real data to validate the parameter estimation accuracy of compared methods. It is of a prime importance to used real dataset to help readers of Chemo-lab to understand the method. Thus, it is strongly recommended the authors apply at least one real dataset to show their performance. \todo{Here we are comparing estimation error for which true regression coefficients are required which is not possible with the real data.}$\square$ 
+
+\item The GitHub repository is not available, an applicable version should be provided. \todo{It is working and is mentioned in the paper.} $\square$
+
+\end{itemize}
+
+\textcolor{mycolor1}{\href{https://github.com/therimalaya/04-estimation-comparison}{\small\url{https://github.com/therimalaya/04-estimation-comparison}}}
+
+This paper gives an elaborate organisation that is very helpful for reading. This is commendable.
+\todo{Thank You!}
+
+\clearpage
+
+\section{Reviewer Two}
+
+This paper is a followup to an earlier paper on multi-response prediction
+methods by the same authors. Accordingly, I had to read the prediction paper
+before turning to the current submission on estimation. I initially expected the
+estimation results to largely parallel those for prediction, but it turned out
+that there were a few surprises, particularly the behaviour of envelope
+estimation in the presence of highly correlated responses, as represented in
+Table 1. \todo{Old: pg-22, New: pg-24 (line-5)\\ \textit{Second paragraph of Discussion and Conclusion}\\ \textcolor{answers}{This indicates that the ... function with multiple maxima (Cook and Zhang, 2016).}} One possible explanation for this phenomenon comes to mind. The log likelihood objective functions for envelope methods are non convex. It seems possible, depending on the sample size, that highly correlated responses produce objective functions with multiple maxima of not substantially dissimilar magnitudes.  \todo{Thank you for the suggestion. It would be interesting to further study the behaviour of envelope and why we have this observed differences.}
+If so, it may be possible for the algorithms to get caught at a local point
+relatively far from the true value. This might also explain the predictive
+performance of envelopes. Multiple local optimal of not dissimilar magnitudes
+means that the data support multiple values for $\beta$, which translates in terms
+of the likelihood into similar predictions. This might be tested by running the
+algorithms at different starting values, including one at the true value of the
+regression coefficients. \todo{Old: pg-15 (top), new: pg-14\\ \textit{Exploration Section:}\\ \color{answers}In both of these designs and in prediction and estimation error, Xenv ... more than one true response dimension.} Here Xenv might be sufficient since its performance in Table 1 is similar to that of Senv. Another possibility is to plot the objective functions along selected directions. This additional effort would seem necessary to (hopefully) explain one way in which the submission diverges from the results in the previous paper. Another of my general reactions is that the clarity of presentation needs attention. There seem to be simulation details missing and some statements are not sufficiently clear.\todo{See page \pageref{sec:common} of this document.}
+
+A quibble: I prefer indented paragraphs, as the current style sometimes makes it unnecessarily hard to tell the start of a paragraph, which is annoying.\todo{Fixed now.}
+
+\textit{Top of page 6}: PCR cannot be equivalent to PLS and Xenv under the
+definition of PCR given on the bottom of page 4. Helland must have been using a
+different notion of PCR.\todo{Old: pg-6, New: pg-6 (line-3)\\... have discussed \textcolor{answers}{when and under which condition} the population models of PCR, PLS and Xenv are equivalent.}$\square$
+
+\textit{Page 6, sample size}: The envelope methods, being based on the likelihood, are asymptotically efficient and so, with n sufficiently large, must do better than the other methods in both estimation and prediction. This might be mentioned for completeness. 
+\todo{Old: pg-22, New: pg-24\\In discussion section: \\
+\color{answers}Since the envelope methods ... others usual MLE methods.}$\square$
+
+\textit{Section 4. Experimental Design}: The description of the experimental design should enable the reader to reconstruct the model as given in (1) and (2), but that does not now seem
+possible. How were $\Sigma_{yy}$, $\Sigma_{yx}$ and $\Sigma_{xx}$ constructed, as the eigenvalues are only part of the story? It’s my understanding that the columns of $\beta$ can be written as linear combinations of either eigenvectors 1,2,3,4 or 5,6,7,8 of $\Sigma_{xx}$. How was this accomplished? If $\beta$ is full column rank then it seems that the true number of components must be 4.
+\todo{Old: pg-6, New: pg-6\\ \textit{Experimental Design: First paragraph}\\
+\textcolor{answers}{... In the simulation, number of response variables $m = 4$ and number of observations $n = 100$ are fixed, and the ...}\\
+\textcolor{mycolor1}{Old: pg-7, New: pg-8\\ \textit{After the discussion of simulation parameters}}\\
+\textcolor{answers}{Using these simulation parameters, a latent covariance matrix is constructed as in 5 ... mechanism in details.}}$\square$
+
+It is stated on page 7 that simulations were restricted to regressions with only one response component. How was this component constructed? Was the number of predictor components also restricted by the simulation? If so, how? This seems important because of the different numbers of components selected by the various methods as represented in Figure 7. Naturally one wonders about the true number of components set in the simulation.
+
+The page 7 sentence ``In the final dataset all predictors together span the same space as the relevant predictor components $\ldots$'' makes no sense to me since all predictors together should span $\mathbb{R}^p$, unless $\Sigma_{xx}$ is singular. 
+\todo{Old: pg-7, New: pg-8 (paragraph-2)\\\textcolor{answers}{For the predictors, there are 4 true relevant components, so the relevant space for predictor matrix has 4 dimension.}}$\square$
+
+Page 8, line 5 from the bottom: Figure ?? \todo{Fixed}$\square$
+
+\textit{Section 5. Basis of Comparison}: I’m a bit perplexed by the choice of the inner product matrix in (5). Since the eigenvalues of $\Sigma_{xx}$ are different, the predictor variances differ, unless $\Sigma_{xx}$ was constructed as a constant times a correlation matrix. And the predictors are of course correlated. The columns of $\beta$ were scaled by the response variances but there was evidently no effort to correct for the different variances or correlations of the predictors. In view of what I know about the simulation setup, I would have thought that $\Sigma_{xx}$, instead of the identity, is a more appropriate inner product. A case can also be made for using $\Sigma_{xx}^{-1}$ as the inner product, but I can’t see any clear justification for using the identity.
+\todo{Here we have scaled the estimation error by response variance just to keep them together in the same scale while plotting. Since these responses are analysed separately, also in MANOVA, using identity matrix in (5 on old, 6 in new), we believe, will give a proper measure of squared error of regression coefficients.}$\square$
+
+\textit{Section 6. Exploration}:. Figure 4 is difficult to interpret because one needs to take careful note of the scales for the $\gamma = 0.2$ and $\gamma = 0.9$ plots. At $\gamma = 0.9$ I can’t see any obvious differences in the methods. The claim that ``$\ldots$ envelope methods tend to have increased estimation error in cases of highly correlated responses (eta: 1.2), whereas $\ldots$'' may be true,
+but I can’t see it from the figure. In particular, I can’t see that any method is “best” at $\gamma = 0.9$ and $\eta = 1.2$. The plot does clearly show the impact of relative position.
+\todo{We have removed the last sentence of the paragraph. I think the reviewer is correct. It is difficult to see the difference from the figure alone.}$\square$
+
+Might the relatively large number of components for PCR, PLS1 and PLS2, shown in Figure 5 partly explain their relatively poor performance in the previous paper? When reading the top of page 13, I again found myself wondering about the true number of components.
+\todo{Experimental design details has been added in New: pg-8.}$\square$
+
+The conclusion in the penultimate sentence on page 13 evidently comes from Table 1. But Figure 6 shows that envelopes do well in estimation with one component and no evident bias, while PLS2 needs 7 or 8 components to give the same visual impression. I would have thought that the estimation variation increases with the number of components, so PLS2 estimators would be noticeably more variable than envelope estimators. Is this reflected in the simulations somehow, or is my intuition wrong?
+\todo{Old: pg-22 (line: -5), New: pg-24 \\ \textit{Third last paragraph:}\\
+\textcolor{answers}{... this can easily be controlled through a method like cross-validation.}\\
+\textcolor{mycolor1}{\textit{At the end of mentioned paragraph:}}\\
+\textcolor{answers}{Here, the variation ... included in the model.}
+}$\square$
+
+In the first full sentence on page 15, to what does “Here the . . . ” refer. All of section 6? Just the material following the paragraph?
+\todo{Replaced "Here" in:\\
+\textit{Second last paragraph of exploration:}\\
+\textcolor{answers}{\textit{In the figure}, PLS2 ...\\}
+\textcolor{mycolor1}{\textit{First full paragraph of page 15(old)}\\}
+\textcolor{answers}{\textit{In this study}, the ...}
+}$\square$
+
+Last sentence in third full paragraph on page 15 ``However, one should $\ldots$'' and sentence ``However, non-optimal number $\ldots$'' starting on line 6 from the bottom on page 22: My guess is that these statements come from the estimative performance of Senv in Figure 7 for 7–10 components. The conclusion is then based on comparing Senv at > 5 components above its optimum number of components to PLS2 at < 3 components above its optimum. To be on a equal footing, shouldn’t these methods be compared at the same number of components above the optimum?
+\todo{Old: pg-22, New: pg-24\\
+  Last sentence of last complete paragraph\\
+  \color{answers}Although non-optimal number of ... like cross-validation.}$\square$
+
+\textit{Section 7. Analysis:} Nice discussion. \todo[inline]{Thank you}
+
+\subsection{Minor Changes}
+\label{sec:minor-changes}
+\textit{\todo{... using \textcolor{answers}{only} \color{mycolor1} one or two ...} 7th line from the end of page 13 (old)} 
+
+\subsection{Common Answers}
+\label{sec:common}
+
+\textcolor{mycolor1}{There are nice ideas and suggestions to further explore the performance of envelope based methods. Since these methods have remarkable performance in prediction and also in estimation, we agree that exploration of the impact of initial values on optimising function is required. In addition, we have used principal components while using wide data matrix with envelope methods. The effect of this on the quality of estimation also need further exploration both theoretically and practically. Since this study tries to have the similar design, data and situation as the prediction paper discussed published before, these explorations and studies is beyond the scope of this paper.}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-Engine: xelatex
+%%% TeX-master: t
+%%% End:

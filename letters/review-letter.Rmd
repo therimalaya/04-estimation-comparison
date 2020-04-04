@@ -3,7 +3,7 @@ author:
   - Raju Rimal
   - Trygve Almøy
   - Solve Sæbø
-opening: Dear Professor Hopke,
+opening: Dear Professor Xu,
 closing: Sincerely,
 date: '`r format(Sys.Date(), "%d %B, %Y")`'
 return-address:
@@ -11,30 +11,35 @@ return-address:
   - '1430, Ås'
   - '\textsc{norway}'
 address:
-  - Philip Hopke,
-  - Editor,
+  - Qing-Song Xu,
+  - Editor
   - Chemometrics and Intelligent Laboratory Systems
-Reference: 
-signature-before: -8ex
+signature: Signature.png
+signature-before: -6ex
 signature-after: 0ex
 colorlinks: true
-fontsize: 12pt
+fontsize: 11pt
 papersize: a4
-margin: "geometry=1in"
+geometry: "margin=0.9in"
 output: linl::linl
 ---
 
-The focus of this study is an attempt to make a thorough comparison of prediction methods with data simulated from a linear models whose latent structures are controlled by a small set of parameters. The comparison is unique in two different aspects: a) the study of response correlation in the prediction performance and b) comparison of new and promising methods based on envelope estimation with more established methods such as PLS and PCR, which are well known in chemometrics. Both of these reasons make, in our opinion, this study highly relevant to chemometrics society. We would also like to inform that this study is not an additional groundbreaking method or result that we have added to society. However, this can be a reference to the people working on the formulation of models and using various methods to leverage latent structures in both predictors and responses. Both of these will be a supplement for researchers who are developing or want to implement and understand the behavior of new methods in their study. The examples included in the paper is merely an additional result together with the simulation study whose sole purpose is to compare the prediction methods rather than making better prediction than previous studies.
+```{r, include=FALSE}
+library(bibtex)
+refs <- read.bib("./References.bib", encoding="UTF-8")
+```
 
-We would like to appreciate the concern of the reviewer on the construction of a training set for model development. However, constructing the training set and design for model development is beyond the scope of this study. But we would like to assure the reviewer that we are working on a tool that can facilitate the researcher to make a rough estimation of the simulation parameters that we have used from their real data. In addition, there are a few functions already included in the R-package called `simrel` which we have used throughout this study. We hope that we are able to satisfy the concern of Reviewer-2 and we would like to express our appreciation for the evaluation of our study.
+The focus of this study is an attempt to make a thorough comparison of the estimation performance of different methods with data simulated from a linear model whose latent structures are controlled by a small set of parameters. While finding and interpreting the influences between the variables, estimation plays an important role in all fields and is also desirable in chemometrics. As an extension to the previous article^[`r format(refs['rimal2019pred'])`], published in the journal of Chemometrics and Intelligent Laboratory Systems, this study explores the interaction between the properties of data and estimations made by various methods.
 
-Furthermore, we have made some changes based on the comment of Reviewer-1. A separate PDF file with these changes is attached to this letter. Regarding the comment on the range of correlation in predictor and response variables we have specified the maximum correlation in population, however, the plot below will give a detailed picture of the structure in both sample and population in various levels of simulation parameters. However, due to the length of the paper, we have omitted the plot from the article itself.
+This comparison is unique in two different aspects: a) the study of correlations in both the response and the predictors on the estimation performance in comparison with prediction performance and b) comparison of new and promising methods based on envelope estimation with more established methods such as PLS and PCR, which are well known in chemometrics. Both of these reasons make, in our opinion, this study highly relevant to chemometrics society. We would also like to inform that this study is not an additional groundbreaking method or result that we have added to society. However, this can be a reference to the people working on the formulation of models and using various methods to leverage latent structures in both predictors and responses. Both of these will be a supplement for researchers who are developing or want to implement and understand the behaviour of new methods in their study.
 
-![](../scripts/plots/corr-plot.pdf)
+We would like to appreciate the reviewers' concerns and suggestions which have helped us to improve the quality of this article. This study compares the methods based on their estimation performance that requires the true relationship (regression coefficients). In the case of a real dataset, finding the true relation is not possible. Although we were able to include two examples in the previous study of prediction comparison, we are not able to include an example with real dataset in this study as requested by the first reviewer.
+
+Furthermore, we have made some changes based on the comment of Reviewer-1 and Reviewer-2. A separate PDF file with these changes is attached to this letter. 
 
 Reference: 
-: `CHEMOLAB_2019_163`
+: `CHEMOLAB_2019_407`
 
 Title: 
-: Comparison of Multi-response Prediction Methods
+: Comparison of Multi-response Estimation Methods
 

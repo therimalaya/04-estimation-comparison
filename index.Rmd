@@ -17,6 +17,7 @@ address:
   - code: KBM
     address: Faculty of Chemistry and Bioinformatics, Norwegian University of Life Sciences, Ås, Norway
 classoption: ["12pt", "3p", "authoryear"]
+papersize: "A4"
 monofont: 'sourcecodepro'
 monofontoptions: "Scale=0.7"
 colorlinks: true
@@ -43,7 +44,7 @@ suppressMessages({
   source("scripts/00-function.r")
   source("scripts/01-setup.r")
 })
-knitr::opts_chunk$set(comment = NULL, out.width = "100%", echo = FALSE)
+knitr::opts_chunk$set(comment = NULL, out.width = "100%", echo = FALSE, message=FALSE, warning=FALSE, error=FALSE)
 if (knitr::is_html_output()) {
   knitr::opts_chunk$set(dev = c('svg', 'png'), fig.retina = 2)
 } else {

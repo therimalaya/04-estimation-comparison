@@ -22,3 +22,4 @@ time_taken <- tibble::tibble(
   time_taken = time_keeper
 )
 print(knitr::kable(time_taken, format = "markdown"))
+
