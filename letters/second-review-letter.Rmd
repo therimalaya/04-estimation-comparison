@@ -1,0 +1,49 @@
+---
+author:
+  - Raju Rimal
+  - Trygve Almøy
+  - Solve Sæbø
+opening: Dear Professor Xu,
+closing: Sincerely,
+date: '`r format(Sys.Date(), "%d %B, %Y")`'
+return-address:
+  - 'Universitetstunet 3'
+  - '1430, Ås'
+  - '\textsc{norway}'
+address:
+  - Qing-Song Xu,
+  - Editor
+  - Chemometrics and Intelligent Laboratory Systems
+signature: Signature.png
+signature-before: -6ex
+signature-after: 0ex
+colorlinks: true
+fontsize: 11pt
+papersize: a4
+geometry: "margin=1in"
+output: linl::linl
+---
+
+
+```{r, include = FALSE}
+refs <- bibtex::read.bib("./References.bib", encoding="UTF-8")
+```
+
+This study is focused to understand the impact of various data properties, including multicollinearity, in the estimation performance of various multivariate regression methods. The comparison is based on the data simulated from a linear model whose latent structures are controlled by a small set of parameters. As an extension to the previous article^[`r paste(capture.output(refs[["rimal2019pred"]]), collapse=" ")`], published in the journal of Chemometrics and Intelligent Laboratory Systems, this study explores the interaction between the properties of data and estimations made by the same set of methods used in the previous paper. Also, we have used the same simulated data sets to make to study of prediction and estimation performance comparable.
+
+This study has two unique objectives. 
+
+  a) to provide a comparison between prediction and estimation performance and the impact of correlations within both response and predictors on them.
+  b) to provide a comprehensive comparison of new and promising methods based on envelope estimation with established methods such as PLS and PCR which are well known in chemometrics society.
+
+Although this does not provide any groundbreaking results, this has provided a reference to the researchers working on the formulation of models using various methods to leverage the latent structures of response and predictors. This also provides a supplement for the researchers who are developing or using new methods in their study.
+
+We are thankful for the reviewer's concerns and suggestions which have helped us not only to improve the quality of this article but also to correct some typos and confusing notations. We have made some changes based on the comments of the reviewer. A separate PDF file with these changes is attached to this letter. 
+
+Reference: 
+: `CHEMOLAB_2019_407_R1`
+
+Title: 
+: Comparison of Multi-response Estimation Methods
+
+\vfill

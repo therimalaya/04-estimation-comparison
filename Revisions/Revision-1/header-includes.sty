@@ -1,0 +1,35 @@
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[pages=all]{background}
+\usepackage{tikz}
+\usepackage{todonotes}
+
+
+\setcounter{secnumdepth}{0}
+\colorlet{mycolor1}{NavyBlue}
+\colorlet{mycolor2}{Violet}
+\colorlet{critical}{RedOrange}
+\colorlet{good}{ForestGreen}
+\colorlet{info}{OliveGreen}
+\colorlet{answers}{PineGreen}
+
+\setuptodonotes{
+    textcolor=mycolor1, 
+    backgroundcolor=white, 
+    linecolor=mycolor1, 
+    size=footnotesize, 
+    bordercolor=white
+} 
+
+\setlength{\marginparwidth}{2.25in}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\backgroundsetup{
+scale=1,
+opacity=0.4,
+angle=0,
+contents={%
+  \tikz[remember picture, overlay] 
+    \fill[black!12] (current page.south east) rectangle ++(-2.85in,\paperheight);
+  }%
+}

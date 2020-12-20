@@ -1,0 +1,55 @@
+---
+fontfamily: mathpazo
+fontsize: 12pt
+papersize: A4
+linestretch: 1.25
+geometry: 'margin=1in, right=3in, marginparsep=5mm'
+colorlinks: true
+bibliography: 'References.bib'
+nocite: |
+  @Rimal2018
+output:
+  pdf_document:
+    includes:
+      in_header: header-includes.sty
+title: 'Revision 1 of "Comparison of Multi-response estimation methods"'
+---
+
+The  authors  have  responded  adequately  to  most  of  my  comments,  but  I  think  a  little additional revision may be in order.
+
+# Section 4: $\eta$ or $\kappa$
+
+Predictor  collinearity  is  describe  from  (3)  in  terms  of the  exponentialparameter $\gamma$, but response collinearity is described in terms of $\eta$, which is notation for eigenvalues from (4).  It seems to me that $\eta$ and $\kappa$ have been \todo{There has been a switch between $\kappa$ and $\eta$. Now all $\eta$ refers to the decay factor of eigenvalues corresponding to responses and $\kappa$ refers to the actual eigenvalues. Here $\kappa$ is mentioned in only one place while $\eta$ has been used in several places and are also used as \texttt{eta} is also used in r-code.\\\textcolor{good}{Now, they are fixed.}}confused throughout the paper.  Here are some instances,
+
+- The first sentence following (4) refers to four levels of `eta`.  Then the following sentence gives further discussion in terms of $\kappa$.
+- Figures 2, 4 \& 5 have `eta` as a label,  which makes no sense in terms of (4).  I think theselabels should be `kappa`.
+
+In the two sentences following (5), shouldn’t the $\eta$’s be $\kappa$?
+
+# Section 4: Construction of the $\Sigma$'s following (5)
+
+In the fourth line following (5), shouldn't \todo{Fixed.} $p \times m$ be $m \times p$. Assuming that is so, here is how I understand the constructions from the description. Let $\boldsymbol{\sigma} = \begin{pmatrix}\sigma_{11} & \sigma_{12} & \sigma_{13} & \sigma_{14}\end{pmatrix}^T$, let $\mathbf{1}_4$ denote a $4 \times 1$ vector of ones, and partition
+the $p \times p$ orthogonal matrix \todo{We have used $\mathbf{R}$ as the rotation matrix corresponding to predictors. So it will be $\mathbf{R} = \begin{pmatrix}\mathbf{R}_1 & \mathbf{R}_2\end{pmatrix}$ where $\mathbf{R}_1$ is a $p \times 4$ matrix.}$\mathbf{Q} = \begin{pmatrix}\mathbf{Q}_1 & \mathbf{Q}_2\end{pmatrix}$, where $\mathbf{Q}_1$ is $p \times 4$. Then,
+  $$\begin{aligned}
+  \Sigma_{xx} &= \mathbf{Q} \Sigma_{zz} \mathbf{Q}^t \\
+  \Sigma_{yy} &= \mathbf{R} \Sigma_{ww} \mathbf{R}^t \\
+  \Sigma_{x,y} &= \mathbf{Q}
+    \underset{p\times 1}{\begin{pmatrix}\boldsymbol{\sigma} \\ \mathbf{0}\end{pmatrix}} \mathbf{1}_4^T \mathbf{R}^t
+    = \mathbf{Q}_1 \boldsymbol{\sigma} \mathbf{1}_4^T \mathbf{R}^T \\
+  \mathrm{rank}\left(\Sigma_{x,y}\right) &= 1
+  \end{aligned}$$
+\todo{Here we have to switch $\mathbf{Q}$ with $\mathbf{R}$ and vice-versa. In addition, the primary misunderstanding is on $\mathbf{1}_4$. In the simulation we have, the vector will be $\begin{pmatrix}1 & 0 & 0 & 0\end{pmatrix}^T$ rather than $\mathbf{1}_4^T$. In which case, the covariance matrix of $\mathbf{z}$ and $\mathbf{w}$ becomes, $$\Sigma_{z,w} = \begin{pmatrix}\boldsymbol{\sigma} & \mathbf{0} & \mathbf{0} & \mathbf{0} \\ \mathbf{0} & \mathbf{0} & \mathbf{0} & \mathbf{0} \end{pmatrix}$$ This is then rotated by $\mathbf{R}$ and $\mathbf{Q}$ to get the covariance matrix of $x$ and $y$. This has beed discussed thoroughly in Rimal, Almøy, and Sæbø (2018) paper.}$\square$
+
+If my interpretation is correct then there are 4 true predictor components provided $\gamma \ne 0$, and 4 true response components provided $\kappa \ne 0$. The simulations never used $\gamma = 0$ so there are always 4 predictor components. However, $\kappa = 0$ was used (assuming that's what $\eta = 0$ means) and then there is only one response component. If all of this is correct is should be stated for clarity in the paper.
+
+# Response components
+
+In the middle of page 8 it is stated that "Here we have assumed that there is only one response component." Does this mean that in all estimation methods where relevant a single response component was used? \todo{The number of true response components will still be 1 even in $\kappa \ne 0$, only all 4 response varialbes will have some correlation between them since they are rotated together.}If so, then in all settings where $\kappa \ne 0$ the estimators were based on the wrong scenario since there are really 4 true response components. Importantly, no estimator had the ability to adapt to the number of response components. Additionally, all subsequent mentions of the \todo{\textbf{Page 8 (Second last paragraph):}\\ \textcolor{answers}{In the discussion onwards, \textit{number of components} refers to the number of predictor components unless otherwise stated.}} "number of components", like around (8), must be references to the number of _predictor_ components. I think this need to be made clearer, if my guesses are correct. And I would like to see some discussion of the possible effects of forcing the wrong number of response components.
+
+Additionally, designs 9 and 29, which are contrasted in Table 1, differ on the number of true response components, design 9 having 1 component and design 29 having 4, although data from both designs were evidently fitted with one response component. Does this matter for interpretation? \todo{A small misunderstanding here as well. Design 9 and 29 differ not in the number of true response components but they differ on the correlation between \textit{response variables}. Design 9 have uncorrelated response variables while Design 29 have highly correlated response variables. This has beeen clearly stated in \textbf{Page 7 final paragraph}.}$\square$
+
+# Section 5: Basis of Comparison
+
+I'm still unconvinced by the choice of the inner product matrix in (6). If the variances of the elements of $\hat{\boldsymbol{\beta}}$ differ greatly, then the metric (6) will emphasize the most variable element rather than the whole of $\hat{\boldsymbol{\beta}}$. \todo{If we use $(\mathbf{x}^t \mathbf{x})$ as a weight matrix, the result will highly similar to prediction error which we have already explored in previous paper. In many designs with high multicollinearity, the estimation and prediction error perform differently which is the part we want to explore in this paper using just the expected squared difference between the estimated and true regression coefficient.}$\square$
+
+# References
